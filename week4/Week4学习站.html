@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-CN" data-site-root="../" data-week-id="week4">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>MFC Week 4 · 积分技巧与综合</title>
+  <script src="../assets/courses.js?v=20261120-1"></script>
+  <script src="../assets/mfc.js?v=20261120-1"></script>
+  <script src="../assets/lesson-kit.js?v=20261120-2"></script>
+  <script src="./week4-animations.js?v=20261120-3"></script>
+  <script src="./week4-lessons.js?v=20261120-1"></script>
+  <script src="./week4-english.js?v=20261120-1"></script>
+  <script src="./week4-proofs.js?v=20261120-3"></script>
+  <link rel="stylesheet" href="../assets/mfc.css?v=20261120-2">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" data-course-home href="../index.html">
+      <span class="brand-mark" aria-hidden="true">∫</span>
+      <span class="brand-copy">
+        <span class="brand-title"><span data-week-number>WEEK 04</span><span class="week-title-suffix"> · <span data-week-label-zh>积分技巧与课程综合</span></span></span>
+        <span class="brand-subtitle" data-week-label-en lang="en">Integration Techniques and Course Consolidation</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <a class="button secondary small top-week-link" data-course-home href="../index.html">学习中心</a>
+      <div class="progress-wrap" aria-label="学习进度">
+        <span class="progress-copy" id="progress-copy">0 / 6</span>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" aria-labelledby="progress-copy"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <button class="button secondary small" id="resume-button" type="button">继续学习</button>
+      <div data-theme-control></div>
+      <button class="button ghost small" id="reset-button" type="button">重置</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="章节导航">
+      <div class="rail-label">学习路线</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#overview" data-section-link="overview"><span class="nav-index">00</span><span>知识地图</span></a></li>
+          <li><a class="nav-link" href="#integration-foundations" data-section-link="integration-foundations"><span class="nav-index">01</span><span>积分基础</span></a></li>
+          <li><a class="nav-link" href="#parts-rational" data-section-link="parts-rational"><span class="nav-index">02</span><span>分部与有理函数</span></a></li>
+          <li><a class="nav-link" href="#trig-hyperbolic" data-section-link="trig-hyperbolic"><span class="nav-index">03</span><span>三角与双曲</span></a></li>
+          <li><a class="nav-link" href="#integration-strategy" data-section-link="integration-strategy"><span class="nav-index">04</span><span>方法选择</span></a></li>
+          <li><a class="nav-link" href="#line-integrals" data-section-link="line-integrals"><span class="nav-index">05</span><span>线积分</span></a></li>
+          <li><a class="nav-link" href="#practice" data-section-link="practice"><span class="nav-index">06</span><span>练习与复盘</span></a></li>
+        </ul>
+      </nav>
+      <div class="rail-note">先找结构，再选方法。换元反向链式法则，分部反向乘积法则，部分分式化简有理函数。</div>
+    </aside>
+
+    <main id="content">
+      <section class="chapter" id="overview" data-section="overview">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Integration techniques and consolidation</div>
+            <h1>从“能定义积分”走到“会选方法求积分”</h1>
+            <p class="lede">Week 4 把 FTC 变成一套有结构的方法选择：换元、分部、部分分式、三角与双曲替换、对称性，以及存在性和数值近似的边界。</p>
+            <p class="hero-en" lang="en">Chapter 10–12 turn the Fundamental Theorem into a method-selection system. Chapter 14 is a short non-examinable introduction to scalar line integrals.</p>
+            <div class="hero-actions"><a class="button" href="#integration-foundations">开始第 1 站</a><a class="button secondary" href="#practice">直接练习</a></div>
+          </div>
+          <aside class="hero-meta"><strong>本周核心</strong><p>先看定义域和积分结构，再选择方法；算完还要检查存在性、收敛、误差和原定义域。</p></aside>
+        </div>
+
+        <section class="must-know" aria-labelledby="must-know-title">
+          <h2 id="must-know-title">本周必会 · 5 条</h2>
+          <ol>
+            <li>换元 = 链式法则反向；定积分要同时换端点和方向 <small>Thm 10.2</small></li>
+            <li>分部积分 = 乘积法则反向；定积分保留 uv 边界项 <small>Thm 10.8</small></li>
+            <li>有理积分先除到真分式，再按分母模板拆部分分式 <small>Def 10.17</small></li>
+            <li>奇数三角幂留导数因子，偶数幂用降幂恒等式 <small>§11.1</small></li>
+            <li>奇偶对称必须同时满足对称区间和可积性 <small>Prop 11.13</small></li>
+          </ol>
+        </section>
+
+        <div class="path-card">
+          <div class="path-title"><h2>Week 4 知识依赖链</h2><p>点击节点进入对应站点。</p></div>
+          <div class="path">
+            <a class="path-node" href="#integration-foundations"><span>01</span><strong>原函数<br>换元</strong></a><span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#parts-rational"><span>02</span><strong>分部<br>部分分式</strong></a><span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#trig-hyperbolic"><span>03</span><strong>三角<br>双曲 对称</strong></a><span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#integration-strategy"><span>04</span><strong>存在性<br>方法选择</strong></a><span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#line-integrals"><span>05</span><strong>线积分<br>非考试</strong></a>
+          </div>
+        </div>
+        <div class="knowledge-grid" data-week-overview></div>
+        <details class="reference"><summary>本周与 Week 3 的连接</summary><div class="detail-body"><p>Week 3 用 FTC 把积分与导数连接起来；Week 4 寻找不易直接看出的原函数。</p><p>Improper integral 的截断要求在本周的换元、分部与有理函数积分中继续出现。</p><p>Taylor 余项与数值近似在方法选择和误差检查中重新连接。</p></div></details>
+      </section>
+
+      <section class="chapter" id="integration-foundations" data-section="integration-foundations">
+        <div class="section-heading"><div><div class="section-number">STATION 01 · p.3–6</div><h2><span class="source-en" lang="en">Antiderivatives and substitution</span><span class="language-zh">原函数与换元</span></h2><p class="section-summary source-en" lang="en">Reverse differentiation, handle interval constants, and change integrand, differential and bounds together.</p><p class="section-summary language-zh">反向求导、处理区间常数，并同时替换 integrand、微分与上下界。</p></div><span class="source-chip">Definition 10.1 · Theorem 10.2</span></div>
+        <div class="station-network" data-knowledge-network="integration-foundations"></div><div class="deep-lessons" data-lesson-mount="integration-foundations"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>边界：</strong>换元后的 t(y) 必须留在原 integrand 的定义区间；定积分换元不能保留旧端点。</p></div>
+        <div class="complete-row"><p>能写原函数族并完整执行定积分换元。</p><button class="complete-button button secondary" type="button" data-complete="integration-foundations">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="parts-rational" data-section="parts-rational">
+        <div class="section-heading"><div><div class="section-number">STATION 02 · p.7–14</div><h2><span class="source-en" lang="en">Integration by parts and rational functions</span><span class="language-zh">分部积分与有理函数</span></h2><p class="section-summary source-en" lang="en">Transfer derivatives between product factors, then reduce rational functions by division and partial fractions.</p><p class="section-summary language-zh">在乘积因子间转移导数，再用除法和部分分式化简有理函数。</p></div><span class="source-chip">Theorems 10.8, 10.22 · p.7–14</span></div>
+        <div class="station-network" data-knowledge-network="parts-rational"></div><div class="deep-lessons" data-lesson-mount="parts-rational"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>门禁：</strong>先除到真分式，再写完整模板；跨越极点时重新检查 improper 收敛。</p></div>
+        <div class="complete-row"><p>能选择分部因子并完成部分分式模板。</p><button class="complete-button button secondary" type="button" data-complete="parts-rational">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="trig-hyperbolic" data-section="trig-hyperbolic">
+        <div class="section-heading"><div><div class="section-number">STATION 03 · p.15–23</div><h2><span class="source-en" lang="en">Trigonometric, hyperbolic and symmetric integrals</span><span class="language-zh">三角、双曲与对称积分</span></h2><p class="section-summary source-en" lang="en">Use parity of powers, branch-safe radical substitutions, hyperbolic identities and symmetric intervals.</p><p class="section-summary language-zh">利用幂次奇偶、分支安全的根式换元、双曲恒等式和对称区间。</p></div><span class="source-chip">Definitions 11.9, 11.12 · Proposition 11.13</span></div>
+        <div class="station-network" data-knowledge-network="trig-hyperbolic"></div><div class="deep-lessons" data-lesson-mount="trig-hyperbolic"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>分支与符号：</strong>根式换元要保留绝对值，反三角反解必须匹配所选分支。</p></div>
+        <div class="complete-row"><p>能选择三角/双曲方法并正确使用奇偶对称。</p><button class="complete-button button secondary" type="button" data-complete="trig-hyperbolic">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="integration-strategy" data-section="integration-strategy">
+        <div class="section-heading"><div><div class="section-number">STATION 04 · p.24–30</div><h2><span class="source-en" lang="en">Existence, strategy and course consolidation</span><span class="language-zh">存在性、方法选择与课程综合</span></h2><p class="section-summary source-en" lang="en">Separate existence from elementary representation, choose methods by structure, and combine earlier chapters.</p><p class="section-summary language-zh">区分存在性与初等表达，按结构选方法，并连接前几章结论。</p></div><span class="source-chip">Examples 12.1–12.8 · p.24–30</span></div>
+        <div class="station-network" data-knowledge-network="integration-strategy"></div><div class="deep-lessons" data-lesson-mount="integration-strategy"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>不等于：</strong>找不到初等原函数不等于积分不存在；计算出原函数也不等于答案完整。</p></div>
+        <div class="complete-row"><p>能解释方法选择、存在性、数值误差和最终定义域。</p><button class="complete-button button secondary" type="button" data-complete="integration-strategy">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="line-integrals" data-section="line-integrals">
+        <div class="section-heading"><div><div class="section-number">STATION 05 · p.31–33 · NON-EXAMINABLE</div><h2><span class="source-en" lang="en">Scalar line integrals along parameterised curves</span><span class="language-zh">参数曲线上的标量线积分</span></h2><p class="section-summary source-en" lang="en">Evaluate a scalar function along a parameterised path with the speed factor ds=|γ′(t)|dt.</p><p class="section-summary language-zh">用速度因子 ds=|γ′(t)|dt 沿参数路径积分一个标量函数。</p></div><span class="badge warning">非考试 · Non-exam</span></div>
+        <div class="station-network" data-knowledge-network="line-integrals"></div><div class="deep-lessons" data-lesson-mount="line-integrals"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>拓展阅读：</strong>本章只要求熟悉标量线积分结构和参数化影响，不纳入考试主线。</p></div>
+        <div class="complete-row"><p>能写出 ds 并解释重复描迹对线积分的影响。</p><button class="complete-button button secondary" type="button" data-complete="line-integrals">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="practice" data-section="practice">
+        <div class="section-heading"><div><div class="section-number">STATION 06 · PRACTICE</div><h2><span class="source-en" lang="en">Practice and review</span><span class="language-zh">练习与复盘</span></h2><p class="section-summary source-en" lang="en">Write the structure, chosen method and necessary domain or convergence checks before calculating.</p><p class="section-summary language-zh">先写结构、所选方法和必要的定义域或收敛检查，再开始计算。</p></div><span class="source-chip">Official + self-made</span></div>
+        <div class="practice-summary"><p>草稿自动保存在本机；官方题与自造题均在来源中标注。</p><span class="badge" id="answer-count">已作答 0 / 14</span></div><div class="question-list" id="question-list"></div>
+        <div class="complete-row"><p>完成全部 14 题回答后记录本节完成。</p><button class="complete-button button secondary" type="button" data-complete="practice">标记完成</button></div>
+        <div class="review-block" id="review"><div class="section-heading"><div><div class="section-number">REVIEW</div><h2><span class="source-en" lang="en">Terms and quick reference</span><span class="language-zh">术语与关键速查</span></h2><p class="section-summary source-en" lang="en">Search by English term, Chinese term or mathematical idea.</p><p class="section-summary language-zh">可按英文术语、中文或数学概念搜索。</p></div><span class="source-chip">Chapters 10–14</span></div><div class="glossary-tools"><input id="glossary-search" type="search" placeholder="搜索术语：substitution、partial fractions、FTC…" aria-label="搜索术语"><span class="badge" id="glossary-count">24 个术语</span></div><div class="glossary-list" id="glossary-list"></div></div>
+      </section>
+      <nav class="week-pager" aria-label="课程周次导航"><a data-week-prev href="#" hidden><small>上一周</small><strong></strong></a><a class="pager-home" data-course-home href="../index.html"><small>课程首页</small><strong>MFC 学习中心</strong></a><a data-week-next href="#" hidden><small>下一周</small><strong></strong></a></nav>
+      <footer class="footer">依据 Week 4 Lecture Notes p.3–33 与《超前学习法 Week 4 预习手册》整理。所有学习数据仅保存在当前浏览器。</footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+      const store = window.MFC_STORE;
+      const sectionOrder = ["overview", "integration-foundations", "parts-rational", "trig-hyperbolic", "integration-strategy", "line-integrals", "practice"];
+      const coreSections = store.getWeekSections("week4");
+      const lessonSource = window.MFC_WEEK4_LESSONS || [];
+      const guideSource = Object.fromEntries(lessonSource.map((lesson) => [lesson.id, lesson]));
+      const content = MFC_LESSON_KIT.buildWeekContent("week4", lessonSource, guideSource, window.MFC_ENGLISH_PACKS?.week4 || {});
+      const lessons = content.lessons;
+      const proofByLesson = new Map((window.MFC_WEEK4_PROOFS?.proofs || []).map((proof) => [proof.lessonId, proof]));
+      lessons.forEach((lesson) => { if (proofByLesson.has(lesson.id)) lesson.proof = proofByLesson.get(lesson.id); });
+      let state = store.getWeek("week4");
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const saveState = () => { state = store.updateWeek("week4", state); };
+      if (!state.lessonProgress || typeof state.lessonProgress !== "object") state.lessonProgress = {};
+
+      const stationMeta = {
+        "integration-foundations": { index: "01", question: "怎样把导数链反向拆成可积的换元？", incoming: "来自 Week 3：FTC 与原函数", outgoing: "下一站：乘积与有理函数", hub: "换元必须同时改变函数、微分和边界" },
+        "parts-rational": { index: "02", question: "怎样把乘积和高次有理式转成基本项？", incoming: "来自换元与 FTC", outgoing: "下一站：三角、双曲与对称", hub: "分部转移导数，部分分式拆分分母" },
+        "trig-hyperbolic": { index: "03", question: "复杂三角或根式怎样化成可积分的基本形式？", incoming: "来自换元、恒等式与有理化", outgoing: "下一站：方法选择与综合", hub: "结构决定替换，分支决定符号" },
+        "integration-strategy": { index: "04", question: "没有明显公式时，怎样选择第一条方法？", incoming: "来自本章所有技术", outgoing: "下一站：非考试线积分拓展", hub: "存在性、初等性、数值误差分别检查" },
+        "line-integrals": { index: "05", question: "普通积分怎样沿一条参数曲线累积？", incoming: "来自一元积分与参数化", outgoing: "后续课程的多变量积分", hub: "线积分元是速度乘参数微分", nonexam: true }
+      };
+      content.stations = Object.entries(stationMeta).map(([id, meta]) => ({ id, ...meta }));
+
+      function updateProgress() {
+        const count = coreSections.filter((id) => state.completed.includes(id)).length;
+        $("#progress-copy").textContent = `${count} / ${coreSections.length}`;
+        $("#progress-fill").style.width = `${count / coreSections.length * 100}%`;
+        $(".progress-track").setAttribute("aria-valuenow", String(count));
+        $$(".complete-button").forEach((button) => {
+          const done = state.completed.includes(button.dataset.complete);
+          button.dataset.done = String(done);
+          button.textContent = done ? "已完成 ✓" : "标记完成";
+          button.setAttribute("aria-pressed", String(done));
+        });
+      }
+      $$(".complete-button").forEach((button) => button.addEventListener("click", () => {
+        const id = button.dataset.complete;
+        state.completed = state.completed.includes(id) ? state.completed.filter((item) => item !== id) : [...state.completed, id];
+        saveState();
+        updateProgress();
+      }));
+      $("#resume-button").addEventListener("click", () => {
+        const id = coreSections.find((section) => !state.completed.includes(section)) || "practice";
+        document.getElementById(id).scrollIntoView();
+      });
+      $("#reset-button").addEventListener("click", () => {
+        if (!confirm("清除 Week 4 进度、证明状态和练习草稿？主题与语言会保留。")) return;
+        state = store.resetWeek("week4");
+        state.lessonProgress = {};
+        $$("textarea[data-answer]").forEach((textarea) => { textarea.value = ""; });
+        $$(".qa-step").forEach((step) => { step.open = false; });
+        updateProgress();
+        updateAnswerCount();
+        updateAllNetworkNodes();
+        document.getElementById("overview").scrollIntoView();
+      });
+
+      const navLinks = $$("[data-section-link]");
+      function updateActiveSection(persist = true) {
+        const marker = innerHeight * 0.34;
+        let current = sectionOrder[0];
+        sectionOrder.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element && element.getBoundingClientRect().top <= marker) current = id;
+        });
+        if (persist && state.currentSection !== current) { state.currentSection = current; saveState(); }
+        navLinks.forEach((link) => link.setAttribute("aria-current", String(link.dataset.sectionLink === current)));
+      }
+      addEventListener("scroll", () => requestAnimationFrame(() => updateActiveSection()), { passive: true });
+      navLinks.forEach((link) => link.addEventListener("click", () => updateActiveSection()));
+      updateActiveSection(false);
+
+      function renderOverview() {
+        $("[data-week-overview]").innerHTML = lessons.map((lesson) => `<article class="knowledge-card"><div class="knowledge-card-top"><h3 lang="en">${lesson.titleEn}</h3><span class="source-chip">${lesson.source.match(/p\.(\d+)/)?.[1] ? `p.${lesson.source.match(/p\.(\d+)/)[1]}` : "—"}</span></div><p class="language-zh">${lesson.titleZh} · ${lesson.networkGoal}。易卡点：${lesson.networkRisk}。</p><p class="source-en" lang="en">${lesson.networkGoalEn} Common sticking point: ${lesson.networkRiskEn}</p></article>`).join("");
+      }
+      function stepsDone(id) { const value = state.lessonProgress[id]?.revealed; return Array.isArray(value) ? value.length : 0; }
+      function updateNetworkNode(id) {
+        const node = document.querySelector(`[data-network-lesson="${id}"]`);
+        if (!node) return;
+        const count = stepsDone(id);
+        node.dataset.status = count >= 4 ? "done" : count > 0 ? "active" : "pending";
+        const status = node.querySelector(".network-status");
+        if (status) status.textContent = count >= 4 ? "Read ✓ · 已读懂" : count > 0 ? `Learning ${count}/4 · 学习中` : "Not started · 尚未开始";
+      }
+      function updateAllNetworkNodes() { lessons.forEach((lesson) => updateNetworkNode(lesson.id)); }
+      function recordStep(id, index) {
+        const record = state.lessonProgress[id] || { revealed: [] };
+        if (!record.revealed.includes(index)) record.revealed.push(index);
+        record.revealed.sort((a, b) => a - b);
+        state.lessonProgress[id] = record;
+        saveState();
+        updateNetworkNode(id);
+      }
+      function renderNetworks() {
+        Object.entries(stationMeta).forEach(([station, meta]) => {
+          const mount = document.querySelector(`[data-knowledge-network="${station}"]`);
+          if (!mount) return;
+          const items = lessons.filter((lesson) => lesson.station === station);
+          mount.innerHTML = `<div class="network-heading"><div><span class="section-number">STATION ${meta.index} · KNOWLEDGE NETWORK${meta.nonexam ? " · NON-EXAM" : ""}</span><h3>${meta.question}</h3></div><span class="badge">${items.length} knowledge nodes · 知识节点</span></div><div class="network-route"><span class="network-edge">${meta.incoming}</span><ol class="network-list">${items.map((lesson, index) => `<li class="network-item"><a class="network-node" href="#concept-${lesson.id}" data-network-lesson="${lesson.id}" data-status="pending"><span class="network-node-top"><span>${lesson.number}</span><span class="network-status">Not started · 尚未开始</span></span><strong><span class="source-en" lang="en">${lesson.titleEn}</span><span class="language-zh">${lesson.titleZh}</span></strong><small><span class="source-en" lang="en">${lesson.networkGoalEn}</span><span class="language-zh">${lesson.networkGoal}</span></small><em><span class="source-en" lang="en">Watch: ${lesson.networkRiskEn}</span><span class="language-zh">易卡：${lesson.networkRisk}</span></em></a>${index < items.length - 1 ? '<span class="network-arrow" aria-hidden="true">→</span>' : ""}</li>`).join("")}</ol><div class="network-footer"><p><strong>本站枢纽：</strong>${meta.hub}</p><p><strong>去向：</strong>${meta.outgoing}</p></div></div>`;
+        });
+        updateAllNetworkNodes();
+      }
+      function renderLessons() {
+        lessons.forEach((lesson) => {
+          const mount = document.querySelector(`[data-lesson-mount="${lesson.station}"]`);
+          if (!mount) return;
+          if (!mount.dataset.initialized) {
+            mount.innerHTML = `<div class="lessons-heading"><div><h3>Guided theorem notes · 定理精讲</h3><p>Read theorem, numeric probe and symbols before opening the step-by-step prompts.</p></div><button class="button ghost small" type="button" data-expand-station="${lesson.station}">Expand all · 全部展开</button></div>`;
+            mount.dataset.initialized = "true";
+          }
+          mount.insertAdjacentHTML("beforeend", MFC_LESSON_KIT.renderLessonCard(lesson));
+        });
+        $$(".deep-lessons").forEach((mount) => { const first = $(".lesson", mount); if (first) first.open = true; });
+        MFC_LESSON_KIT.mountAll(document);
+        $$(".lesson").forEach((details) => {
+          MFC_LESSON_KIT.bindLesson(details);
+          const id = details.id.replace("concept-", "");
+          details.addEventListener("toggle", () => { if (details.open) recordStep(id, 0); });
+          $$(".qa-step", details).forEach((step, index) => step.addEventListener("toggle", () => { if (step.open && details.open) recordStep(id, index); }));
+        });
+        $$("[data-expand-station]").forEach((button) => button.addEventListener("click", () => {
+          const mount = document.querySelector(`[data-lesson-mount="${button.dataset.expandStation}"]`);
+          const details = $$(".lesson", mount);
+          const shouldOpen = details.some((detail) => !detail.open);
+          details.forEach((detail) => { detail.open = shouldOpen; });
+          button.textContent = shouldOpen ? "Collapse all · 全部收起" : "Expand all · 全部展开";
+        }));
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest('a[href^="#concept-"]');
+          if (!link) return;
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target instanceof HTMLDetailsElement) target.open = true;
+        });
+      }
+
+      const questions = [
+        { id:"q1", title:"1. 识别换元", source:"官方 Exercise 10.6 · 讲义 p.7", skill:"Recognising substitutions", prompt:"为给定乘积选择内层函数与导数因子，并写出完整的变量替换。", answer:"<p>先找被包在幂、指数或三角中的内层函数，再检查其导数是否作为因子出现。候选包括 u=x²+1、u=sin x 等。</p>", concept:"integration-substitution" },
+        { id:"q2", title:"2. 定积分换元", source:"官方 Exercise 10.7 · 讲义 p.7", skill:"Substitution and bounds", prompt:"用一个定积分换元同时改变端点，并说明旧边界为什么不能保留。", answer:"<p>先由换元关系把旧端点映射成新端点，再做新变量积分。旧端点属于旧变量，不能与 y 或 u 混用。</p>", concept:"definite-substitution" },
+        { id:"q3", title:"3. 分部积分", source:"官方 Exercise 10.14 · 讲义 p.10", skill:"Integration by parts", prompt:"为给定积分选择 u 与 v′，写出边界项并解释选择为何让剩余积分更简单。", answer:"<p>选择让 u′ 简化、v 容易求的因子。定积分中必须保留 [uv]ₐᵇ，再计算剩余的 ∫u′v。</p>", concept:"integration-by-parts" },
+        { id:"q4", title:"4. Improper 中的分部", source:"官方 Exercise 10.16 · 讲义 p.10", skill:"Parts inside an improper limit", prompt:"先写截断真积分，再使用分部积分并说明极限出现在哪一步。", answer:"<p>先从 0 积到 R，保留所有含 R 的边界项，最后计算 R→∞ 的极限。</p>", concept:"repeated-parts-improper" },
+        { id:"q5", title:"5. 部分分式原函数", source:"官方 Exercise 10.24 · 讲义 p.14", skill:"Partial fractions and rational primitives", prompt:"对一个有理函数先检查真分式，再写部分分式模板并积分。", answer:"<p>若分子次数不小于分母先除法；再按分母因式完整写模板，求系数并逐项积分。最后对原函数求导验证。</p>", concept:"partial-fractions" },
+        { id:"q6", title:"6. 定义域、极点与可去点", source:"官方 Exercise 10.25 · 讲义 p.14", skill:"Domains and poles", prompt:"解释约分为什么不能恢复原分母的零点，并判断跨极点的 improper 积分。", answer:"<p>原式决定定义域；约分只在原式已经有定义的区间上成立。跨极点要拆成左右 proper integrals 后分别取单侧极限。</p>", concept:"rational-primitives-poles" },
+        { id:"q7", title:"7. 三角幂与乘积", source:"官方 Exercise 11.5 · 讲义 p.17", skill:"Trigonometric powers", prompt:"根据幂次奇偶选择三角换元或降幂恒等式。", answer:"<p>若有奇次幂，拆出一个导数因子做换元；若全为偶次，使用 sin²=(1−cos2x)/2 或 cos²=(1+cos2x)/2。</p>", concept:"trig-powers-products" },
+        { id:"q8", title:"8. 根式与分支", source:"官方 Exercise 11.8 · 讲义 p.18", skill:"Radicals and branches", prompt:"为含根式的积分选择三角替换，并写出分支限制。", answer:"<p>先按根式匹配恒等式，再限制参数 t 的区间。例如 √(1−x²) 用 x=sin t，并处理 |cos t| 的符号分支。</p>", concept:"trig-substitution-branches" },
+        { id:"q9", title:"9. 双曲积分", source:"官方 Exercise 11.11 · 讲义 p.21", skill:"Hyperbolic integrals", prompt:"使用双曲定义和恒等式处理含根式的积分。", answer:"<p>利用 cosh²−sinh²=1 及导数关系化简；含 1+x² 的根式可用 x=sinh t，原函数可能与 arsinh 相关。</p>", concept:"hyperbolic-integrals" },
+        { id:"q10", title:"10. 奇偶与对称", source:"官方 Exercise 11.15 · 讲义 p.23", skill:"Parity and symmetry", prompt:"判断一个对称区间积分能否使用奇偶性，并指出必要前提。", answer:"<p>先确认区间 [−a,a] 且函数可积，再检查 f(−x)=±f(x)。奇函数积分为 0，偶函数积分为 2∫₀ᵃf。</p>", concept:"integral-symmetry" },
+        { id:"q11", title:"11. 自造：方法诊断", source:"自造，不是官方题", skill:"Method diagnosis", prompt:"学生遇到复合函数加导数因子却先选分部积分。说明为什么换元更可能有效。", answer:"<p>因为结构是链式法则的反向结构：内层函数和它的导数因子同时出现，换元会把整个复合化为基本积分。</p>", concept:"integration-substitution" },
+        { id:"q12", title:"12. 自造：部分分式定义域", source:"自造，不是官方题", skill:"Partial-fraction domain trap", prompt:"部分分式约分后看起来处处连续，为什么仍要排除原分母的零点？", answer:"<p>原函数在那些点没有定义，约分只改变了有定义处的表达式，不会自动补回被删除的点。</p>", concept:"partial-fractions" },
+        { id:"q13", title:"13. 自造：课程综合", source:"自造，不是官方题", skill:"Course consolidation", prompt:"说明存在性、原函数计算、数值误差和 improper 收敛各自回答什么问题。", answer:"<p>存在性看积分是否被定义；原函数把积分转成 FTC 计算；数值误差控制近似精度；improper 收敛检查无界端点或奇点。</p>", concept:"method-selection-combination" },
+        { id:"q14", title:"14. 自造：重复描迹", source:"自造，不是官方题", skill:"Line-integral multiplicity", prompt:"同一个圆分别用参数区间 [0,2π] 与 [0,4π] 参数化，为什么常数函数的线积分会变为两倍？", answer:"<p>参数区间更长时曲线被描迹两次，线积分按参数轨迹累加，因此贡献重复。线积分必须说明参数化、方向和重数。</p>", concept:"line-integrals-parametric" }
+      ];
+
+      function updateAnswerCount() {
+        const count = questions.filter((question) => (state.answers[question.id] || "").trim()).length;
+        $("#answer-count").textContent = `已作答 ${count} / ${questions.length}`;
+        if (count === questions.length) {
+          state.completed = state.completed.includes("practice") ? state.completed : [...state.completed, "practice"];
+          saveState();
+          updateProgress();
+        }
+      }
+      function renderQuestions() {
+        $("#question-list").innerHTML = MFC_LESSON_KIT.renderQuestions(questions, window.MFC_ENGLISH_PACKS?.week4Questions || {});
+        $$("textarea[data-answer]").forEach((textarea) => {
+          textarea.value = state.answers[textarea.dataset.answer] || "";
+          textarea.addEventListener("input", () => {
+            state.answers[textarea.dataset.answer] = textarea.value;
+            saveState();
+            updateAnswerCount();
+          });
+        });
+        $$("[data-reveal]").forEach((button) => button.addEventListener("click", () => {
+          const solution = $(`#solution-${button.dataset.reveal}`);
+          const open = solution.hidden;
+          solution.hidden = !open;
+          button.setAttribute("aria-expanded", String(open));
+          button.textContent = open ? "Hide solution · 收起解答" : "Show solution · 查看解答";
+        }));
+        updateAnswerCount();
+      }
+
+      const terms = [
+        ["antiderivative", "原函数", "导数为 integrand 的函数"], ["substitution", "换元", "链式法则反向"], ["integration by parts", "分部积分", "乘积法则反向"], ["partial fractions", "部分分式", "按分母因式拆分"], ["proper fraction", "真分式", "分子次数小于分母"], ["pole", "极点", "原分母零点"], ["improper integral", "Improper 积分", "截断后的极限"], ["trigonometric substitution", "三角换元", "根式三角化"], ["power reduction", "降幂", "倍角恒等式"], ["hyperbolic substitution", "双曲换元", "使用 cosh²−sinh²"], ["arsinh", "反双曲正弦", "对数原函数"], ["even function", "偶函数", "f(−x)=f(x)"], ["odd function", "奇函数", "f(−x)=−f(x)"], ["symmetry", "对称性", "对称区间面积关系"], ["elementary primitive", "初等原函数", "有限熟悉的函数表达"], ["numerical integration", "数值积分", "有限和或算法近似"], ["FTC", "微积分基本定理", "积分与导数桥梁"], ["Lagrange remainder", "Lagrange 余项", "Taylor 误差控制"], ["line integral", "线积分", "沿参数曲线积分"], ["parameterisation", "参数化", "用 t 控制曲线"], ["speed", "参数速度", "|γ′(t)|"], ["orientation", "方向", "反向改变符号"], ["non-examinable", "非考试", "了解概念即可"], ["method selection", "方法选择", "按 integrand 结构选法"]
+      ];
+      function renderGlossary(query = "") {
+        const needle = query.trim().toLowerCase();
+        const filtered = terms.filter(([en, zh, note]) => `${en} ${zh} ${note}`.toLowerCase().includes(needle));
+        $("#glossary-count").textContent = `${filtered.length} 个术语`;
+        $("#glossary-list").innerHTML = filtered.length ? filtered.map(([en, zh, note]) => `<div class="term"><strong>${en}</strong><span>${zh}</span><span class="term-note">${note}</span></div>`).join("") : '<div class="empty-state">没有匹配的术语。</div>';
+      }
+      $("#glossary-search").addEventListener("input", (event) => renderGlossary(event.target.value));
+
+      renderOverview();
+      renderNetworks();
+      renderLessons();
+      renderQuestions();
+      renderGlossary();
+      updateProgress();
+      MFC_LESSON_KIT.applyLanguageMode(store.getLanguageMode());
+
+      window.runWeek4SelfTest = () => {
+        const checks = [
+          ["lesson count", document.querySelectorAll(".lesson").length === 16],
+          ["theorem cards", document.querySelectorAll(".theorem-card").length === 16],
+          ["numeric probes", document.querySelectorAll(".numeric-probe").length === 16],
+          ["symbols", document.querySelectorAll(".symbol-decoder").length === 16],
+          ["qa steps", document.querySelectorAll(".qa-step").length === 64],
+          ["animations", document.querySelectorAll(".micro-animation").length === 16],
+          ["station networks", document.querySelectorAll(".station-network").length === 5],
+          ["proof entries", document.querySelectorAll(".theorem-proof-link").length === 3],
+          ["nonexam badge", Boolean(document.querySelector("#line-integrals .badge.warning"))],
+          ["questions", questions.length === 14],
+          ["content interface", Boolean(window.MFC_WEEK_CONTENT && window.MFC_WEEK_CONTENT.weekId === "week4" && window.MFC_WEEK_CONTENT.lessons.length === 16)]
+        ];
+        const failed = checks.filter(([, ok]) => !ok);
+        failed.forEach(([name]) => console.assert(false, `Week 4 self-test failed: ${name}`));
+        return { passed: checks.length - failed.length, failed: failed.map(([name]) => name) };
+      };
+      if (location.hash === "#self-test") window.runWeek4SelfTest();
+    })();
+  </script>
+</body>
+</html>

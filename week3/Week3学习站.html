@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="zh-CN" data-site-root="../" data-week-id="week3">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>MFC Week 3 · Taylor、Riemann 积分与 FTC</title>
+  <script src="../assets/courses.js?v=20261120-1"></script>
+  <script src="../assets/mfc.js?v=20261120-1"></script>
+  <script src="../assets/lesson-kit.js?v=20261120-2"></script>
+  <script src="./week3-animations.js?v=20261111-1"></script>
+  <script src="./week3-lessons.js?v=20261111-1"></script>
+  <script src="./week3-english.js?v=20261111-1"></script>
+  <link rel="stylesheet" href="../assets/mfc.css?v=20261120-2">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" data-course-home href="../index.html">
+      <span class="brand-mark" aria-hidden="true">∑</span>
+      <span class="brand-copy">
+        <span class="brand-title"><span data-week-number>WEEK 03</span><span class="week-title-suffix"> · <span data-week-label-zh>Taylor、Riemann 积分与 FTC</span></span></span>
+        <span class="brand-subtitle" data-week-label-en lang="en">Taylor Approximation, Riemann Integration and the Fundamental Theorem</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <a class="button secondary small top-week-link" data-course-home href="../index.html">学习中心</a>
+      <div class="progress-wrap" aria-label="学习进度">
+        <span class="progress-copy" id="progress-copy">0 / 7</span>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" aria-labelledby="progress-copy"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <button class="button secondary small" id="resume-button" type="button">继续学习</button>
+      <div data-theme-control></div>
+      <button class="button ghost small" id="reset-button" type="button">重置</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="章节导航">
+      <div class="rail-label">学习路线</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#overview" data-section-link="overview"><span class="nav-index">00</span><span>知识地图</span></a></li>
+          <li><a class="nav-link" href="#taylor-core" data-section-link="taylor-core"><span class="nav-index">01</span><span>Taylor 基础</span></a></li>
+          <li><a class="nav-link" href="#taylor-error" data-section-link="taylor-error"><span class="nav-index">02</span><span>余项与误差</span></a></li>
+          <li><a class="nav-link" href="#riemann-sums" data-section-link="riemann-sums"><span class="nav-index">03</span><span>Darboux 和</span></a></li>
+          <li><a class="nav-link" href="#riemann-integrable" data-section-link="riemann-integrable"><span class="nav-index">04</span><span>可积性</span></a></li>
+          <li><a class="nav-link" href="#ftc" data-section-link="ftc"><span class="nav-index">05</span><span>FTC</span></a></li>
+          <li><a class="nav-link" href="#improper-integrals" data-section-link="improper-integrals"><span class="nav-index">06</span><span>Improper</span></a></li>
+          <li><a class="nav-link" href="#practice" data-section-link="practice"><span class="nav-index">07</span><span>练习与复盘</span></a></li>
+        </ul>
+      </nav>
+      <div class="rail-note">先建立 Taylor 误差语言，再用 Darboux 和定义积分，最后通过 FTC 把积分与导数连接起来。</div>
+    </aside>
+
+    <main id="content">
+      <section class="chapter" id="overview" data-section="overview">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Approximation, accumulation and the bridge</div>
+            <h1>从局部多项式误差，走到面积累积</h1>
+            <p class="lede">Week 3 用 Taylor 多项式描述局部近似，用 Darboux 上下和定义 Riemann 积分，再用微积分基本定理连接积分、面积和原函数。</p>
+            <p class="hero-en" lang="en">Taylor polynomials approximate functions locally. Darboux sums define area and integrability. The Fundamental Theorem connects accumulation with differentiation.</p>
+            <div class="hero-actions">
+              <a class="button" href="#taylor-core">开始第 1 站</a>
+              <a class="button secondary" href="#practice">直接练习</a>
+            </div>
+          </div>
+          <aside class="hero-meta">
+            <strong>三个枢纽</strong>
+            <p>Taylor 余项控制误差；上下和判断可积；FTC 在连续性与原函数条件下把面积与变化率连接起来。</p>
+          </aside>
+        </div>
+
+        <section class="must-know" aria-labelledby="must-know-title">
+          <h2 id="must-know-title">本周必会 · 5 条</h2>
+          <ol>
+            <li>Taylor 多项式匹配到 n 阶导数，余项补回剩余精确差额 <small>Def 7.1, 7.8</small></li>
+            <li>Lagrange 误差界用区间内下一阶导数的上界给出数值保证 <small>Thm 7.9</small></li>
+            <li>Riemann 可积当且仅当下和上确界等于上和下确界 <small>Def 8.3–8.4</small></li>
+            <li>连续函数的累积面积求导得到当前被积函数值 <small>Thm 9.1</small></li>
+            <li>Improper integral 必须先截断，再取有限极限 <small>Def 9.10–9.17</small></li>
+          </ol>
+        </section>
+
+        <div class="path-card">
+          <div class="path-title"><h2>Week 3 知识依赖链</h2><p>点击节点进入对应站点。</p></div>
+          <div class="path">
+            <a class="path-node" href="#taylor-core"><span>01</span><strong>Taylor 多项式<br>导数数据</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#taylor-error"><span>02</span><strong>余项<br>误差界</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#riemann-sums"><span>03</span><strong>分割<br>Darboux 和</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#riemann-integrable"><span>04</span><strong>可积性<br>反例</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#ftc"><span>05</span><strong>FTC<br>面积与导数</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#improper-integrals"><span>06</span><strong>Improper<br>截断极限</strong></a>
+          </div>
+        </div>
+        <div class="knowledge-grid" data-week-overview></div>
+        <details class="reference">
+          <summary>本周与 Week 2 的连接</summary>
+          <div class="detail-body">
+            <p>Week 2 的一阶导数在本周升级为高阶导数与 Taylor 余项。</p>
+            <p>Week 1 的极限、连续性和 Week 2 的图形分析共同支撑 Darboux 和与可积性判断。</p>
+            <p>FTC 不是无条件恒等式；它的连续性、定义域和原函数前提必须逐条检查。</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="chapter" id="taylor-core" data-section="taylor-core">
+        <div class="section-heading"><div><div class="section-number">STATION 01 · p.3–6</div><h2><span class="source-en" lang="en">Taylor polynomials and local matching</span><span class="language-zh">Taylor 多项式与局部匹配</span></h2><p class="section-summary source-en" lang="en">Use higher derivatives to build a finite polynomial that matches local derivative data.</p><p class="section-summary language-zh">用高阶导数构造一个有限多项式，并与原函数的局部导数数据匹配。</p></div><span class="source-chip">Definition 7.1 · p.3–6</span></div>
+        <div class="station-network" data-knowledge-network="taylor-core"></div>
+        <div class="deep-lessons" data-lesson-mount="taylor-core"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>核心边界：</strong>Taylor 多项式是有限近似；写出无限模式不代表它自动收敛回原函数。</p></div>
+        <div class="complete-row"><p>能构造常见函数的 Taylor 多项式并解释余项定义。</p><button class="complete-button button secondary" type="button" data-complete="taylor-core">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="taylor-error" data-section="taylor-error">
+        <div class="section-heading"><div><div class="section-number">STATION 02 · p.6–11</div><h2><span class="source-en" lang="en">Remainders, bounds and error order</span><span class="language-zh">余项、误差界与误差阶</span></h2><p class="section-summary source-en" lang="en">Distinguish the exact remainder from a numerical bound, then describe its rate with big-O.</p><p class="section-summary language-zh">区分精确余项与数值误差界，并用 Big-O 描述误差随步长缩小的速度。</p></div><span class="source-chip">Theorems 7.9 · Corollary 7.10 · p.6–11</span></div>
+        <div class="station-network" data-knowledge-network="taylor-error"></div>
+        <div class="deep-lessons" data-lesson-mount="taylor-error"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>最高频错误：</strong>把误差界当成真实误差，或把 O(hᵖ) 当成某一个固定的 hᵖ。</p></div>
+        <div class="complete-row"><p>能写出 Lagrange 误差界并解释 Big-O 的“存在常数”含义。</p><button class="complete-button button secondary" type="button" data-complete="taylor-error">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="riemann-sums" data-section="riemann-sums">
+        <div class="section-heading"><div><div class="section-number">STATION 03 · p.12–16</div><h2><span class="source-en" lang="en">Partitions and Darboux sums</span><span class="language-zh">分割与 Darboux 和</span></h2><p class="section-summary source-en" lang="en">Cut the interval into finite blocks and compare the lowest and highest possible rectangle heights.</p><p class="section-summary language-zh">把区间切成有限块，用每块最低与最高高度构造面积的下估计和上估计。</p></div><span class="source-chip">Definitions 8.1–8.4 · p.12–16</span></div>
+        <div class="station-network" data-knowledge-network="riemann-sums"></div>
+        <div class="deep-lessons" data-lesson-mount="riemann-sums"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>核心边界：</strong>下和不是左 Riemann 和；每块必须使用整个子区间的下确界与上确界。</p></div>
+        <div class="complete-row"><p>能为一个简单函数写出下和、上和并解释可积性判据。</p><button class="complete-button button secondary" type="button" data-complete="riemann-sums">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="riemann-integrable" data-section="riemann-integrable">
+        <div class="section-heading"><div><div class="section-number">STATION 04 · p.16–19</div><h2><span class="source-en" lang="en">Integrability, counterexamples and integral laws</span><span class="language-zh">可积性、反例与积分性质</span></h2><p class="section-summary source-en" lang="en">Use the Darboux criterion, contrast continuous and Dirichlet functions, and apply integral laws.</p><p class="section-summary language-zh">用 Darboux 判据比较连续函数与 Dirichlet 函数，并掌握积分的基本性质。</p></div><span class="source-chip">Theorems 8.5, 8.8, 8.13 · p.16–19</span></div>
+        <div class="station-network" data-knowledge-network="riemann-integrable"></div>
+        <div class="deep-lessons" data-lesson-mount="riemann-integrable"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>反例枢纽：</strong>有界不等于可积；Dirichlet 函数在每个非退化子区间都同时取 0 和 1。</p></div>
+        <div class="complete-row"><p>能用 Darboux 或 ε 判据判断可积性并解释单点修改。</p><button class="complete-button button secondary" type="button" data-complete="riemann-integrable">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="ftc" data-section="ftc">
+        <div class="section-heading"><div><div class="section-number">STATION 05 · p.20–24</div><h2><span class="source-en" lang="en">Accumulation and the Fundamental Theorem</span><span class="language-zh">累积面积与微积分基本定理</span></h2><p class="section-summary source-en" lang="en">Differentiate accumulated area and evaluate definite integrals with antiderivatives.</p><p class="section-summary language-zh">对累积面积求导，并用原函数在端点的差计算定积分。</p></div><span class="source-chip">Theorems 9.1, 9.3 · p.20–24</span></div>
+        <div class="station-network" data-knowledge-network="ftc"></div>
+        <div class="deep-lessons" data-lesson-mount="ftc"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>两个方向：</strong>FTC I 由累积构造导数；FTC II 由原函数端点差计算积分。</p></div>
+        <div class="complete-row"><p>能区分 FTC I 与 II，并在题目中写出连续性或原函数前提。</p><button class="complete-button button secondary" type="button" data-complete="ftc">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="improper-integrals" data-section="improper-integrals">
+        <div class="section-heading"><div><div class="section-number">STATION 06 · p.25–29</div><h2><span class="source-en" lang="en">Improper integrals as truncation limits</span><span class="language-zh">作为截断极限的 Improper integral</span></h2><p class="section-summary source-en" lang="en">Approach infinite ends or finite singularities from inside the domain, then take a one-sided limit.</p><p class="section-summary language-zh">从合法区间内部逼近无穷端或有限奇点，再把截断积分取极限。</p></div><span class="source-chip">Definitions 9.10–9.17 · p.25–29</span></div>
+        <div class="station-network" data-knowledge-network="improper-integrals"></div>
+        <div class="deep-lessons" data-lesson-mount="improper-integrals"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>最高频错误：</strong>直接把 ∞ 代入；或用一个对称极限掩盖内部奇点某一侧的发散。</p></div>
+        <div class="complete-row"><p>能分别处理无穷端、端点奇点和内部奇点，并说明 p-test 阈值。</p><button class="complete-button button secondary" type="button" data-complete="improper-integrals">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="practice" data-section="practice">
+        <div class="section-heading"><div><div class="section-number">STATION 07 · PRACTICE</div><h2><span class="source-en" lang="en">Practice and review</span><span class="language-zh">练习与复盘</span></h2><p class="section-summary source-en" lang="en">Write the theorem, hypotheses and defining limit before calculating.</p><p class="section-summary language-zh">先写所用定理、前提和定义，再进行计算。</p></div><span class="source-chip">Official + self-made</span></div>
+        <div class="practice-summary"><p>作答会自动保存在本机；展开英文解答后再核对中文步骤。</p><span class="badge" id="answer-count">已作答 0 / 14</span></div>
+        <div class="question-list" id="question-list"></div>
+        <div class="complete-row"><p>14 题全部作答后会记录练习完成。</p><button class="complete-button button secondary" type="button" data-complete="practice">标记完成</button></div>
+
+        <div class="review-block" id="review">
+          <div class="section-heading"><div><div class="section-number">REVIEW</div><h2><span class="source-en" lang="en">Terms and quick reference</span><span class="language-zh">术语与关键速查</span></h2><p class="section-summary source-en" lang="en">Search a term and recite the three bridges: approximation, integrability and accumulation.</p><p class="section-summary language-zh">搜索术语，并复述本周三条主线：近似、可积和累积。</p></div><span class="source-chip">Chapters 7–9</span></div>
+          <div class="glossary-tools"><input id="glossary-search" type="search" placeholder="搜索术语：Taylor、Darboux、FTC…" aria-label="搜索术语"><span class="badge" id="glossary-count">24 个术语</span></div>
+          <div class="glossary-list" id="glossary-list"></div>
+        </div>
+      </section>
+
+      <nav class="week-pager" aria-label="课程周次导航">
+        <a data-week-prev href="#" hidden><small>上一周</small><strong></strong></a>
+        <a class="pager-home" data-course-home href="../index.html"><small>课程首页</small><strong>MFC 学习中心</strong></a>
+        <a data-week-next href="#" hidden><small>下一周</small><strong></strong></a>
+      </nav>
+      <footer class="footer">依据 Week 3 Lecture Notes p.3–29 与《超前学习法 Week 3 预习手册》整理。所有学习数据仅保存在当前浏览器。</footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+      const store = window.MFC_STORE;
+      const sectionOrder = ["overview", "taylor-core", "taylor-error", "riemann-sums", "riemann-integrable", "ftc", "improper-integrals", "practice"];
+      const coreSections = store.getWeekSections("week3");
+      const lessonSource = window.MFC_WEEK3_LESSONS || [];
+      const guideSource = Object.fromEntries(lessonSource.map((lesson) => [lesson.id, lesson]));
+      const content = MFC_LESSON_KIT.buildWeekContent("week3", lessonSource, guideSource, window.MFC_ENGLISH_PACKS?.week3 || {});
+      const lessons = content.lessons;
+      let state = store.getWeek("week3");
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const saveState = () => { state = store.updateWeek("week3", state); };
+
+      const stationMeta = {
+        "taylor-core": { index: "01", question: "怎样用有限多个局部导数数据逼近一个函数？", incoming: "来自 Week 2：高阶导数与差商", outgoing: "下一步：把误差写成可控制的余项", hub: "Taylor 系数由展开点导数唯一决定" },
+        "taylor-error": { index: "02", question: "近似值离真实值究竟有多远？", incoming: "来自 Taylor 多项式构造", outgoing: "下一步：用分割估计累积量", hub: "精确余项与误差上界必须分开" },
+        "riemann-sums": { index: "03", question: "连续变化的面积怎样由有限个矩形夹住？", incoming: "来自 Week 1：有界与极限", outgoing: "下一步：判断上下估计是否最终重合", hub: "下和、上和与分割加密" },
+        "riemann-integrable": { index: "04", question: "哪些函数可以被 Riemann 积分？", incoming: "来自 Darboux 和与判据", outgoing: "下一步：用 FTC 把积分与导数连接", hub: "连续是充分条件，有界不是" },
+        ftc: { index: "05", question: "累积面积与当前变化率怎样互相还原？", incoming: "来自可积性与面积定义", outgoing: "下一步：把积分扩展到无界区间和奇点", hub: "FTC I 构造原函数，FTC II 使用原函数" },
+        "improper-integrals": { index: "06", question: "无穷端或无界奇点上的面积怎样定义？", incoming: "来自 FTC 与真积分", outgoing: "后续：积分技巧与更一般的积分理论", hub: "先截断成真积分，再取有限极限" }
+      };
+      content.stations = Object.entries(stationMeta).map(([id, meta]) => ({ id, ...meta }));
+      if (!state.lessonProgress || typeof state.lessonProgress !== "object") state.lessonProgress = {};
+
+      function updateProgress() {
+        const count = coreSections.filter((id) => state.completed.includes(id)).length;
+        $("#progress-copy").textContent = `${count} / ${coreSections.length}`;
+        $("#progress-fill").style.width = `${count / coreSections.length * 100}%`;
+        $(".progress-track").setAttribute("aria-valuenow", String(count));
+        $$(".complete-button").forEach((button) => {
+          const done = state.completed.includes(button.dataset.complete);
+          button.dataset.done = String(done);
+          button.textContent = done ? "已完成 ✓" : "标记完成";
+          button.setAttribute("aria-pressed", String(done));
+        });
+      }
+      $$(".complete-button").forEach((button) => button.addEventListener("click", () => {
+        const id = button.dataset.complete;
+        state.completed = state.completed.includes(id) ? state.completed.filter((item) => item !== id) : [...state.completed, id];
+        saveState();
+        updateProgress();
+      }));
+      $("#resume-button").addEventListener("click", () => {
+        const id = coreSections.find((section) => !state.completed.includes(section)) || "practice";
+        document.getElementById(id).scrollIntoView();
+      });
+      $("#reset-button").addEventListener("click", () => {
+        if (!confirm("清除 Week 3 的学习进度和练习草稿？主题与语言设置会保留。")) return;
+        state = store.resetWeek("week3");
+        state.lessonProgress = {};
+        $$("textarea[data-answer]").forEach((textarea) => { textarea.value = ""; });
+        $$(".qa-step").forEach((step) => { step.open = false; });
+        updateProgress();
+        updateAnswerCount();
+        updateAllNetworkNodes();
+        document.getElementById("overview").scrollIntoView();
+      });
+
+      const navLinks = $$("[data-section-link]");
+      function updateActiveSection(persist = true) {
+        const marker = innerHeight * 0.34;
+        let current = sectionOrder[0];
+        sectionOrder.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element && element.getBoundingClientRect().top <= marker) current = id;
+        });
+        if (persist && state.currentSection !== current) {
+          state.currentSection = current;
+          saveState();
+        }
+        navLinks.forEach((link) => link.setAttribute("aria-current", String(link.dataset.sectionLink === current)));
+      }
+      addEventListener("scroll", () => requestAnimationFrame(() => updateActiveSection()), { passive: true });
+      navLinks.forEach((link) => link.addEventListener("click", () => updateActiveSection()));
+      updateActiveSection(false);
+
+      function renderOverview() {
+        $("[data-week-overview]").innerHTML = lessons.map((lesson) => `
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3 lang="en">${lesson.titleEn}</h3><span class="source-chip">${lesson.source.match(/p\.(\d+)/)?.[1] ? `p.${lesson.source.match(/p\.(\d+)/)[1]}` : "—"}</span></div><p class="language-zh">${lesson.titleZh} · ${lesson.networkGoal}。易卡点：${lesson.networkRisk}。</p><p class="source-en" lang="en">${lesson.networkGoalEn} Common sticking point: ${lesson.networkRiskEn}</p></article>
+        `).join("");
+      }
+
+      function stepsDone(id) {
+        const value = state.lessonProgress[id]?.revealed;
+        return Array.isArray(value) ? value.length : 0;
+      }
+      function updateNetworkNode(id) {
+        const node = document.querySelector(`[data-network-lesson="${id}"]`);
+        if (!node) return;
+        const count = stepsDone(id);
+        node.dataset.status = count >= 4 ? "done" : count > 0 ? "active" : "pending";
+        const status = node.querySelector(".network-status");
+        if (status) status.textContent = count >= 4 ? "Read ✓ · 已读懂" : count > 0 ? `Learning ${count}/4 · 学习中` : "Not started · 尚未开始";
+      }
+      function updateAllNetworkNodes() { lessons.forEach((lesson) => updateNetworkNode(lesson.id)); }
+      function recordStep(id, index) {
+        const record = state.lessonProgress[id] || { revealed: [] };
+        if (!record.revealed.includes(index)) record.revealed.push(index);
+        record.revealed.sort((a, b) => a - b);
+        state.lessonProgress[id] = record;
+        saveState();
+        updateNetworkNode(id);
+      }
+      function renderNetworks() {
+        Object.entries(stationMeta).forEach(([station, meta]) => {
+          const mount = document.querySelector(`[data-knowledge-network="${station}"]`);
+          if (!mount) return;
+          const items = lessons.filter((lesson) => lesson.station === station);
+          mount.innerHTML = `
+            <div class="network-heading"><div><span class="section-number">STATION ${meta.index} · KNOWLEDGE NETWORK</span><h3>${meta.question}</h3></div><span class="badge">${items.length} knowledge nodes · 知识节点</span></div>
+            <div class="network-route"><span class="network-edge">${meta.incoming}</span><ol class="network-list">${items.map((lesson, index) => `
+              <li class="network-item"><a class="network-node" href="#concept-${lesson.id}" data-network-lesson="${lesson.id}" data-status="pending"><span class="network-node-top"><span>${lesson.number}</span><span class="network-status">Not started · 尚未开始</span></span><strong><span class="source-en" lang="en">${lesson.titleEn}</span><span class="language-zh">${lesson.titleZh}</span></strong><small><span class="source-en" lang="en">${lesson.networkGoalEn}</span><span class="language-zh">${lesson.networkGoal}</span></small><em><span class="source-en" lang="en">Watch: ${lesson.networkRiskEn}</span><span class="language-zh">易卡：${lesson.networkRisk}</span></em></a>${index < items.length - 1 ? '<span class="network-arrow" aria-hidden="true">→</span>' : ""}</li>
+            `).join("")}</ol><div class="network-footer"><p><strong>本站枢纽：</strong>${meta.hub}</p><p><strong>去向：</strong>${meta.outgoing}</p></div></div>`;
+        });
+        updateAllNetworkNodes();
+      }
+
+      function renderLessons() {
+        lessons.forEach((lesson) => {
+          const mount = document.querySelector(`[data-lesson-mount="${lesson.station}"]`);
+          if (!mount) return;
+          if (!mount.dataset.initialized) {
+            mount.innerHTML = `<div class="lessons-heading"><div><h3>Guided theorem notes · 定理精讲</h3><p>Read the theorem and numeric probe before opening the paired explanations and prompts.</p></div><button class="button ghost small" type="button" data-expand-station="${lesson.station}">Expand all · 全部展开</button></div>`;
+            mount.dataset.initialized = "true";
+          }
+          mount.insertAdjacentHTML("beforeend", MFC_LESSON_KIT.renderLessonCard(lesson));
+        });
+        $$(".deep-lessons").forEach((mount) => {
+          const firstLesson = $(".lesson", mount);
+          if (firstLesson) firstLesson.open = true;
+        });
+        MFC_LESSON_KIT.mountAll(document);
+        $$(".lesson").forEach((details) => {
+          MFC_LESSON_KIT.bindLesson(details);
+          const id = details.id.replace("concept-", "");
+          details.addEventListener("toggle", () => { if (details.open) recordStep(id, 0); });
+          $$(".qa-step", details).forEach((step, index) => step.addEventListener("toggle", () => { if (step.open && details.open) recordStep(id, index); }));
+        });
+        $$("[data-expand-station]").forEach((button) => button.addEventListener("click", () => {
+          const mount = document.querySelector(`[data-lesson-mount="${button.dataset.expandStation}"]`);
+          const details = $$(".lesson", mount);
+          const shouldOpen = details.some((detail) => !detail.open);
+          details.forEach((detail) => { detail.open = shouldOpen; });
+          button.textContent = shouldOpen ? "Collapse all · 全部收起" : "Expand all · 全部展开";
+        }));
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest('a[href^="#concept-"]');
+          if (!link) return;
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target instanceof HTMLDetailsElement) target.open = true;
+        });
+      }
+
+      const questions = [
+        { id: "q1", title: "1. Taylor 多项式构造", source: "官方 Exercise 7.7 · 讲义 p.5", skill: "Taylor polynomial construction", prompt: "求 eˣ 在 0 点的 T₄，并直接验证多项式与原函数在 0 点匹配到四阶导数。", answer: "<p>T₄(x)=1+x+x²/2!+x³/3!+x⁴/4!。eˣ 的所有导数在 0 点都为 1；T₄ 的第 k 阶导数在 0 点为 k!·(1/k!)=1，k=0,1,2,3,4。</p>", concept: "higher-derivatives-taylor" },
+        { id: "q2", title: "2. e⁰·² 的误差界", source: "官方 Exercise 7.15 · 讲义 p.7", skill: "Lagrange error bound", prompt: "用 T₃ 在 0 点近似 e⁰·²，并用 Lagrange 余项给出显式误差上界。", answer: "<p>T₃(0.2)=1+0.2+0.02+0.001333…≈1.221333。区间 [0,0.2] 上 e^ξ≤e⁰·²<1.222，所以 |R₃|≤1.222(0.2)⁴/4!<8.15×10⁻⁵。</p>", concept: "lagrange-error-bounds" },
+        { id: "q3", title: "3. 从定义证明 Big-O", source: "官方 Exercise 7.19 · 讲义 p.9", skill: "Big-O definition", prompt: "直接用 Definition 7.16 证明 5h³+2h⁴=O(h³) 当 h→0。", answer: "<p>若 |h|<1，则 |5h³+2h⁴|≤5|h|³+2|h|³=7|h|³。取 C=7、δ=1 即可。</p>", concept: "big-o-richardson" },
+        { id: "q4", title: "4. Richardson 外推", source: "官方 Exercise 7.20 · 讲义 p.10–11", skill: "Richardson extrapolation", prompt: "设 T(h)=L+c h²+O(h⁴)。用 T(h) 与 T(h/2) 构造函数消去 h² 项。", answer: "<p>4T(h/2)−T(h)=3L+O(h⁴)，所以 (4T(h/2)−T(h))/3=L+O(h⁴)。</p>", concept: "big-o-richardson" },
+        { id: "q5", title: "5. 单调函数的 Darboux 和", source: "官方 Exercise 8.9 · 讲义 p.17", skill: "Darboux sums", prompt: "f(x)=x 在 [0,1] 上用 n 等分，写出下和、上和及其差。", answer: "<p>下和 L=(n−1)/(2n)，上和 U=(n+1)/(2n)，差 U−L=1/n→0。</p>", concept: "darboux-sums" },
+        { id: "q6", title: "6. 可积与 Dirichlet 函数", source: "官方 Exercise 8.16 · 讲义 p.19", skill: "Integrability counterexample", prompt: "用上下和解释 f(x)=x 为何可积，而 Dirichlet 函数 1Q 在 [0,1] 上不可积。", answer: "<p>x 的均匀分块上下和差随 n 趋于 0。1Q 在每个正长度子区间上同时有 0 和 1，因此所有下和为 0、上和为 1，上下积分不相等。</p>", concept: "continuous-dirichlet" },
+        { id: "q7", title: "7. FTC I 的应用", source: "官方 Exercise 9.8 · 讲义 p.24", skill: "FTC Part I", prompt: "求 F(x)=∫₁ˣ(1+t⁴)dt 的导数，并说明使用哪条前提。", answer: "<p>F′(x)=1+x⁴。被积函数连续，所以 FTC Part I 在区间内部适用。</p>", concept: "ftc-part-one" },
+        { id: "q8", title: "8. 诊断 FTC 前提", source: "官方 Exercise 9.9 · 讲义 p.24–25", skill: "Diagnose FTC hypotheses", prompt: "学生对一个区间内部有跳跃的函数直接使用 FTC II。指出可能缺少的前提。", answer: "<p>FTC II 要求被积函数在整段区间连续，并有满足条件的原函数。跳跃点可能使直接应用失效；需要分区间或按 improper integral 的定义处理。</p>", concept: "ftc-part-two" },
+        { id: "q9", title: "9. 无穷区间积分", source: "官方 Exercise 9.18 · 讲义 p.28–29", skill: "Improper integral at infinity", prompt: "先写定义极限，再计算 ∫₁∞x⁻³dx。", answer: "<p>∫₁ᴿx⁻³dx=(1−R⁻²)/2。R→∞ 时极限为 1/2。</p>", concept: "improper-unbounded" },
+        { id: "q10", title: "10. 零点 p-test", source: "官方 Exercise 9.18 · 讲义 p.28–29", skill: "Power singularity", prompt: "判断 ∫₀¹x⁻ᵖdx 对 p∈R 何时收敛。", answer: "<p>p≠1 时截断积分为 (1−ε^{1−p})/(1−p)；只有 1−p>0 时收敛。p=1 时 −log ε→∞。所以当且仅当 p<1。</p>", concept: "improper-singularities" },
+        { id: "q11", title: "11. 自造：误差诊断", source: "自造，不是官方题", skill: "Taylor error diagnosis", prompt: "学生说“下一项系数很小，所以误差小于 10⁻⁴”。指出论证缺口。", answer: "<p>系数本身不是余项上界。必须控制展开点与目标点之间整段区间的下一阶导数，再乘 |x−a|^{n+1}/(n+1)!。</p>", concept: "lagrange-error-bounds" },
+        { id: "q12", title: "12. 自造：分割量词", source: "自造，不是官方题", skill: "Darboux criterion logic", prompt: "为什么只找到一个 U−L<ε 的分割，不能证明对所有 ε 可积？", answer: "<p>判据要求 ∀ε>0 ∃P。一个固定分割只对应一个固定差距；必须证明对任意更小 ε 都能继续找到更细分割。</p>", concept: "darboux-criterion" },
+        { id: "q13", title: "13. 自造：比较 FTC 两部分", source: "自造，不是官方题", skill: "FTC comparison", prompt: "用连续函数 f 与累积函数 F 比较 FTC Part I 和 Part II 的角色。", answer: "<p>Part I 由累积构造 F 并证明 F′=f；Part II 取任意原函数 G，用 G(b)−G(a) 计算定积分。Part I 构造原函数，Part II 使用原函数。</p>", concept: "ftc-part-two" },
+        { id: "q14", title: "14. 自造：对称极限", source: "自造，不是官方题", skill: "Improper integral boundary", prompt: "∫−Rᴿx dx=0 为什么不能证明 ∫−∞∞x dx 收敛？", answer: "<p>有限对称截断的抵消不是 improper integral 定义。右半 ∫₀∞x dx 与左半 ∫−∞⁰x dx 都必须分别收敛；这里两边都发散。</p>", concept: "improper-unbounded" }
+      ];
+
+      function updateAnswerCount() {
+        const count = questions.filter((question) => (state.answers[question.id] || "").trim()).length;
+        $("#answer-count").textContent = `已作答 ${count} / ${questions.length}`;
+        if (count === questions.length) {
+          state.completed = state.completed.includes("practice") ? state.completed : [...state.completed, "practice"];
+          saveState();
+          updateProgress();
+        }
+      }
+      function renderQuestions() {
+        $("#question-list").innerHTML = MFC_LESSON_KIT.renderQuestions(questions, window.MFC_ENGLISH_PACKS?.week3Questions || {});
+        $$("textarea[data-answer]").forEach((textarea) => {
+          textarea.value = state.answers[textarea.dataset.answer] || "";
+          textarea.addEventListener("input", () => {
+            state.answers[textarea.dataset.answer] = textarea.value;
+            saveState();
+            updateAnswerCount();
+          });
+        });
+        $$("[data-reveal]").forEach((button) => button.addEventListener("click", () => {
+          const solution = $(`#solution-${button.dataset.reveal}`);
+          const open = solution.hidden;
+          solution.hidden = !open;
+          button.setAttribute("aria-expanded", String(open));
+          button.textContent = open ? "Hide solution · 收起解答" : "Show solution · 查看解答";
+        }));
+        updateAnswerCount();
+      }
+
+      const terms = [
+        ["Taylor polynomial", "Taylor 多项式", "有限局部近似"], ["Maclaurin polynomial", "Maclaurin 多项式", "在 0 点展开"], ["higher derivative", "高阶导数", "连续求导"], ["remainder", "余项", "真实值减近似值"], ["Lagrange remainder", "Lagrange 余项", "下一阶导数控制误差"], ["error bound", "误差界", "真实误差的上界"], ["big-O", "大 O", "局部误差阶"], ["partition", "分割", "有限个切分点"], ["Darboux sum", "Darboux 和", "下和或上和"], ["mesh", "网格宽度", "最宽子区间"], ["integrability", "可积性", "上下积分相等"], ["Dirichlet function", "Dirichlet 函数", "有理与无理取不同值"], ["annihilation", "零面积修改", "单点改变不影响积分"], ["accumulation function", "累积函数", "从固定下端点积到 x"], ["antiderivative", "原函数", "导数为被积函数"], ["Fundamental Theorem", "微积分基本定理", "面积与导数桥梁"], ["Newton-Leibniz formula", "Newton-Leibniz 公式", "端点差求积分"], ["improper integral", "广义积分", "截断后的极限"], ["convergent", "收敛", "有限极限存在"], ["divergent", "发散", "极限不是有限实数"], ["p-test at infinity", "无穷端 p-test", "指数大于 1 收敛"], ["p-test at zero", "零点 p-test", "指数小于 1 收敛"], ["Cauchy principal value", "Cauchy 主值", "本文 improper integral 不采用"], ["hypothesis", "前提", "定理成立所需条件"]
+      ];
+      function renderGlossary(query = "") {
+        const needle = query.trim().toLowerCase();
+        const filtered = terms.filter(([en, zh, note]) => `${en} ${zh} ${note}`.toLowerCase().includes(needle));
+        $("#glossary-count").textContent = `${filtered.length} 个术语`;
+        $("#glossary-list").innerHTML = filtered.length
+          ? filtered.map(([en, zh, note]) => `<div class="term"><strong>${en}</strong><span>${zh}</span><span class="term-note">${note}</span></div>`).join("")
+          : '<div class="empty-state">没有匹配的术语。</div>';
+      }
+      $("#glossary-search").addEventListener("input", (event) => renderGlossary(event.target.value));
+      document.addEventListener("mfc:themechange", () => {});
+
+      renderOverview();
+      renderNetworks();
+      renderLessons();
+      renderQuestions();
+      renderGlossary();
+      updateProgress();
+      MFC_LESSON_KIT.applyLanguageMode(store.getLanguageMode());
+
+      window.runWeek3SelfTest = () => {
+        const checks = [
+          ["lesson count", document.querySelectorAll(".lesson").length === 16],
+          ["theorem cards", document.querySelectorAll(".theorem-card").length === 16],
+          ["numeric probes", document.querySelectorAll(".numeric-probe").length === 16],
+          ["visible symbols", document.querySelectorAll(".symbol-decoder").length === 16],
+          ["typed prompts", document.querySelectorAll(".qa-step").length === 64],
+          ["animations", document.querySelectorAll(".micro-animation").length === 16],
+          ["station networks", document.querySelectorAll(".station-network").length === 6],
+          ["questions", questions.length === 14],
+          ["Chinese explanations", [...document.querySelectorAll(".explanation-pair .bi-zh")].every((node) => node.textContent.trim().length > 0)],
+          ["language modes", ["english", "bilingual", "chinese"].includes(store.getLanguageMode())]
+        ];
+        const failed = checks.filter(([, ok]) => !ok);
+        failed.forEach(([name]) => console.assert(false, `Week 3 self-test failed: ${name}`));
+        return { passed: checks.length - failed.length, failed: failed.map(([name]) => name) };
+      };
+      if (location.hash === "#self-test") window.runWeek3SelfTest();
+    })();
+  </script>
+</body>
+</html>

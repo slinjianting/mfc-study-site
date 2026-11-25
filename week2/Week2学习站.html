@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="zh-CN" data-site-root="../" data-week-id="week2">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>MFC Week 2 · 导数双语学习站</title>
+  <script src="../assets/courses.js?v=20261120-1"></script>
+  <script src="../assets/mfc.js?v=20261120-1"></script>
+  <script src="../assets/lesson-kit.js?v=20261120-2"></script>
+  <script src="./week2-lessons.js?v=20261111-1"></script>
+  <script src="./week2-english.js?v=20261110-2"></script>
+  <link rel="stylesheet" href="../assets/mfc.css?v=20261120-2">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" data-course-home href="../index.html">
+      <span class="brand-mark" aria-hidden="true">d</span>
+      <span class="brand-copy">
+        <span class="brand-title"><span data-week-number>WEEK 02</span><span class="week-title-suffix"> · <span data-week-label-zh>导数、求导技巧与函数分析</span></span></span>
+        <span class="brand-subtitle" data-week-label-en lang="en">Differentiation, Advanced Techniques and Curve Analysis</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <a class="button secondary small top-week-link" data-course-home href="../index.html">学习中心</a>
+      <div class="progress-wrap" aria-label="学习进度">
+        <span class="progress-copy" id="progress-copy">0 / 6</span>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" aria-labelledby="progress-copy"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <button class="button secondary small" id="resume-button" type="button">继续学习</button>
+      <div data-theme-control></div>
+      <button class="button ghost small" id="reset-button" type="button">重置</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="章节导航">
+      <div class="rail-label">学习路线</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#overview" data-section-link="overview"><span class="nav-index">00</span><span>知识地图</span></a></li>
+          <li><a class="nav-link" href="#derivative-foundations" data-section-link="derivative-foundations"><span class="nav-index">01</span><span>导数与差商</span></a></li>
+          <li><a class="nav-link" href="#differentiation-rules" data-section-link="differentiation-rules"><span class="nav-index">02</span><span>求导工具</span></a></li>
+          <li><a class="nav-link" href="#advanced-differentiation" data-section-link="advanced-differentiation"><span class="nav-index">03</span><span>高级求导</span></a></li>
+          <li><a class="nav-link" href="#curve-analysis" data-section-link="curve-analysis"><span class="nav-index">04</span><span>函数分析</span></a></li>
+          <li><a class="nav-link" href="#partial-derivatives" data-section-link="partial-derivatives"><span class="nav-index">05</span><span>多变量导数</span></a></li>
+          <li><a class="nav-link" href="#practice" data-section-link="practice"><span class="nav-index">06</span><span>练习与复盘</span></a></li>
+        </ul>
+      </nav>
+      <div class="rail-note">第 13 章偏导数与方向导数明确标注为非考试。先完成第 4–6 章主线。</div>
+    </aside>
+
+    <main id="content">
+      <section class="chapter" id="overview" data-section="overview">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Differentiation and its applications</div>
+            <h1>从“变化了多少”走到“此刻变化多快”</h1>
+            <p class="lede">Week 2 把 Week 1 的极限与连续变成导数：先理解割线到切线的极限，再建立求导工具箱，最后用导数读出函数的增减、峰谷和弯曲。</p>
+            <p class="hero-en" lang="en">A derivative measures local change. We move from secant slopes to tangent slopes, then build rules, advanced techniques and graphical analysis from that definition.</p>
+            <div class="hero-actions">
+              <a class="button" href="#derivative-foundations">开始第 1 站</a>
+              <a class="button secondary" href="#practice">直接练习</a>
+            </div>
+          </div>
+          <aside class="hero-meta">
+            <strong>两个核心枢纽</strong>
+            <p>差商极限解释导数从哪里来；链式法则解释复合变化怎样逐层传递。</p>
+          </aside>
+        </div>
+
+        <section class="must-know" aria-labelledby="must-know-title">
+          <h2 id="must-know-title">本周必会 · 5 条</h2>
+          <ol>
+            <li>导数 = 差商在 h→0 的有限极限 <small>Def 4.1–4.2</small></li>
+            <li>可导 ⇒ 连续，反之不成立 <small>Thm 4.7</small></li>
+            <li>乘积法则两项都要，链式法则最后乘内层导数 <small>Thm 4.12–4.21</small></li>
+            <li>逆函数导数是 1/f′(a)，a 由 b=f(a) 反查 <small>Thm 5.1</small></li>
+            <li>L’Hôpital 只对已确认的 0/0、∞/∞ 使用 <small>Thm 5.6</small></li>
+          </ol>
+        </section>
+
+        <div class="path-card">
+          <div class="path-title"><h2>Week 2 知识依赖链</h2><p>点击节点进入对应站点。</p></div>
+          <div class="path">
+            <a class="path-node" href="#derivative-foundations"><span>01</span><strong>差商极限<br>可导与连续</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#differentiation-rules"><span>02</span><strong>基本导数<br>乘积 商 链式</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#advanced-differentiation"><span>03</span><strong>反函数 隐函数<br>参数曲线</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#curve-analysis"><span>04</span><strong>单调与极值<br>完整体现分析</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#partial-derivatives"><span>05</span><strong>偏导数<br>方向导数</strong></a>
+          </div>
+        </div>
+
+        <div class="knowledge-grid" data-week-overview></div>
+        <details class="reference">
+          <summary>本周与 Week 1 的连接</summary>
+          <div class="detail-body">
+            <p>Week 1 的函数极限负责描述“附近输出趋近哪里”；导数把这个极限作用在差商上。</p>
+            <p>Week 1 的连续性告诉我们什么时候函数不断开；本周要区分连续与可导。</p>
+            <p>Week 1 的定义域、复合函数和反向三角/指数对数知识都会在链式与隐函数求导中继续使用。</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="chapter" id="derivative-foundations" data-section="derivative-foundations">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 01 · p.3–6</div>
+            <h2><span class="source-en" lang="en">Derivatives: from secants to tangents</span><span class="language-zh">导数：让割线变成切线</span></h2>
+            <p class="section-summary source-en" lang="en">Write the difference quotient, simplify it with h ≠ 0, then take h → 0. A finite limit gives the tangent slope and connects differentiation to continuity.</p>
+            <p class="section-summary language-zh">先把“平均变化率”的差商写对，再让 h 趋近 0；导数是否有限存在，同时揭示切线斜率与连续性。</p>
+          </div>
+          <span class="source-chip">定义 4.1–4.2 · 定理 4.7</span>
+        </div>
+        <div class="station-network" data-knowledge-network="derivative-foundations"></div>
+        <div class="lab" id="lab-derivative">
+          <div class="lab-header"><div class="lab-heading"><h3>实验一：割线怎样靠近切线</h3><p>调节中心 a 和间距 h，比较平均变化率与前系数 2a。</p></div><span class="badge info">可交互</span></div>
+          <div class="controls">
+            <div class="control"><label for="secant-a">中心 a：<span id="secant-a-value">1.0</span></label><input id="secant-a" type="range" min="-1" max="2" step="0.1" value="1"></div>
+            <div class="control"><label for="secant-h">间距 h：<span id="secant-h-value">1.2</span></label><input id="secant-h" type="range" min="0.05" max="2" step="0.05" value="1.2"></div>
+          </div>
+          <div class="canvas-wrap"><canvas id="derivative-canvas" height="270" role="img" aria-label="x 平方函数的割线与切线比较"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>平均变化率</span><strong id="secant-value">3.20</strong></div>
+            <div class="metric"><span>切线斜率</span><strong id="tangent-value">2.00</strong></div>
+            <div class="metric"><span>差商化简</span><strong id="difference-form">2a + h</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="derivative-status">h 越小，割线斜率越接近 2a。</span></div>
+        </div>
+        <div class="deep-lessons" data-lesson-mount="derivative-foundations"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>核心边界：</strong>可导一定连续；连续不一定可导。尖角处左右斜率不同。</p></div>
+        <div class="complete-row"><p>能用差商解释 f′(a) 并说出 |x| 为什么不可导。</p><button class="complete-button button secondary" type="button" data-complete="derivative-foundations">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="differentiation-rules" data-section="differentiation-rules">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 02 · p.7–14</div>
+            <h2><span class="source-en" lang="en">Differentiation tools and the chain rule</span><span class="language-zh">求导工具箱与链式法则</span></h2>
+            <p class="section-summary source-en" lang="en">Identify the outermost structure before choosing a rule. Products, quotients and compositions require separate rules, and a composition multiplies the inner and outer rates.</p>
+            <p class="section-summary language-zh">先识别最外层结构，再选择基本公式、乘积、商或链式法则。复合变化要逐层乘起来。</p>
+          </div>
+          <span class="source-chip">定理 4.12–4.21</span>
+        </div>
+        <div class="station-network" data-knowledge-network="differentiation-rules"></div>
+        <div class="lab" id="lab-rule-structure">
+          <div class="lab-header"><div class="lab-heading"><h3>实验二：先识别结构，再选规则</h3><p>选择表达式，观察首条规则与必需的内层规则。</p></div><span class="badge info">可交互</span></div>
+          <div class="controls"><div class="control"><label for="rule-example">表达式</label><select id="rule-example"><option value="power">(3x + 1)⁵</option><option value="product">x²eˣ</option><option value="quotient">sin(x²)/(1 + x)</option><option value="variable">x^{√x}</option></select></div></div>
+          <div class="lab-output">
+            <div class="metric"><span>最外层</span><strong id="rule-outer">复合幂</strong></div>
+            <div class="metric"><span>首条规则</span><strong id="rule-first">链式法则</strong></div>
+            <div class="metric"><span>子规则</span><strong id="rule-inner">幂 + 线性</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="rule-status">外层幂先求导，再乘 3。</span></div>
+        </div>
+        <div class="deep-lessons" data-lesson-mount="differentiation-rules"></div>
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>最高频错误：</strong>链式法则忘记乘内层导数；乘积法则写成 f′g′。两者都不是小细节，会改变整个结构。</p></div>
+        <div class="complete-row"><p>能从表达式直接说出第一条求导规则。</p><button class="complete-button button secondary" type="button" data-complete="differentiation-rules">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="advanced-differentiation" data-section="advanced-differentiation">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 03 · p.15–28</div>
+            <h2><span class="source-en" lang="en">Inverse, implicit, logarithmic and parametric differentiation</span><span class="language-zh">反函数、隐函数、极限与参数曲线</span></h2>
+            <p class="section-summary source-en" lang="en">When y is not an explicit function of x, or when base and exponent both vary, rewrite the relation and return to known derivative rules.</p>
+            <p class="section-summary language-zh">当 y 不是直接的 f(x)，或底数与指数同时变化时，需要用新表示方法把问题转回已知规则。</p>
+          </div>
+          <span class="source-chip">第 5 章</span>
+        </div>
+        <div class="station-network" data-knowledge-network="advanced-differentiation"></div>
+        <div class="lab" id="lab-advanced-method">
+          <div class="lab-header"><div class="lab-heading"><h3>实验三：换一种表示，导数依旧可求</h3><p>切换反函数、隐函数、对数求导和参数曲线，观察核心公式。</p></div><span class="badge info">可交互</span></div>
+          <div class="controls"><div class="control"><label for="advanced-method">方法</label><select id="advanced-method"><option value="inverse">反函数导数</option><option value="implicit">隐函数求导</option><option value="log">对数求导</option><option value="parametric">参数曲线</option></select></div></div>
+          <div class="canvas-wrap"><canvas id="advanced-canvas" height="250" role="img" aria-label="高级求导方法示意图"></canvas></div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="advanced-status">在对应点使用 1/f′(a)。</span></div>
+        </div>
+        <div class="deep-lessons" data-lesson-mount="advanced-differentiation"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>统一原则：</strong>先确认表示方法的前提。反函数要可逆且 f′≠0；隐函数要局部确定 y；参数求导要 dx/dt≠0。</p></div>
+        <div class="complete-row"><p>能说清四种高级方法各在解决什么表示问题。</p><button class="complete-button button secondary" type="button" data-complete="advanced-differentiation">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="curve-analysis" data-section="curve-analysis">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 04 · p.29–36</div>
+            <h2><span class="source-en" lang="en">Reading a graph through derivatives</span><span class="language-zh">用导数读懂函数图形</span></h2>
+            <p class="section-summary source-en" lang="en">The sign of f′ determines increasing and decreasing intervals. Critical points are extrema candidates, and f″ describes how the slope itself changes.</p>
+            <p class="section-summary language-zh">导数的符号说明哪里升、哪里降；临界点提供峰谷候选；二阶导数说明斜率本身在怎样变化。</p>
+          </div>
+          <span class="source-chip">第 6 章</span>
+        </div>
+        <div class="station-network" data-knowledge-network="curve-analysis"></div>
+        <div class="lab" id="lab-curve">
+          <div class="lab-header"><div class="lab-heading"><h3>实验四：从 f′ 的符号读图形</h3><p>切换函数，检查临界点、增减区间和极值类型。</p></div><span class="badge info">可交互</span></div>
+          <div class="controls"><div class="control"><label for="curve-function">函数</label><select id="curve-function"><option value="cubic">f(x)=x³−3x</option><option value="quartic">f(x)=x⁴−4x²</option><option value="stationary">f(x)=x³−3x²−9x+5</option></select></div></div>
+          <div class="canvas-wrap"><canvas id="curve-canvas" height="280" role="img" aria-label="函数与临界点示意图"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>临界点</span><strong id="curve-points">−1, 1</strong></div>
+            <div class="metric"><span>极值</span><strong id="curve-extrema">max / min</strong></div>
+            <div class="metric"><span>端行为</span><strong id="curve-ends">−∞ → +∞</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="curve-status">f′ 从正变负，对应局部最大。</span></div>
+        </div>
+        <div class="deep-lessons" data-lesson-mount="curve-analysis"></div>
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>两个反向陷阱：</strong>驻点不必是极值；极值也可能在导数不存在的点或闭区间端点。</p></div>
+        <div class="complete-row"><p>能从导数符号表说明函数升降与峰谷。</p><button class="complete-button button secondary" type="button" data-complete="curve-analysis">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="partial-derivatives" data-section="partial-derivatives">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 05 · p.37–39</div>
+            <h2><span class="source-en" lang="en">Partial and directional derivatives</span><span class="language-zh">偏导数与方向导数</span></h2>
+            <p class="section-summary source-en" lang="en">The notes mark this section as non-examined. The goal is to understand a multivariable rate by freezing other coordinates or choosing a unit direction.</p>
+            <p class="section-summary language-zh">讲义明确标注为非考试，只要求建立多变量变化率的基本直觉。</p>
+          </div>
+          <span class="badge warning">非考试</span>
+        </div>
+        <div class="station-network" data-knowledge-network="partial-derivatives"></div>
+        <div class="lab" id="lab-partial">
+          <div class="lab-header"><div class="lab-heading"><h3>实验五：固定一个变量，沿另一个方向变化</h3><p>调节 (x,y)，比较水平方向与竖直方向的局部变化率。</p></div><span class="badge warning">非考试</span></div>
+          <div class="controls">
+            <div class="control"><label for="partial-x">x：<span id="partial-x-value">1.0</span></label><input id="partial-x" type="range" min="-2" max="2" step="0.1" value="1"></div>
+            <div class="control"><label for="partial-y">y：<span id="partial-y-value">2.0</span></label><input id="partial-y" type="range" min="-2" max="2" step="0.1" value="2"></div>
+          </div>
+          <div class="canvas-wrap"><canvas id="partial-canvas" height="250" role="img" aria-label="偏导数水平与竖直方向示意图"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>f(x,y)</span><strong id="partial-value">4.00</strong></div>
+            <div class="metric"><span>∂f/∂x</span><strong id="partial-fx">16.00</strong></div>
+            <div class="metric"><span>∂f/∂y</span><strong id="partial-fy">9.00</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="partial-status">对 x 求偏导时把 y 当常数。</span></div>
+        </div>
+        <div class="deep-lessons" data-lesson-mount="partial-derivatives"></div>
+        <div class="complete-row"><p>能说明偏导数固定了什么、方向导数沿什么方向变化。</p><button class="complete-button button secondary" type="button" data-complete="partial-derivatives">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="practice" data-section="practice">
+        <div class="section-heading"><div><div class="section-number">STATION 06 · PRACTICE</div><h2><span class="source-en" lang="en">Practice and review</span><span class="language-zh">练习与复盘</span></h2><p class="section-summary source-en" lang="en">Write the steps before revealing a solution. Focus on method selection, domains and the reason each conclusion follows.</p><p class="section-summary language-zh">先写步骤，再查看解答。重点检查方法选择和定义域，而不是只对答案。</p></div><span class="source-chip">6 道官方练习选做 + 8 道自造</span></div>
+        <div class="station-network practice-network">
+          <div class="network-heading"><div><span class="section-number">PRACTICE · KNOWLEDGE NETWORK</span><h3>做题时依次检查什么？</h3><p>从结构识别开始，经过计算与反例验证，最后把定义、极限和图形结论连接起来。</p></div><span class="badge">4 个检查节点</span></div>
+          <div class="network-route"><span class="network-edge">起点：题目要求与表达式结构</span><ol class="network-list">
+            <li class="network-item"><a class="network-node" href="#concept-method-selection"><span class="network-node-top"><span>01</span><span class="network-status">识别结构</span></span><strong>先选规则</strong><small>商、积、复合、隐式还是参数形式？</small><em>不要先做代数</em></a><span class="network-arrow" aria-hidden="true">→</span></li>
+            <li class="network-item"><a class="network-node" href="#concept-chain-rule"><span class="network-node-top"><span>02</span><span class="network-status">执行计算</span></span><strong>逐层求导</strong><small>保留定义域并乘内层导数</small><em>检查分母和根号</em></a><span class="network-arrow" aria-hidden="true">→</span></li>
+            <li class="network-item"><a class="network-node" href="#concept-differentiability-continuity"><span class="network-node-top"><span>03</span><span class="network-status">反例检查</span></span><strong>条件是否真的满足</strong><small>连续不等于可导，驻点不等于极值</small><em>找最小反例</em></a><span class="network-arrow" aria-hidden="true">→</span></li>
+            <li class="network-item"><a class="network-node" href="#concept-curve-analysis"><span class="network-node-top"><span>04</span><span class="network-status">综合复盘</span></span><strong>结论互相一致</strong><small>计算、符号表、端点和图形互相验证</small><em>不要只对答案</em></a></li>
+          </ol><div class="network-footer"><p><strong>本周总枢纽：</strong>最外层结构决定方法，导数符号决定图形。</p><p><strong>去向：</strong>Week 3 将进入 Taylor 近似。</p></div></div>
+        </div>
+        <div class="practice-summary"><p>作答会自动保存在本机。每道题都链接回对应知识点。</p><span class="badge" id="answer-count">已作答 0 / 14</span></div>
+        <div class="question-list" id="question-list"></div>
+        <div class="complete-row"><p>完成全部 14 题回答后会自动记录完成。</p><button class="complete-button button secondary" type="button" data-complete="practice">标记完成</button></div>
+      </section>
+
+      <div class="review-block" id="review">
+        <div class="section-heading"><div><div class="section-number">REVIEW</div><h2>术语与页码速查</h2><p class="section-summary">搜索术语，最后口头复述本周两条主线：导数定义和函数分析。</p></div><span class="source-chip">第 4–6、13 章</span></div>
+        <div class="glossary-tools"><input id="glossary-search" type="search" placeholder="搜索术语：chain rule、隐函数、临界点…" aria-label="搜索术语"><span class="badge" id="glossary-count">术语</span></div>
+        <div class="glossary-list" id="glossary-list"></div>
+        <details class="reference source-index">
+          <summary>Week 2 讲义编号索引</summary>
+          <div class="detail-body">
+            <p><strong>定义：</strong>4.1、4.2、5.24、6.2、6.3、6.4、13.1、13.4。</p>
+            <p><strong>命题：</strong>4.6、4.10。</p>
+            <p><strong>定理：</strong>4.7、4.12、4.13、4.15、4.17、4.21、5.1、5.6、6.1、6.5、6.7、6.9。</p>
+            <p><strong>例题：</strong>4.3、4.4、4.5、4.8、4.9、4.11、4.14、4.16、4.18、4.19、4.20、4.22、4.23、4.24、4.25、4.26、4.27、5.2、5.3、5.4、5.8、5.9、5.10、5.11、5.12、5.13、5.14、5.15、5.17、5.18、5.20、5.21、5.22、5.25、5.26、5.27、6.6、6.8、6.10、6.11、6.12、6.13、6.15、6.16、6.17、6.18、6.19、13.2、13.3、13.5。</p>
+            <p><strong>练习：</strong>4.29、5.16、5.23、5.28、6.14、6.20。</p>
+            <p><strong>Remark：</strong>4.28、5.5、5.7、5.19。</p>
+          </div>
+        </details>
+      </div>
+
+      <nav class="week-pager" aria-label="课程周次导航">
+        <a data-week-prev href="#" hidden><small>上一周</small><strong></strong></a>
+        <a class="pager-home" data-course-home href="../index.html"><small>课程首页</small><strong>MFC 学习中心</strong></a>
+        <a class="pager-next" data-week-next href="#" hidden><small>下一周</small><strong></strong></a>
+      </nav>
+      <footer class="footer">依据 Week 2 Lecture Notes p.3–39 与《超前学习法 Week 2 预习手册》整理。所有学习数据仅保存在当前浏览器。</footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+      const store = window.MFC_STORE;
+      const coreSections = store.getWeekSections("week2");
+      const sectionOrder = ["overview", "derivative-foundations", "differentiation-rules", "advanced-differentiation", "curve-analysis", "partial-derivatives", "practice"];
+      const lessonSource = window.MFC_WEEK2_LESSONS || [];
+      const guideSource = Object.fromEntries(lessonSource.map((lesson) => [lesson.id, lesson]));
+      const content = MFC_LESSON_KIT.buildWeekContent("week2", lessonSource, guideSource, window.MFC_ENGLISH_PACKS?.week2 || {});
+      const lessons = content.lessons;
+      let state = store.getWeek("week2");
+      if (!state.lessonProgress || typeof state.lessonProgress !== "object") state.lessonProgress = {};
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const fmt = (value, digits = 2) => String(Number(value.toFixed(digits))).replace("-", "−");
+      const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+      const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      const saveState = () => { state = store.updateWeek("week2", state); };
+      function label(ctx, text, x, y, options = {}) {
+        ctx.save();
+        ctx.fillStyle = options.color || css("--color-text-soft");
+        ctx.font = options.font || '13px "Noto Sans SC", sans-serif';
+        ctx.textAlign = options.align || "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, x, y);
+        ctx.restore();
+      }
+
+      function updateProgress() {
+        const count = coreSections.filter((id) => state.completed.includes(id)).length;
+        $("#progress-copy").textContent = `${count} / ${coreSections.length}`;
+        $("#progress-fill").style.width = `${count / coreSections.length * 100}%`;
+        $(".progress-track").setAttribute("aria-valuenow", String(count));
+        $$(".complete-button").forEach((button) => {
+          const done = state.completed.includes(button.dataset.complete);
+          button.dataset.done = String(done);
+          button.textContent = done ? "已完成 ✓" : "标记完成";
+          button.setAttribute("aria-pressed", String(done));
+        });
+      }
+
+      $$(".complete-button").forEach((button) => button.addEventListener("click", () => {
+        const id = button.dataset.complete;
+        state.completed = state.completed.includes(id) ? state.completed.filter((item) => item !== id) : [...state.completed, id];
+        saveState();
+        updateProgress();
+      }));
+
+      $("#resume-button").addEventListener("click", () => {
+        const id = coreSections.find((section) => !state.completed.includes(section)) || "practice";
+        document.getElementById(id).scrollIntoView();
+      });
+
+      $("#reset-button").addEventListener("click", () => {
+        if (!confirm("清除 Week 2 的学习进度和练习草稿？主题设置会保留。")) return;
+        state = store.resetWeek("week2");
+        state.lessonProgress = {};
+        $$("textarea[data-answer]").forEach((textarea) => { textarea.value = ""; });
+        $$(".qa-step").forEach((step) => { step.open = step.dataset.stepIndex === "0"; });
+        updateProgress();
+        updateAnswerCount();
+        updateAllNetworkNodes();
+        document.getElementById("overview").scrollIntoView();
+      });
+
+      const navLinks = $$("[data-section-link]");
+      function updateActiveSection(persist = true) {
+        const marker = innerHeight * 0.34;
+        let current = sectionOrder[0];
+        sectionOrder.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element && element.getBoundingClientRect().top <= marker) current = id;
+        });
+        if (persist && state.currentSection !== current) {
+          state.currentSection = current;
+          saveState();
+        }
+        navLinks.forEach((link) => link.setAttribute("aria-current", String(link.dataset.sectionLink === current)));
+      }
+      addEventListener("scroll", () => requestAnimationFrame(() => updateActiveSection()), { passive: true });
+      navLinks.forEach((link) => link.addEventListener("click", () => updateActiveSection()));
+      updateActiveSection(false);
+
+      const stationMeta = {
+        "derivative-foundations": { index: "01", question: "怎样把平均变化率压缩成某一瞬间的变化率？", incoming: "继承 Week 1：极限与连续", outgoing: "进入第 2 站：用规则批量计算导数", hub: "差商极限是所有导数公式的来源" },
+        "differentiation-rules": { index: "02", question: "复杂函数怎样拆成可以逐层求导的基本结构？", incoming: "来自第 1 站：导数定义", outgoing: "进入第 3 站：处理不是直接 y=f(x) 的表示", hub: "最外层结构决定第一条规则" },
+        "advanced-differentiation": { index: "03", question: "关系式、反函数或参数形式怎样继续求变化率？", incoming: "来自第 2 站：基本与链式规则", outgoing: "进入第 4 站：用导数分析图形", hub: "不同表示最终都转成 dy/dx" },
+        "curve-analysis": { index: "04", question: "导数和二阶导数分别告诉我们图形的什么？", incoming: "来自第 1–3 站：能够算出导数", outgoing: "考试重点收束：完整体现分析", hub: "f′ 管增减，f″ 管斜率变化" },
+        "partial-derivatives": { index: "05", question: "有两个输入时，沿一个方向的变化率怎样定义？", incoming: "来自一元导数：固定其他变量", outgoing: "课程后续多变量内容的接口", hub: "偏导是沿坐标方向的特殊方向导数" }
+      };
+      content.stations = Object.entries(stationMeta).map(([id, meta]) => ({ id, ...meta }));
+
+      function renderOverview() {
+        $("[data-week-overview]").innerHTML = lessons.map((lesson) => `
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3 lang="en">${lesson.titleEn}</h3><span class="source-chip">p.${lesson.source.match(/p\.(\d+)/)?.[1] || "—"}</span></div><p class="language-zh">${lesson.titleZh} · ${lesson.networkGoal}。易卡点：${lesson.networkRisk}。</p><p class="source-en" lang="en">${lesson.networkGoalEn} Common sticking point: ${lesson.networkRiskEn}</p></article>
+        `).join("");
+      }
+
+      function stepsDone(id) {
+        const value = state.lessonProgress[id]?.revealed;
+        return Array.isArray(value) ? value.length : 0;
+      }
+      function updateNetworkNode(id) {
+        const node = document.querySelector(`[data-network-lesson="${id}"]`);
+        if (!node) return;
+        const count = stepsDone(id);
+        node.dataset.status = count >= 5 ? "done" : count > 0 ? "active" : "pending";
+        const status = node.querySelector(".network-status");
+        if (status) status.textContent = count >= 5 ? "Read ✓ · 已读懂" : count > 0 ? `Learning ${count}/5 · 学习中` : "Not started · 尚未开始";
+      }
+      function updateAllNetworkNodes() { lessons.forEach((lesson) => updateNetworkNode(lesson.id)); }
+      function recordStep(id, index) {
+        const record = state.lessonProgress[id] || { revealed: [] };
+        if (!record.revealed.includes(index)) record.revealed.push(index);
+        record.revealed.sort((a, b) => a - b);
+        state.lessonProgress[id] = record;
+        saveState();
+        updateNetworkNode(id);
+      }
+
+      function renderNetworks() {
+        Object.entries(stationMeta).forEach(([station, meta]) => {
+          const mount = document.querySelector(`[data-knowledge-network="${station}"]`);
+          const items = lessons.filter((lesson) => lesson.station === station);
+          mount.innerHTML = `
+            <div class="network-heading"><div><span class="section-number">STATION ${meta.index} · KNOWLEDGE NETWORK</span><h3>${meta.question}</h3></div><span class="badge">${items.length} knowledge nodes · 知识节点</span></div>
+            <div class="network-route"><span class="network-edge">${meta.incoming}</span><ol class="network-list">${items.map((lesson, index) => `
+              <li class="network-item"><a class="network-node" href="#concept-${lesson.id}" data-network-lesson="${lesson.id}" data-status="pending"><span class="network-node-top"><span>${lesson.number}</span><span class="network-status">Not started · 尚未开始</span></span><strong><span class="source-en" lang="en">${lesson.titleEn}</span><span class="language-zh">${lesson.titleZh}</span></strong><small><span class="source-en" lang="en">${lesson.networkGoalEn}</span><span class="language-zh">${lesson.networkGoal}</span></small><em><span class="source-en" lang="en">Watch: ${lesson.networkRiskEn}</span><span class="language-zh">易卡：${lesson.networkRisk}</span></em></a>${index < items.length - 1 ? '<span class="network-arrow" aria-hidden="true">→</span>' : ""}</li>
+            `).join("")}</ol><div class="network-footer"><p><strong>本站枢纽：</strong>${meta.hub}</p><p><strong>去向：</strong>${meta.outgoing}</p></div></div>
+          `;
+        });
+        updateAllNetworkNodes();
+      }
+
+      function renderLessons() {
+        lessons.forEach((lesson) => {
+          const mount = document.querySelector(`[data-lesson-mount="${lesson.station}"]`);
+          if (!mount) return;
+          if (!mount.dataset.initialized) {
+            mount.innerHTML = `<div class="lessons-heading"><div><h3>Guided lecture · 五问精讲</h3><p>Read the English explanation first. Expand Chinese support only when needed.</p></div><button class="button ghost small" type="button" data-expand-station="${lesson.station}">Expand all · 全部展开</button></div>`;
+            mount.dataset.initialized = "true";
+          }
+          mount.insertAdjacentHTML("beforeend", MFC_LESSON_KIT.renderLessonCard(lesson));
+        });
+        $$(".deep-lessons").forEach((mount) => {
+          const firstLesson = $(".lesson", mount);
+          if (firstLesson) firstLesson.open = true;
+        });
+        MFC_LESSON_KIT.mountAll(document);
+        $$(".lesson").forEach((details) => {
+          MFC_LESSON_KIT.bindLesson(details);
+          const id = details.id.replace("concept-", "");
+          details.addEventListener("toggle", () => { if (details.open) recordStep(id, 0); });
+          $$(".qa-step", details).forEach((step, index) => step.addEventListener("toggle", () => { if (step.open && details.open) recordStep(id, index); }));
+        });
+        $$("[data-expand-station]").forEach((button) => button.addEventListener("click", () => {
+          const mount = document.querySelector(`[data-lesson-mount="${button.dataset.expandStation}"]`);
+          const details = $$(".lesson", mount);
+          const shouldOpen = details.some((detail) => !detail.open);
+          details.forEach((detail) => { detail.open = shouldOpen; });
+          button.textContent = shouldOpen ? "Collapse all · 全部收起" : "Expand all · 全部展开";
+        }));
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest('a[href^="#concept-"]');
+          if (!link) return;
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target instanceof HTMLDetailsElement) target.open = true;
+        });
+      }
+
+      function prepareCanvas(canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const width = Math.max(rect.width, 300);
+        const height = Math.max(rect.height, 220);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx, width, height };
+      }
+
+      function renderDerivativeLab() {
+        const a = Number($("#secant-a").value);
+        const h = Number($("#secant-h").value);
+        const secant = 2 * a + h;
+        $("#secant-a-value").textContent = fmt(a, 1);
+        $("#secant-h-value").textContent = fmt(h, 2);
+        $("#secant-value").textContent = fmt(secant, 2);
+        $("#tangent-value").textContent = fmt(2 * a, 2);
+        $("#difference-form").textContent = `2(${fmt(a, 1)}) + h`;
+        $("#derivative-status").textContent = `当 h=${fmt(h, 2)} 时，割线斜率是 ${fmt(secant, 2)}；h 越小，结果越接近切线斜率 ${fmt(2 * a, 2)}。`;
+        const canvas = $("#derivative-canvas");
+        const { ctx, width, height } = prepareCanvas(canvas);
+        ctx.clearRect(0, 0, width, height);
+        const left = 45, right = width - 20, bottom = height - 35, top = 20;
+        const xMin = -1.3, xMax = 2.5, yMax = 6.5;
+        const px = (x) => left + (x - xMin) / (xMax - xMin) * (right - left);
+        const py = (y) => bottom - y / yMax * (bottom - top);
+        ctx.strokeStyle = css("--color-border"); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(left, bottom); ctx.lineTo(right, bottom); ctx.moveTo(left, top); ctx.lineTo(left, bottom); ctx.stroke();
+        ctx.strokeStyle = css("--color-primary"); ctx.lineWidth = 2.5; ctx.beginPath();
+        for (let x = -1.1; x <= 2.4; x += 0.02) { const X=px(x),Y=py(x*x); x=== -1.1?ctx.moveTo(X,Y):ctx.lineTo(X,Y); } ctx.stroke();
+        ctx.strokeStyle = css("--color-warning"); ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(px(a), py(a*a)); ctx.lineTo(px(a+h), py((a+h)**2)); ctx.stroke();
+        ctx.setLineDash([6,4]); ctx.strokeStyle = css("--color-info");
+        ctx.beginPath(); ctx.moveTo(px(xMin), py(a*a + 2*a*(xMin-a))); ctx.lineTo(px(xMax), py(a*a + 2*a*(xMax-a))); ctx.stroke(); ctx.setLineDash([]);
+        [[a,a*a,css("--color-text")],[a+h,(a+h)**2,css("--color-warning")]].forEach(([x,y,c])=>{ctx.beginPath();ctx.arc(px(x),py(y),5,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();});
+        canvas.setAttribute("aria-label", `x² 在 a=${fmt(a,1)} 的割线斜率 ${fmt(secant,2)}，切线斜率 ${fmt(2*a,2)}`);
+      }
+
+      const ruleExamples = {
+        power: ["复合幂", "链式法则", "外层幂 + 内层线性", "外层先给 5(3x+1)⁴，再乘内层导数 3，得 15(3x+1)⁴。"],
+        product: ["乘积", "乘积法则", "幂 + 指数", "f′g+fg′=2xeˣ+x²eˣ=xeˣ(x+2)。"],
+        quotient: ["商", "商法则", "分子链式 + 分母多项式", "先对整体用商法则，再对 sin(x²) 用链式法则。"],
+        variable: ["幂但底和指数都变", "对数或指数改写", "乘积 + 链式", "先写 e^{√x ln x}，再对指数 √x ln x 用乘积法则。"]
+      };
+      function renderRuleLab() {
+        const [outer, first, inner, status] = ruleExamples[$("#rule-example").value];
+        $("#rule-outer").textContent = outer; $("#rule-first").textContent = first; $("#rule-inner").textContent = inner; $("#rule-status").textContent = status;
+      }
+
+      const advancedMethods = {
+        inverse: { status: "对 f(x)=x³，b=8 时先找 a=2；f′(2)=12，所以 (f⁻¹)′(8)=1/12。", draw(ctx,w,h) { const l=40,b=h-35,s=Math.min(w-70,h-55); ctx.strokeStyle=css("--color-border");ctx.beginPath();ctx.moveTo(l,b);ctx.lineTo(l+s,b);ctx.moveTo(l,b);ctx.lineTo(l,b-s);ctx.stroke();ctx.strokeStyle=css("--color-primary");ctx.beginPath();ctx.moveTo(l,b);ctx.lineTo(l+s,b-s);ctx.stroke();ctx.fillStyle=css("--color-primary");ctx.beginPath();ctx.arc(l+s*.57,b-s*.34,5,0,Math.PI*2);ctx.fill();label(ctx,"(a,b)",l+s*.57+10,b-s*.34-10,{align:"left",font:"12px sans-serif"});ctx.fillStyle=css("--color-info");ctx.beginPath();ctx.arc(l+s*.34,b-s*.57,5,0,Math.PI*2);ctx.fill();label(ctx,"(b,a)",l+s*.34+10,b-s*.57+16,{align:"left",font:"12px sans-serif"}); } },
+        implicit: { status: "圆 x²+y²=r² 给出 y′=−x/y；在 y=0 时要独立检查竖直切线。", draw(ctx,w,h) { const cx=w/2,cy=h/2,r=Math.min(w,h)*.32;ctx.strokeStyle=css("--color-primary");ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.fillStyle=css("--color-warning");ctx.beginPath();ctx.arc(cx+r*.7,cy-r*.7,6,0,Math.PI*2);ctx.fill();label(ctx,"x²+y²=r²",cx,cy+8,{font:"14px serif"}); } },
+        log: { status: "xˣ=e^{x ln x}，所以 (xˣ)′=xˣ(ln x+1)。", draw(ctx,w,h) { label(ctx,"product · quotient · power",w*.5,h*.28,{font:"14px serif"});label(ctx,"↓ take ln",w*.5,h*.45,{color:css("--color-primary")});label(ctx,"sum · difference · coefficient ×",w*.5,h*.65,{font:"14px serif"}); } },
+        parametric: { status: "x=t²+1，y=t³−3t：t≠0 时 dy/dx=(3t²−3)/(2t)。", draw(ctx,w,h) { const l=35,b=h-35;ctx.strokeStyle=css("--color-border");ctx.beginPath();ctx.moveTo(l,b);ctx.lineTo(w-20,b);ctx.moveTo(l,b);ctx.lineTo(l,20);ctx.stroke();ctx.strokeStyle=css("--color-primary");ctx.beginPath();for(let t=-1.7;t<=1.7;t+=.03){const x=l+(t+2)*((w-65)/4),y=b-(t*t-1)*((h-65)/4);t===-1.7?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();ctx.fillStyle=css("--color-warning");ctx.beginPath();ctx.arc(l+3*((w-65)/4),b-0,6,0,Math.PI*2);ctx.fill();label(ctx,"t=1",l+3*((w-65)/4)+10,b-10,{align:"left",font:"12px sans-serif"}); } }
+      };
+      function renderAdvancedLab() {
+        const method = advancedMethods[$("#advanced-method").value];
+        $("#advanced-status").textContent = method.status;
+        const canvas = $("#advanced-canvas"); const {ctx,width,height}=prepareCanvas(canvas); ctx.clearRect(0,0,width,height); method.draw(ctx,width,height); canvas.setAttribute("aria-label",method.status);
+      }
+
+      const curveFunctions = {
+        cubic: { f:x=>x**3-3*x, fp:x=>3*x*x-3, pointValues:[-1,1], points:"−1, 1", extrema:"max 2 / min −2", ends:"−∞ → +∞", status:"f′ 在 −1 从正变负，在 1 从负变正。" },
+        quartic: { f:x=>x**4-4*x*x, fp:x=>4*x*(x*x-2), pointValues:[0,-Math.sqrt(2),Math.sqrt(2)], points:"0, ±√2", extrema:"max 0 / min −4", ends:"+∞ → +∞", status:"f″(0)<0 得局部最大；f″(±√2)>0 得局部最小。" },
+        stationary: { f:x=>x**3-3*x*x-9*x+5, fp:x=>3*(x-3)*(x+1), pointValues:[-1,3], points:"−1, 3", extrema:"max 10 / min −22", ends:"−∞ → +∞", status:"f′ 在 −1 从正变负，在 3 从负变正。" }
+      };
+      function renderCurveLab() {
+        const key=$("#curve-function").value, config=curveFunctions[key];
+        $("#curve-points").textContent=config.points; $("#curve-extrema").textContent=config.extrema; $("#curve-ends").textContent=config.ends; $("#curve-status").textContent=config.status;
+        const canvas=$("#curve-canvas"), {ctx,width,height}=prepareCanvas(canvas);ctx.clearRect(0,0,width,height);
+        const left=45,right=width-20,bottom=height-38,top=20,xmin=-2.5,xmax=3.6,ys=[];for(let x=xmin;x<=xmax;x+=.05)ys.push(config.f(x));let ymin=Math.min(...ys)-2,ymax=Math.max(...ys)+2;const px=x=>left+(x-xmin)/(xmax-xmin)*(right-left),py=y=>bottom-(y-ymin)/(ymax-ymin)*(bottom-top);
+        ctx.strokeStyle=css("--color-border");ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,py(0));ctx.lineTo(right,py(0));ctx.stroke();ctx.strokeStyle=css("--color-primary");ctx.lineWidth=2.5;ctx.beginPath();for(let x=xmin;x<=xmax;x+=.02){const X=px(x),Y=py(config.f(x));x===xmin?ctx.moveTo(X,Y):ctx.lineTo(X,Y);}ctx.stroke();
+        config.pointValues.forEach(x=>{ctx.fillStyle=css("--color-warning");ctx.beginPath();ctx.arc(px(x),py(config.f(x)),5,0,Math.PI*2);ctx.fill();});
+        canvas.setAttribute("aria-label",`${key} 的曲线与临界点 ${config.points}`);
+      }
+
+      function renderPartialLab() {
+        const x=Number($("#partial-x").value),y=Number($("#partial-y").value);const fx=2*x*y+3*y*y,fy=x*x+6*x*y-4,value=x*x*y+3*x*y*y-4*y;
+        $("#partial-x-value").textContent=fmt(x,1);$("#partial-y-value").textContent=fmt(y,1);$("#partial-value").textContent=fmt(value,2);$("#partial-fx").textContent=fmt(fx,2);$("#partial-fy").textContent=fmt(fy,2);$("#partial-status").textContent=`在 (${fmt(x,1)}, ${fmt(y,1)})：水平方向变化率 ${fmt(fx,2)}，竖直方向变化率 ${fmt(fy,2)}。`;
+        const canvas=$("#partial-canvas"),{ctx,width,height}=prepareCanvas(canvas);ctx.clearRect(0,0,width,height);const cx=width/2,cy=height/2,scale=Math.min(width,height)*.17;ctx.strokeStyle=css("--color-info");ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(55,cy);ctx.lineTo(width-55,cy);ctx.stroke();ctx.strokeStyle=css("--color-warning");ctx.beginPath();ctx.moveTo(cx,35);ctx.lineTo(cx,height-35);ctx.stroke();ctx.fillStyle=css("--color-text");ctx.beginPath();ctx.arc(cx+x*scale/2,cy-y*scale/2,6,0,Math.PI*2);ctx.fill();canvas.setAttribute("aria-label",`点 (${fmt(x,1)},${fmt(y,1)}) 的偏导数 f x=${fmt(fx,2)}，f y=${fmt(fy,2)}`);
+      }
+
+      const questions = [
+        {id:"q1",title:"1. 混合求导规则",source:"官方 Exercise 4.29 · 讲义 p.14",skill:"chain and product rules",prompt:"求 (3x+1)⁵、e⁻²ˣ、ln(1+x²)、x²eˣ 的导数。",answer:"<p>(3x+1)⁵ → 15(3x+1)⁴；e⁻²ˣ → −2e⁻²ˣ；ln(1+x²) → 2x/(1+x²)；x²eˣ → 2xeˣ+x²eˣ=xeˣ(x+2)。</p>",concept:"chain-rule"},
+        {id:"q2",title:"2. 从定义求 x³",source:"自造，不是官方题",skill:"first principles",prompt:"用差商定义求 f(x)=x³ 在 a 点的导数。",answer:"<p>[(a+h)³−a³]/h=3a²+3ah+h²→3a²。</p>",concept:"derivative-definition"},
+        {id:"q3",title:"3. L’Hôpital 与不定式",source:"官方 Exercise 5.16 选做 · 讲义 p.21–22",skill:"indeterminate limits",prompt:"求 lim (1−cos x)/x²、lim (eˣ−1−x)/x²、lim x²ln x（x→0⁺）。",answer:"<p>三个结果依次为 1/2、1/2、0。</p><p>第一题可求导一次后用 sin x/x→1；第二题连续使用两次规则；第三题改写成 ln x/(1/x²) 后求导。</p>",concept:"lhopital"},
+        {id:"q4",title:"4. 反函数导数",source:"自造，不是官方题",skill:"inverse derivative",prompt:"f(x)=x³+x，已知 f(1)=2，求 (f⁻¹)′(2)。",answer:"<p>f′(x)=3x²+1，f′(1)=4，所以答案为 1/4。</p>",concept:"inverse-derivative"},
+        {id:"q5",title:"5. 变底变指数",source:"官方 Exercise 5.23 选做 · 讲义 p.25",skill:"logarithmic differentiation",prompt:"求 y=x^{√x}，x>0。",answer:"<p>ln y=√x ln x，所以 y′/y=(ln x+2)/(2√x)，y′=x^{√x}(ln x+2)/(2√x)。</p>",concept:"logarithmic-differentiation"},
+        {id:"q6",title:"6. 隐函数与切线",source:"自造，不是官方题",skill:"implicit differentiation",prompt:"x²+xy+y²=7，在 (1,2) 求 dy/dx 和切线。",answer:"<p>2x+y+x y′+2y y′=0，所以 y′=−(2x+y)/(x+2y)。在 (1,2) 得 −4/5，切线 y−2=−4/5(x−1)。</p>",concept:"implicit-differentiation"},
+        {id:"q7",title:"7. 参数曲线",source:"官方 Exercise 5.28 · 讲义 p.28",skill:"parametric derivative",prompt:"x=t²+1，y=t³−3t。求 t=1 的切线和 t=0 的特殊情况。",answer:"<p>dx/dt=2t，dy/dt=3t²−3。t=1 点为 (2,−2)，斜率 0，切线 y=−2。t=0 时 dx/dt=0、dy/dt=−3，曲线有竖直切线 x=1。</p>",concept:"parametric-derivative"},
+        {id:"q8",title:"8. 连续与可导",source:"自造，不是官方题",skill:"differentiability and continuity",prompt:"解释为什么 |x| 在 0 连续但不可导。",answer:"<p>|x| 在 0 连续；右差商为 1，左差商为 −1，左右极限不同，所以导数不存在。</p>",concept:"differentiability-continuity"},
+        {id:"q9",title:"9. 驻点和极值",source:"官方 Exercise 6.14 · 讲义 p.33–34",skill:"monotonicity and extrema",prompt:"分析 f=x³−3x²−9x+5 的驻点、增减区间、极值和端行为。",answer:"<p>f′=3(x−3)(x+1)。递增 (−∞,−1) 和 (3,∞)，递减 (−1,3)。x=−1 为局部最大 10，x=3 为局部最小 −22；两端为 −∞、+∞。</p>",concept:"monotonic-extrema"},
+        {id:"q10",title:"10. 闭区间全局最值",source:"自造，不是官方题",skill:"closed-interval extrema",prompt:"求 f=x³−3x 在 [−2,3] 的全局最值。",answer:"<p>候选 f(−2)=−2、f(−1)=2、f(1)=−2、f(3)=18；全局最大 18，在 3；全局最小 −2，在 −2 和 1。</p>",concept:"curve-analysis"},
+        {id:"q11",title:"11. 二阶判别无结论",source:"自造，不是官方题",skill:"second derivative test",prompt:"f=x⁴ 与 g=x³ 在 0 都有 f′=g′=0、f″=g″=0，能判断极值吗？",answer:"<p>不能，二阶测试无结论。x⁴ 在 0 是极小，x³ 在 0 不是极值，需要检查一阶符号。</p>",concept:"derivative-tests"},
+        {id:"q12",title:"12. 求导方法顺序",source:"自造，不是官方题",skill:"method selection",prompt:"不用计算，说明 f=x e^{x²}/(1+x²) 的求导顺序。",answer:"<p>最外层是商，先用商法则；分子是乘积，用乘积法则；e^{x²} 是复合，再用链式法则。</p>",concept:"method-selection"},
+        {id:"q13",title:"13. 定义、逆函数和极限",source:"官方 Exercise 6.20 选做 · 讲义 p.35–36",skill:"mixed methods",prompt:"用定义求 x³ 导数；求 f=x³+x 的逆函数在 2 的导数；求 lim x/eˣ。",answer:"<p>分别为 3a²、1/4、0。极限是 ∞/∞，检查分母条件后可用 L’Hôpital。</p>",concept:"method-selection"},
+        {id:"q14",title:"14. 偏导数（非考试）",source:"自造，不是官方题",skill:"partial derivatives",prompt:"f=x²y+3xy²−4y，在 (1,2) 求两个偏导数。",answer:"<p>fₓ=2xy+3y²，故 fₓ(1,2)=16；f_y=x²+6xy−4，故 f_y(1,2)=9。</p>",concept:"partial-derivatives"}
+      ];
+
+      function updateAnswerCount() {
+        const count=questions.filter(q=>(state.answers[q.id]||"").trim()).length;
+        $("#answer-count").textContent=`已作答 ${count} / ${questions.length}`;
+        if(count===questions.length&&!state.completed.includes("practice")) markComplete("practice");
+      }
+      function markComplete(id){ if(!state.completed.includes(id)) state.completed.push(id); saveState(); updateProgress(); }
+      function renderQuestions(){
+        $("#question-list").innerHTML=MFC_LESSON_KIT.renderQuestions(questions, window.MFC_ENGLISH_PACKS?.week2Questions || {});
+        $$("textarea[data-answer]").forEach(textarea=>{textarea.value=state.answers[textarea.dataset.answer]||"";textarea.addEventListener("input",()=>{state.answers[textarea.dataset.answer]=textarea.value;saveState();updateAnswerCount();});});
+        $$("[data-reveal]").forEach(button=>button.addEventListener("click",()=>{const solution=$(`#solution-${button.dataset.reveal}`);const open=solution.hidden;solution.hidden=!open;button.setAttribute("aria-expanded",String(open));button.textContent=open?"Hide solution · 收起解答":"Show solution · 查看解答";}));
+        updateAnswerCount();
+      }
+
+      const terms=[
+        ["average rate of change","平均变化率"],["derivative","导数"],["secant line","割线"],["tangent line","切线"],["differentiability","可导"],["chain rule","链式法则"],["product rule","乘积法则"],["quotient rule","商法则"],["inverse function","逆函数"],["implicit differentiation","隐函数求导"],["logarithmic differentiation","对数求导"],["parameterised curve","参数曲线"],["stationary point","驻点"],["critical point","临界点"],["local maximum","局部最大"],["global maximum","全局最大"],["monotonicity","单调性"],["convex","凸"],["concave","凹"],["partial derivative","偏导数"],["directional derivative","方向导数"],["indeterminate form","不定式"]
+      ];
+      function renderGlossary(query=""){
+        const q=query.trim().toLowerCase(),filtered=terms.filter(([en,zh])=>`${en} ${zh}`.toLowerCase().includes(q));
+        $("#glossary-count").textContent=`${filtered.length} 个术语`;
+        $("#glossary-list").innerHTML=filtered.length?filtered.map(([en,zh])=>`<div class="term"><strong>${en}</strong><span>${zh}</span><span class="term-note">配对阅读 ${en} 与 ${zh}</span></div>`).join(""):'<div class="empty-state">没有匹配的术语。</div>';
+      }
+      $("#glossary-search").addEventListener("input",e=>renderGlossary(e.target.value));
+
+      $("#secant-a").addEventListener("input",renderDerivativeLab);
+      $("#secant-h").addEventListener("input",renderDerivativeLab);
+      $("#rule-example").addEventListener("change",renderRuleLab);
+      $("#advanced-method").addEventListener("change",renderAdvancedLab);
+      $("#curve-function").addEventListener("change",renderCurveLab);
+      $("#partial-x").addEventListener("input",renderPartialLab);
+      $("#partial-y").addEventListener("input",renderPartialLab);
+      document.addEventListener("mfc:themechange",()=>{renderDerivativeLab();renderAdvancedLab();renderCurveLab();renderPartialLab();});
+
+      renderOverview();
+      renderNetworks();
+      renderLessons();
+      renderDerivativeLab();
+      renderRuleLab();
+      renderAdvancedLab();
+      renderCurveLab();
+      renderPartialLab();
+      renderQuestions();
+      renderGlossary();
+      updateProgress();
+      MFC_LESSON_KIT.applyLanguageMode(store.getLanguageMode());
+
+      window.runWeek2SelfTest=()=>{
+        const checks=[
+          ["lesson count",document.querySelectorAll(".lesson").length===16],
+          ["five steps each",document.querySelectorAll(".qa-step").length===80],
+          ["animation count",document.querySelectorAll(".micro-animation").length===16],
+          ["station network count",document.querySelectorAll(".station-network").length===6],
+          ["content interface",Boolean(window.MFC_WEEK_CONTENT&&window.MFC_WEEK_CONTENT.weekId==="week2"&&window.MFC_WEEK_CONTENT.lessons.length===16&&window.MFC_WEEK_CONTENT.stations.length===5)],
+          ["network node count",document.querySelectorAll(".network-node").length===20],
+          ["question count",questions.length===14],
+          ["english answer coverage",document.querySelectorAll(".answer-primary").length===80],
+          ["bilingual captions",document.querySelectorAll("[data-caption-en]").length===16],
+          ["language mode",["english","bilingual","chinese"].includes(store.getLanguageMode())],
+          ["theme fonts",getComputedStyle(document.body).fontFamily.includes("Noto Sans SC")&&getComputedStyle(document.querySelector("h1")).fontFamily.includes("Noto Serif SC")]
+        ];
+        const failed=checks.filter(([,ok])=>!ok);
+        failed.forEach(([name])=>console.assert(false,`Week 2 self-test failed: ${name}`));
+        return {passed:checks.length-failed.length,failed:failed.map(([name])=>name)};
+      };
+    })();
+  </script>
+</body>
+</html>

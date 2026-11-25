@@ -1,0 +1,2356 @@
+<!doctype html>
+<html lang="zh-CN" data-site-root="../" data-week-id="week1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <title>MFC Week 1 · 双语交互学习站</title>
+  <script src="../assets/courses.js?v=20261120-1"></script>
+  <script src="../assets/mfc.js?v=20261120-1"></script>
+  <script src="../assets/lesson-kit.js?v=20261120-2"></script>
+  <script src="../assets/week1-guides.js?v=20261106-2"></script>
+  <script src="../assets/week1-english.js?v=20261110-1"></script>
+  <link rel="stylesheet" href="../assets/mfc.css?v=20261120-2">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" data-course-home href="../index.html">
+      <span class="brand-mark" aria-hidden="true">ε</span>
+      <span class="brand-copy">
+        <span class="brand-title"><span data-week-number>WEEK 01</span><span class="week-title-suffix"> · <span data-week-label-zh>集合、函数、极限与连续性</span></span></span>
+        <span class="brand-subtitle" data-week-label-en lang="en">Sets, Functions, Limits and Continuity</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <a class="button secondary small top-week-link" data-course-home href="../index.html">学习中心</a>
+      <div class="progress-wrap" aria-label="学习进度">
+        <span class="progress-copy" id="progress-copy">0 / 6</span>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" aria-labelledby="progress-copy">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      <button class="button secondary small" id="resume-button" type="button">继续学习</button>
+      <div data-theme-control></div>
+      <button class="button ghost small" id="reset-button" type="button">重置</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="章节导航">
+      <div class="rail-label">学习路线</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#overview" data-section-link="overview"><span class="nav-index">00</span><span>知识地图</span></a></li>
+          <li><a class="nav-link" href="#real-line" data-section-link="real-line"><span class="nav-index">01</span><span>实数线与上下界</span></a></li>
+          <li><a class="nav-link" href="#functions" data-section-link="functions"><span class="nav-index">02</span><span>函数与可数性</span></a></li>
+          <li><a class="nav-link" href="#sequences" data-section-link="sequences"><span class="nav-index">03</span><span>数列极限</span></a></li>
+          <li><a class="nav-link" href="#function-limits" data-section-link="function-limits"><span class="nav-index">04</span><span>函数极限</span></a></li>
+          <li><a class="nav-link" href="#continuity" data-section-link="continuity"><span class="nav-index">05</span><span>连续性</span></a></li>
+          <li><a class="nav-link" href="#practice" data-section-link="practice"><span class="nav-index">06</span><span>练习与复盘</span></a></li>
+        </ul>
+      </nav>
+      <div class="rail-note">建议时长约 3 小时 30 分。每次先操作实验，再用一句话向自己解释变化。</div>
+    </aside>
+
+    <main id="content">
+      <section class="chapter" id="overview" data-section="overview">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Mathematical Foundations for Calculus</div>
+            <h1>先把“靠近”变成可验证的语言</h1>
+            <p class="lede">这一页把 Week 1 从集合、距离、函数一路连接到极限与连续性。每个核心实验只回答一个问题：为什么这条定义能保证我们想要的结果？</p>
+            <p class="hero-en" lang="en">Week 1 turns the informal idea of “getting close” into precise statements about sets, functions, convergence, limits and continuity.</p>
+            <div class="hero-actions">
+              <a class="button" href="#real-line">开始第 1 站</a>
+              <a class="button secondary" href="#practice">直接练习</a>
+            </div>
+          </div>
+          <aside class="hero-meta">
+            <strong>预习顺序</strong>
+            <p>集合与距离 → 函数性质 → epsilon-N → epsilon-delta → 连续性。遇到卡点，先写下“凭什么”，再继续。</p>
+          </aside>
+        </div>
+
+        <div class="path-card">
+          <div class="path-title">
+            <h2>知识依赖链</h2>
+            <p>点击任一节点直接跳到对应实验。</p>
+          </div>
+          <div class="path" aria-label="知识依赖链">
+            <a class="path-node" href="#real-line"><span>01</span><strong>集合 · 区间<br>界与距离</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#functions"><span>02</span><strong>函数 · 像与原像<br>双射与可数</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#sequences"><span>03</span><strong>数列<br>epsilon-N</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#function-limits"><span>04</span><strong>函数极限<br>epsilon-delta</strong></a>
+            <span class="path-arrow" aria-hidden="true">→</span>
+            <a class="path-node" href="#continuity"><span>05</span><strong>连续性<br>点值 = 极限</strong></a>
+          </div>
+        </div>
+
+        <div class="knowledge-grid" aria-label="十六个知识簇">
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>集合语言</h3><span class="source-chip">p.3–4</span></div><p>成员、子集、并交差、补集、De Morgan 律和笛卡尔积构成全部记号基础。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>数系与区间</h3><span class="source-chip">p.4–5</span></div><p>数系层层包含；区间是实数线的一段，端点是否包含必须看清。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>界、最大值、上确界</h3><span class="source-chip">p.6–7</span></div><p>上界不必属于集合；最大值必须属于集合；上确界是最小的上界。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>距离与三角不等式</h3><span class="source-chip">p.8–9</span></div><p>绝对值和距离负责把“靠近”写成不等式；三角不等式负责拆分误差。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>函数、像与原像</h3><span class="source-chip">p.10</span></div><p>像问输入到了哪里；原像问哪些输入落进指定输出集合。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>复合与自然定义域</h3><span class="source-chip">p.11, 13</span></div><p>先满足内层，再满足外层；所有限制必须同时成立。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>单射、满射、双射</h3><span class="source-chip">p.11–13</span></div><p>逆函数存在当且仅当原函数是双射；严格单调能推出单射。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>初等函数</h3><span class="source-chip">p.13</span></div><p>多项式与三角函数的自然定义域是 R；根号、对数、分母各有额外限制。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>可数与不可数</h3><span class="source-chip">p.14–15</span></div><p>N、Z、Q 可数；R 不可数。可数有限集也算可数。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>数列与 epsilon-N</h3><span class="source-chip">p.16–19</span></div><p>收敛要求最终整条尾部进入任意容差带，不是“经常接近”。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>极限结构、法则与夹逼</h3><span class="source-chip">p.20–24</span></div><p>极限唯一；收敛必有界；加减乘除、保序和夹逼都从定义证明。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>发散到无穷</h3><span class="source-chip">p.25–26</span></div><p>趋于 +∞ 是“超过任意水平 M”，并不表示有一个实数极限。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>聚点与函数极限</h3><span class="source-chip">p.27–30</span></div><p>必须先有聚点；极限考察去掉 a 后的邻域，与 f(a) 无关。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>函数极限法则与代入</h3><span class="source-chip">p.31–34</span></div><p>四则运算要求有限极限；代入前检查分母；0/0 时可约去公共因式。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>连续性与间断点</h3><span class="source-chip">p.34–39</span></div><p>连续要求函数在 a 有定义、极限存在，并且极限等于函数值。</p></article>
+          <article class="knowledge-card"><div class="knowledge-card-top"><h3>连续函数性质与无穷极限</h3><span class="source-chip">p.38–43</span></div><p>初等函数在自然定义域上连续；闭区间上连续函数取得最值。</p></article>
+        </div>
+      </section>
+
+      <section class="chapter" id="real-line" data-section="real-line">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 01 · p.3–9</div>
+            <h2><span class="source-en" lang="en">The real line and bounds</span><span class="language-zh">实数线与上下界</span></h2>
+            <p class="section-summary source-en" lang="en">Use intervals to describe membership, then distinguish upper bounds, suprema and maxima by asking where the best boundary lies and whether it belongs to the set.</p>
+            <p class="section-summary language-zh">先用区间回答“集合里有什么”，再用 sup 与 max 回答“最好的界在哪里，是否真的属于集合”。</p>
+          </div>
+          <span class="source-chip">定义 1.1–1.11</span>
+        </div>
+        <div class="station-network" data-knowledge-network="real-line"></div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <h3>集合运算</h3>
+            <div class="en">A ∪ B: at least one; A ∩ B: both; A ∖ B: in A and not in B.</div>
+            <p>证明两个集合相等，最稳妥的动作是证明 A ⊆ B 与 B ⊆ A。De Morgan 律只是“不属于并/交”的逐项翻译。</p>
+          </article>
+          <article class="concept-card">
+            <h3>上界与最大值</h3>
+            <div class="en">sup A is the least upper bound; max A is an upper bound that belongs to A.</div>
+            <p>sup A 可以不在 A 中，max A 必须在 A 中。所以 (0, 1) 有 sup = 1，却没有最大值。</p>
+          </article>
+        </div>
+
+        <div class="deep-lessons" data-lesson-mount="real-line"></div>
+
+        <details class="reference">
+          <summary>三角不等式：为什么总误差可以拆开</summary>
+          <div class="detail-body">
+            <p><strong>正向：</strong>|x + y| ≤ |x| + |y|。证明极限唯一性和把总误差拆成两半时都会用到它。</p>
+            <p><strong>反向：</strong>||x| − |y|| ≤ |x − y|。它用来证明一个量最终远离零，例如分母不会太靠近 0。</p>
+            <p>它通常是“不超过”，不是等号。取 x = 1，y = −1，左边为 0，右边为 2。</p>
+          </div>
+        </details>
+
+        <div class="lab" id="lab-intervals">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验一：区间集合的运算</h3>
+              <p>选择操作，观察结果区间。空心点表示端点被排除，实心点表示端点被包含。</p>
+            </div>
+            <span class="badge info">可交互</span>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="interval-preset">区间样例</label>
+              <select id="interval-preset">
+                <option value="0">A = [−1, 3)，B = (1, 5]</option>
+                <option value="1">A = [0, 2]，B = [2, 4]</option>
+                <option value="2">A = (−2, 1]，B = [1, 3)</option>
+              </select>
+            </div>
+            <div class="control">
+              <span class="control-label">集合操作</span>
+              <div class="segmented" id="interval-ops" aria-label="集合操作">
+                <button class="segment" type="button" data-op="union" aria-pressed="true">A ∪ B</button>
+                <button class="segment" type="button" data-op="intersection" aria-pressed="false">A ∩ B</button>
+                <button class="segment" type="button" data-op="difference" aria-pressed="false">A ∖ B</button>
+              </div>
+            </div>
+          </div>
+          <svg class="numberline" id="interval-svg" viewBox="0 0 820 210" role="img" aria-labelledby="interval-svg-title"></svg>
+          <div class="lab-output">
+            <div class="metric"><span>A</span><strong id="set-a-label">[−1, 3)</strong></div>
+            <div class="metric"><span>B</span><strong id="set-b-label">(1, 5]</strong></div>
+            <div class="metric"><span>结果</span><strong id="set-result-label">A ∪ B</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="interval-status">观察三个区间在数轴上的位置。</span></div>
+        </div>
+
+        <div class="lab" id="lab-bounds">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验二：sup、inf 与端点归属</h3>
+              <p>切换端点是否属于 [0, 1]，观察最小值与最大值如何变化。</p>
+            </div>
+          </div>
+          <div class="controls">
+            <label class="check-row"><input id="include-low" type="checkbox">包含下端点 0</label>
+            <label class="check-row"><input id="include-high" type="checkbox">包含上端点 1</label>
+          </div>
+          <svg class="numberline" id="bounds-svg" viewBox="0 0 820 150" role="img" aria-labelledby="bounds-svg-title"></svg>
+          <div class="lab-output">
+            <div class="metric"><span>inf</span><strong>0</strong></div>
+            <div class="metric"><span>sup</span><strong>1</strong></div>
+            <div class="metric"><span>最大 / 最小</span><strong id="bounds-result">不存在 / 不存在</strong></div>
+          </div>
+        </div>
+
+        <div class="lab" id="lab-distance">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验三：距离就是区间</h3>
+              <p>调节中心和半径，观察 |x − a| &lt; r 如何变成 (a − r, a + r)。</p>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="distance-center">中心 a：<span id="distance-center-value">1.0</span></label>
+              <input id="distance-center" type="range" min="-2" max="2" step="0.1" value="1">
+            </div>
+            <div class="control">
+              <label for="distance-radius">半径 r：<span id="distance-radius-value">0.8</span></label>
+              <input id="distance-radius" type="range" min="0.2" max="2" step="0.1" value="0.8">
+            </div>
+          </div>
+          <svg class="numberline" id="distance-svg" viewBox="0 0 820 130" role="img" aria-labelledby="distance-svg-title"></svg>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="distance-status">区间还未计算。</span></div>
+        </div>
+
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>高频漏洞：</strong>看到 sup A = 1 就说 max A = 1。上界可以站在集合外面；最大值必须站进集合里面。</p></div>
+
+        <div class="module-check" data-check="real-line">
+          <fieldset>
+            <legend>即时检查：A = (0, 1) 的 sup 与 max 分别是什么？</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="check-real-line" value="a">sup = 1，max = 1</label>
+              <label class="choice"><input type="radio" name="check-real-line" value="b">sup = 1，max 不存在</label>
+              <label class="choice"><input type="radio" name="check-real-line" value="c">sup 不存在，max = 1</label>
+            </div>
+          </fieldset>
+          <div class="check-actions"><button class="button small" type="button" data-check-submit="real-line" data-answer="b">检查答案</button><span class="check-feedback" aria-live="polite"></span></div>
+        </div>
+        <div class="complete-row"><p>能解释“上界不必属于集合”就算完成本节。</p><button class="complete-button button secondary" type="button" data-complete="real-line">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="functions" data-section="functions">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 02 · p.10–15</div>
+            <h2><span class="source-en" lang="en">Functions and countability</span><span class="language-zh">函数与可数性</span></h2>
+            <p class="section-summary source-en" lang="en">A function is determined by its domain, codomain and rule. Changing the domain or codomain changes the properties of the same rule x ↦ x².</p>
+            <p class="section-summary language-zh">函数由定义域、陪域和规则共同决定。改变定义域或陪域，同一个 x ↦ x² 的性质会变化。</p>
+          </div>
+          <span class="source-chip">定义 1.22–1.38</span>
+        </div>
+        <div class="station-network" data-knowledge-network="functions"></div>
+
+        <div class="lab" id="lab-mapping">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验：同一个规则，还是不是同一个函数？</h3>
+              <p>切换 x² 的定义域和陪域，观察单射、满射、双射如何变化。</p>
+            </div>
+            <span class="badge info">可交互</span>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="function-domain">定义域</label>
+              <select id="function-domain"><option value="all">R</option><option value="nonnegative">[0, ∞)</option></select>
+            </div>
+            <div class="control">
+              <label for="function-codomain">陪域</label>
+              <select id="function-codomain"><option value="all">R</option><option value="nonnegative">[0, ∞)</option></select>
+            </div>
+          </div>
+          <div class="split-lab">
+            <div class="mapping-box"><svg id="mapping-svg" viewBox="0 0 640 330" role="img" aria-labelledby="mapping-title"></svg></div>
+            <div class="properties-box">
+              <h4>函数性质</h4>
+              <div class="property-list">
+                <div class="property-row"><span>单射 injective</span><strong id="injective-state">否</strong></div>
+                <div class="property-row"><span>满射 surjective</span><strong id="surjective-state">否</strong></div>
+                <div class="property-row"><span>双射 bijective</span><strong id="bijective-state">否</strong></div>
+                <div class="property-row"><span>像 image</span><strong id="image-state">[0, ∞)</strong></div>
+              </div>
+              <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="function-status">改变选项，观察性质。</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <h3>像与原像</h3>
+            <div class="en">f(E) asks where inputs go; f⁻¹(F) asks which inputs land in F.</div>
+            <p>原像 f⁻¹(F) 总是可以定义；它不要求 f 有逆函数。f 在 R 上不是单射，但 [0, 4] 仍然可以有原像 [−2, 2]。</p>
+          </article>
+          <article class="concept-card">
+            <h3>可数性</h3>
+            <div class="en">A is countably infinite if there is a bijection f : N → A.</div>
+            <p>无限不等于不可数。Z 可以按 0, 1, −1, 2, −2, ... 编号；R 不能这样列出。</p>
+          </article>
+        </div>
+
+        <div class="deep-lessons" data-lesson-mount="functions"></div>
+
+        <details class="reference">
+          <summary>像与原像的快速对照</summary>
+          <div class="detail-body">
+            <p><strong>查看像：</strong>取 E = [−2, 1]，x² 的最小值是 0，最大值是 4，所以 f(E) = [0, 4]。</p>
+            <p><strong>查看原像：</strong>F = [0, 4] 时，所有满足 0 ≤ x² ≤ 4 的输入是 [−2, 2]。</p>
+            <p><strong>可数：</strong>N、Z、Q 都可数；R 不可数。可数集合包括有限集和与 N 双射的无限集。</p>
+          </div>
+        </details>
+
+        <details class="reference">
+          <summary>复合函数与自然定义域</summary>
+          <div class="detail-body">
+            <p>(g ∘ f)(x) = g(f(x))，先做 f，再做 g；复合顺序通常不能交换。</p>
+            <p>根号要求被开方式非负，对数要求真数为正，分母要求不为零。所有限制必须同时满足。</p>
+            <p>(x² − 1)/(x − 1) 可以约成 x + 1，但原函数仍在 x = 1 缺失定义；约分不会自动补回这个点。</p>
+          </div>
+        </details>
+
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>高频漏洞：</strong>看见 f⁻¹(F) 就以为 f 有逆函数。原像只是一个集合问题，不是“每个输出只能对应一个输入”。</p></div>
+
+        <div class="module-check" data-check="functions">
+          <fieldset>
+            <legend>即时检查：x² 作为 R → R 的函数，具有哪些性质？</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="check-functions" value="a">单射，不是满射</label>
+              <label class="choice"><input type="radio" name="check-functions" value="b">满射，不是单射</label>
+              <label class="choice"><input type="radio" name="check-functions" value="c">既不是单射，也不是满射</label>
+            </div>
+          </fieldset>
+          <div class="check-actions"><button class="button small" type="button" data-check-submit="functions" data-answer="c">检查答案</button><span class="check-feedback" aria-live="polite"></span></div>
+        </div>
+        <div class="complete-row"><p>能用 f(1) = f(−1) 解释为什么 x² 不是单射，就算完成本节。</p><button class="complete-button button secondary" type="button" data-complete="functions">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="sequences" data-section="sequences">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 03 · p.16–26</div>
+            <h2><span class="source-en" lang="en">Sequence limits: the whole tail must settle</span><span class="language-zh">数列极限：整条尾部一起靠近</span></h2>
+            <p class="section-summary source-en" lang="en">Epsilon is the output tolerance and N is the starting index. N may depend on epsilon, but once chosen it must control every term with n ≥ N.</p>
+            <p class="section-summary language-zh">epsilon 是输出容差，N 是起始下标。N 可以依赖 epsilon，但选定以后必须覆盖所有 n ≥ N。</p>
+          </div>
+          <span class="source-chip">定义 2.1–2.22</span>
+        </div>
+        <div class="station-network" data-knowledge-network="sequences"></div>
+
+        <div class="lab" id="lab-sequence">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验：epsilon-N 容差带</h3>
+              <p>选择数列、调整容差和起点，观察是否能找到一条覆盖整条尾部的阈值。</p>
+            </div>
+            <span class="badge info">可交互</span>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="sequence-select">数列</label>
+              <select id="sequence-select">
+                <option value="reciprocal">aₙ = 1/n → 0</option>
+                <option value="shifted">aₙ = 2 + 1/n → 2</option>
+                <option value="alternating">aₙ = (−1)ⁿ，发散</option>
+                <option value="cos">aₙ = cos n / n² → 0</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="epsilon-seq">ε：<span id="epsilon-seq-value">0.10</span></label>
+              <input id="epsilon-seq" type="range" min="0.02" max="0.6" step="0.02" value="0.10">
+            </div>
+            <div class="control">
+              <label for="threshold-n">起点 N：<span id="threshold-n-value">20</span></label>
+              <input id="threshold-n" type="range" min="1" max="80" step="1" value="20">
+            </div>
+            <button class="button secondary compact" id="auto-n" type="button">自动找 N</button>
+          </div>
+          <div class="canvas-wrap"><canvas id="sequence-canvas" height="280" role="img" aria-label="数列收敛容差带图"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>候选极限 L</span><strong id="sequence-limit">0</strong></div>
+            <div class="metric"><span>最小可行 N</span><strong id="min-n">11</strong></div>
+            <div class="metric"><span>当前 N 状态</span><strong id="n-status">足够</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="sequence-status">N 足够时，绿色尾部都落在容差带内。</span></div>
+          <div class="instructor-note">量词结构：∀ε &gt; 0，∃N，∀n ≥ N：|aₙ − L| &lt; ε。前两个选择完成以后，第三个条件必须覆盖全部下标。</div>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <h3>收敛与有界</h3>
+            <div class="en">Convergent ⟹ bounded, but bounded does not imply convergent.</div>
+            <p>(−1)ⁿ 被限制在 [−1, 1] 内，却一直来回跳，所以有界不推出收敛。</p>
+          </article>
+          <article class="concept-card">
+            <h3>夹逼与运算</h3>
+            <div class="en">If aₙ ≤ bₙ ≤ cₙ eventually and aₙ, cₙ → L, then bₙ → L.</div>
+            <p>夹逼必须让三条不等式同时发生在同一个尾部。极限法则则先把复杂表达式拆成已知极限。</p>
+          </article>
+        </div>
+
+        <div class="deep-lessons" data-lesson-mount="sequences"></div>
+
+        <div class="callout danger"><div class="callout-icon">!</div><p><strong>高频漏洞：</strong>“有无限多项进入容差带”不等于“最终所有项都在容差带里”。量词里的 ∀n ≥ N 不能删。</p></div>
+
+        <div class="module-check" data-check="sequences">
+          <fieldset>
+            <legend>即时检查：若 aₙ 有界，可以推出 aₙ 收敛吗？</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="check-sequences" value="a">可以，收敛与有界等价</label>
+              <label class="choice"><input type="radio" name="check-sequences" value="b">不可以，例如 (−1)ⁿ</label>
+              <label class="choice"><input type="radio" name="check-sequences" value="c">可以，只要界限小于 1</label>
+            </div>
+          </fieldset>
+          <div class="check-actions"><button class="button small" type="button" data-check-submit="sequences" data-answer="b">检查答案</button><span class="check-feedback" aria-live="polite"></span></div>
+        </div>
+        <div class="complete-row"><p>能把 epsilon-N 定义读成“最终整条尾部进入容差带”，就算完成本节。</p><button class="complete-button button secondary" type="button" data-complete="sequences">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="function-limits" data-section="function-limits">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 04 · p.27–34</div>
+            <h2><span class="source-en" lang="en">Function limits: input neighbourhoods control output error</span><span class="language-zh">函数极限：输入邻域控制输出误差</span></h2>
+            <p class="section-summary source-en" lang="en">An accumulation point makes taking a limit meaningful. Epsilon controls output error, delta controls input distance, and the punctured limit ignores f(a).</p>
+            <p class="section-summary language-zh">先有聚点，再去掉 x = a。epsilon 管输出，delta 管输入；f(a) 是否存在不改变去心极限。</p>
+          </div>
+          <span class="source-chip">定义 3.1–3.15</span>
+        </div>
+        <div class="station-network" data-knowledge-network="function-limits"></div>
+
+        <div class="lab" id="lab-limit">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验：epsilon-delta 双向容差</h3>
+              <p>调节 ε 和 δ，观察水平输出带与竖直输入带。判定只看去心邻域里的点。</p>
+            </div>
+            <span class="badge info">可交互</span>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="limit-function">函数</label>
+              <select id="limit-function">
+                <option value="linear">f(x) = 3x + 1，a = 2</option>
+                <option value="quadratic">f(x) = x²，a = 2</option>
+                <option value="removable">f(x) = (x² − 1)/(x − 1)，a = 1</option>
+                <option value="jump">跳跃函数，a = 0</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="epsilon-limit">ε：<span id="epsilon-limit-value">0.60</span></label>
+              <input id="epsilon-limit" type="range" min="0.1" max="2" step="0.1" value="0.6">
+            </div>
+            <div class="control">
+              <label for="delta-limit">δ：<span id="delta-limit-value">0.10</span></label>
+              <input id="delta-limit" type="range" min="0.02" max="1" step="0.01" value="0.1">
+            </div>
+          </div>
+          <div class="canvas-wrap"><canvas id="limit-canvas" height="310" role="img" aria-label="函数极限 epsilon-delta 图"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>候选极限 L</span><strong id="limit-L">7</strong></div>
+            <div class="metric"><span>去心邻域最大误差</span><strong id="limit-error">0.300</strong></div>
+            <div class="metric"><span>δ 是否足够</span><strong id="delta-status">足够</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="limit-status">在线性函数中，输出误差等于 3|x − 2|。</span></div>
+          <div class="instructor-note" id="delta-recipe">证明提示：取 δ ≤ ε/3。</div>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <h3>聚点为什么必须出现</h3>
+            <div class="en">For every δ &gt; 0, there exists x ∈ D with 0 &lt; |x − a| &lt; δ.</div>
+            <p>如果没有定义域中的点任意靠近 a，极限定义可能因为“没有 x 可检查”而空洞成立。</p>
+          </article>
+          <article class="concept-card">
+            <h3>代入与约分</h3>
+            <div class="en">Substitution is justified when the limiting denominator is non-zero.</div>
+            <p>0/0 时不能直接使用商法则。约分只在去心邻域上合法，不能偷偷补回原函数缺少的点。</p>
+          </article>
+        </div>
+
+        <div class="deep-lessons" data-lesson-mount="function-limits"></div>
+
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>高频漏洞：</strong>极限存在不等于函数在该点有定义；f(a) 的值也不参与去心极限的计算。</p></div>
+
+        <div class="module-check" data-check="function-limits">
+          <fieldset>
+            <legend>即时检查：函数极限 lim x→a f(x) 会受 f(a) 的值影响吗？</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="check-function-limits" value="a">会，必须相等</label>
+              <label class="choice"><input type="radio" name="check-function-limits" value="b">不会，定义排除了 x = a</label>
+              <label class="choice"><input type="radio" name="check-function-limits" value="c">只有 f(a) = 0 时不受影响</label>
+            </div>
+          </fieldset>
+          <div class="check-actions"><button class="button small" type="button" data-check-submit="function-limits" data-answer="b">检查答案</button><span class="check-feedback" aria-live="polite"></span></div>
+        </div>
+        <div class="complete-row"><p>能解释 0 &lt; |x − a| 为什么排除点值，就算完成本节。</p><button class="complete-button button secondary" type="button" data-complete="function-limits">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="continuity" data-section="continuity">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 05 · p.34–43</div>
+            <h2><span class="source-en" lang="en">Continuity: matching the limit to the point value</span><span class="language-zh">连续性：极限与点值握手</span></h2>
+            <p class="section-summary source-en" lang="en">Continuity is not merely “the graph looks connected.” Three facts must hold: f(a) exists, the two-sided limit exists, and the limit equals f(a).</p>
+            <p class="section-summary language-zh">连续不是“图像不断开”的口头描述，而是三件事同时成立：函数在 a 有定义、极限存在、极限等于 f(a)。</p>
+          </div>
+          <span class="source-chip">定义 3.17–3.39</span>
+        </div>
+        <div class="station-network" data-knowledge-network="continuity"></div>
+
+        <div class="lab" id="lab-continuity">
+          <div class="lab-header">
+            <div class="lab-heading">
+              <h3>实验：改一个点值，能修好间断吗？</h3>
+              <p>切换可去间断、跳跃函数或多项式，改变 a 点的函数值，观察连续性三个条件。</p>
+            </div>
+            <span class="badge info">可交互</span>
+          </div>
+          <div class="controls">
+            <div class="control">
+              <label for="continuity-function">函数</label>
+              <select id="continuity-function">
+                <option value="removable">可去间断：极限为 2</option>
+                <option value="jump">跳跃函数：左 0，右 1</option>
+                <option value="poly">多项式：f(x) = x² + 1</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="point-value">a 点函数值 c：<span id="point-value-value">0.0</span></label>
+              <input id="point-value" type="range" min="0" max="3" step="0.1" value="0">
+            </div>
+            <div class="control">
+              <span class="control-label">序列探测</span>
+              <div class="segmented">
+                <button class="segment" type="button" data-sequence-probe="right">右侧 +1/n</button>
+                <button class="segment" type="button" data-sequence-probe="left">左侧 −1/n</button>
+                <button class="segment" type="button" data-sequence-probe="alternating">交替</button>
+              </div>
+            </div>
+          </div>
+          <div class="canvas-wrap"><canvas id="continuity-canvas" height="300" role="img" aria-label="连续性与点值示意图"></canvas></div>
+          <div class="lab-output">
+            <div class="metric"><span>函数在 a 有定义</span><strong id="defined-check">是</strong></div>
+            <div class="metric"><span>双侧极限</span><strong id="continuity-limit">2</strong></div>
+            <div class="metric"><span>连续？</span><strong id="continuous-check">否</strong></div>
+          </div>
+          <div class="status-line" aria-live="polite"><span class="status-dot"></span><span id="continuity-status">极限为 2，但与点值 0 不相等。</span></div>
+          <div class="instructor-note" id="probe-output">选择序列，观察 f(xₙ) 是否趋近 f(a)。</div>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <h3>连续与去心极限</h3>
+            <div class="en">f is continuous at a if and only if lim x→a f(x) = f(a), when a is an accumulation point of D.</div>
+            <p>连续允许 x = a，因为那里 |f(a) − f(a)| = 0；去心极限刻意排除 a，只观察附近行为。</p>
+          </article>
+          <article class="concept-card">
+            <h3>序列刻画</h3>
+            <div class="en">Every xₙ → a in D must satisfy f(xₙ) → f(a).</div>
+            <p>证明连续需要所有趋近序列；反驳连续只要找到一个坏序列。跳跃函数从左右两侧趋近会得到不同输出。</p>
+          </article>
+        </div>
+
+        <div class="deep-lessons" data-lesson-mount="continuity"></div>
+
+        <details class="reference">
+          <summary>连续函数的标准性质</summary>
+          <div class="detail-body">
+            <p>和、差、积以及分母不为零的商仍连续；复合函数在内层点与外层对应点都连续时连续。</p>
+            <p>初等函数在自然定义域上连续。闭区间上的连续函数有界并取得最大值与最小值。</p>
+            <p>连续且严格单调的函数在像区间上存在连续、严格单调的逆函数。</p>
+          </div>
+        </details>
+
+        <details class="reference">
+          <summary>无穷处极限与无穷极限</summary>
+          <div class="detail-body">
+            <p><strong>x → ∞：</strong>输入超过任意阈值后，输出必须落在 L 的任意 ε 邻域内。例如 1/x → 0。</p>
+            <p><strong>f(x) → +∞：</strong>输出会超过任意水平 M。例如 x → 0 时 1/x² → +∞；1/x 在左右两侧分别发散到 −∞ 与 +∞。</p>
+            <p>∞ 不是实数。像 ∞ − ∞、∞/∞ 这样的形式必须继续化简，不能直接当数值相减或相除。</p>
+          </div>
+        </details>
+
+        <div class="callout warning"><div class="callout-icon">!</div><p><strong>高频漏洞：</strong>“极限存在”只是连续性的第二项。还必须知道函数在 a 有定义，并且这个极限正好等于 f(a)。</p></div>
+
+        <div class="module-check" data-check="continuity">
+          <fieldset>
+            <legend>即时检查：可去间断中，极限存在但 f(a) ≠ 极限。它连续吗？</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="check-continuity" value="a">连续，因为极限存在</label>
+              <label class="choice"><input type="radio" name="check-continuity" value="b">不连续，因为极限与点值不相等</label>
+              <label class="choice"><input type="radio" name="check-continuity" value="c">只有当 f(a) = 0 时连续</label>
+            </div>
+          </fieldset>
+          <div class="check-actions"><button class="button small" type="button" data-check-submit="continuity" data-answer="b">检查答案</button><span class="check-feedback" aria-live="polite"></span></div>
+        </div>
+        <div class="complete-row"><p>能逐项检查“有定义、极限存在、二者相等”，就算完成本节。</p><button class="complete-button button secondary" type="button" data-complete="continuity">标记完成</button></div>
+      </section>
+
+      <section class="chapter" id="practice" data-section="practice">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">STATION 06 · 14 QUESTIONS</div>
+            <h2><span class="source-en" lang="en">Practice and review</span><span class="language-zh">练习与复盘</span></h2>
+            <p class="section-summary source-en" lang="en">Write your own reasoning before revealing a solution. The solutions check the structure of the argument; they do not need to match word for word.</p>
+            <p class="section-summary language-zh">先写自己的思路，再展开解答。这里的答案用于核对推理，不要求逐字一致。</p>
+          </div>
+          <span class="source-chip">官方题 + 自造题</span>
+        </div>
+        <div class="practice-summary">
+          <p>每次输入会自动保存在本机。完成后可回到学习地图复查。</p>
+          <span class="badge" id="answer-count">已作答 0 / 14</span>
+        </div>
+        <div class="question-list" id="question-list"></div>
+
+        <div class="complete-row"><p>完成全部 14 题回答后，系统自动记录本节完成；也可以先标记，再继续补写。</p><button class="complete-button button secondary" type="button" data-complete="practice">标记完成</button></div>
+
+      <div class="review-block" id="review">
+        <div class="section-heading">
+          <div>
+            <div class="section-number">REVIEW</div>
+            <h2>术语与关键速查</h2>
+            <p class="section-summary">搜索英文术语，或展开关键结论，做最后一次开口复述。</p>
+          </div>
+          <span class="source-chip">附录 A–B</span>
+        </div>
+        <div class="glossary-tools">
+          <input id="glossary-search" type="search" placeholder="搜索术语：supremum、bijective、epsilon…" aria-label="搜索术语">
+          <span class="badge" id="glossary-count">42 个术语</span>
+        </div>
+        <div class="glossary-list" id="glossary-list"></div>
+
+        <div class="reference-grid">
+          <details class="reference"><summary>三条最危险的混淆</summary><div class="detail-body"><p>上界 vs 最大值：前者不必属于集合。</p><p>原像 vs 逆函数：原像只是“哪些输入落进去”。</p><p>函数极限 vs 连续性：连续额外要求极限等于实际点值。</p></div></details>
+          <details class="reference"><summary>四个证明模板</summary><div class="detail-body"><p>集合相等：证明双向包含。</p><p>epsilon-N：先化简误差，再选 N，最后验证整个尾部。</p><p>epsilon-delta：先化简输出误差，再选 δ，最后验证去心邻域。</p><p>连续性：检查定义、极限、相等三步。</p></div></details>
+          <details class="reference source-index"><summary>讲义编号索引</summary><div class="detail-body"><p><strong>定义：</strong>1.1、1.2、1.5、1.9、1.10、1.11、1.22、1.23、1.26、1.29、1.31、1.33、1.35、2.1、2.2、2.10、2.22、3.1、3.2、3.6、3.17、3.35、3.36。</p><p><strong>命题与推论：</strong>1.4、1.17、1.18、1.19、1.32、1.36、2.6、2.16、2.24、3.10、3.12、3.18、3.39。</p><p><strong>定理：</strong>1.38、2.9、2.11、2.12、2.18、3.5、3.7、3.11、3.21、3.23、3.24、3.25、3.26、3.27。</p><p><strong>例题：</strong>1.3、1.7、1.8、1.12、1.13、1.14、1.15、1.16、1.24、1.27、1.30、1.34、2.3、2.4、2.5、2.13、2.14、2.19、2.23、2.25、3.3、3.4、3.8、3.13、3.14、3.19、3.29、3.30、3.31、3.37、3.38。</p><p><strong>练习：</strong>1.6、1.21、1.25、1.28、1.39、2.8、2.15、2.17、2.21、2.26、3.9、3.16、3.20、3.22、3.28、3.34、3.40。</p><p><strong>Remark：</strong>1.20、1.37、2.7、2.20、3.15、3.32、3.33。</p></div></details>
+        </div>
+      </div>
+      </section>
+
+      <nav class="week-pager" aria-label="课程周次导航">
+        <a data-week-prev href="#" hidden><small>上一周</small><strong></strong></a>
+        <a class="pager-home" data-course-home href="../index.html"><small>课程首页</small><strong>MFC 学习中心</strong></a>
+        <a class="pager-next" data-week-next href="#" hidden><small>下一周</small><strong></strong></a>
+      </nav>
+      <footer class="footer">依据 Week 1 Lecture Notes p.3–43 与《超前学习法 Week 1 预习手册》整理。所有交互数据仅保存在当前浏览器。</footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const store = window.MFC_STORE;
+      const coreSections = store.getWeekSections("week1");
+      const sectionOrder = ["overview", "real-line", "functions", "sequences", "function-limits", "continuity", "practice"];
+      let state = store.getWeek("week1");
+      function saveState() {
+        state = store.updateWeek("week1", state);
+      }
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+      const fmt = (value, digits = 2) => {
+        if (!Number.isFinite(value)) return "—";
+        const rounded = Number(value.toFixed(digits));
+        return String(rounded).replace("-", "−");
+      };
+      const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+      function updateProgress() {
+        const count = coreSections.filter((id) => state.completed.includes(id)).length;
+        $("#progress-copy").textContent = `${count} / ${coreSections.length}`;
+        $("#progress-fill").style.width = `${(count / coreSections.length) * 100}%`;
+        const bar = $(".progress-track");
+        bar.setAttribute("aria-valuenow", String(count));
+        $$(".complete-button").forEach((button) => {
+          const done = state.completed.includes(button.dataset.complete);
+          button.dataset.done = String(done);
+          button.textContent = done ? "已完成 ✓" : "标记完成";
+          button.setAttribute("aria-pressed", String(done));
+        });
+      }
+
+      function markComplete(id) {
+        if (!coreSections.includes(id)) return;
+        if (!state.completed.includes(id)) state.completed.push(id);
+        saveState();
+        updateProgress();
+      }
+
+      $$(".complete-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const id = button.dataset.complete;
+          if (state.completed.includes(id)) {
+            state.completed = state.completed.filter((item) => item !== id);
+          } else {
+            state.completed.push(id);
+          }
+          saveState();
+          updateProgress();
+        });
+      });
+
+      $("#resume-button").addEventListener("click", () => {
+        const next = coreSections.find((id) => !state.completed.includes(id)) || "practice";
+        document.getElementById(next).scrollIntoView({ block: "start" });
+      });
+
+      $("#reset-button").addEventListener("click", () => {
+        if (!window.confirm("清除本地进度、练习草稿与当前章节记录？此操作不可撤销。")) return;
+        state = store.resetWeek("week1");
+        state.lessonProgress = {};
+        $$("textarea[data-answer]").forEach((textarea) => { textarea.value = ""; });
+        $$(".qa-step").forEach((step) => {
+          step.open = step.dataset.stepIndex === "0";
+        });
+        $("#point-value").value = "0";
+        updateProgress();
+        updateAnswerCount();
+        updateAllNetworkNodes();
+        renderContinuity();
+        document.getElementById("overview").scrollIntoView({ block: "start" });
+      });
+
+      const navLinks = $$("[data-section-link]");
+      let activeFrame = 0;
+      function updateActiveSection(persist = true) {
+        const marker = window.innerHeight * 0.34;
+        let current = sectionOrder[0];
+        for (const id of sectionOrder) {
+          const section = document.getElementById(id);
+          if (section && section.getBoundingClientRect().top <= marker) current = id;
+        }
+        const changed = state.currentSection !== current;
+        if (persist) {
+          state.currentSection = current;
+          if (changed) saveState();
+        }
+        navLinks.forEach((link) => {
+          link.setAttribute("aria-current", String(link.dataset.sectionLink === current));
+        });
+      }
+      window.addEventListener("scroll", () => {
+        cancelAnimationFrame(activeFrame);
+        activeFrame = requestAnimationFrame(updateActiveSection);
+      }, { passive: true });
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          state.currentSection = link.dataset.sectionLink;
+          saveState();
+        });
+      });
+      updateActiveSection(false);
+
+      $$(".segment[data-op]").forEach((button) => {
+        button.addEventListener("click", () => {
+          $$(".segment[data-op]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          drawIntervalLab();
+        });
+      });
+
+      const intervalPresets = [
+        {
+          a: { lo: -1, hi: 3, loClosed: true, hiClosed: false },
+          b: { lo: 1, hi: 5, loClosed: false, hiClosed: true }
+        },
+        {
+          a: { lo: 0, hi: 2, loClosed: true, hiClosed: true },
+          b: { lo: 2, hi: 4, loClosed: true, hiClosed: true }
+        },
+        {
+          a: { lo: -2, hi: 1, loClosed: false, hiClosed: true },
+          b: { lo: 1, hi: 3, loClosed: true, hiClosed: false }
+        }
+      ];
+
+      function validInterval(interval) {
+        return interval.lo < interval.hi || (interval.lo === interval.hi && interval.loClosed && interval.hiClosed);
+      }
+
+      function intersectIntervals(x, y) {
+        const lo = Math.max(x.lo, y.lo);
+        const hi = Math.min(x.hi, y.hi);
+        const loClosed = lo === x.lo ? (lo === y.lo ? x.loClosed && y.loClosed : x.loClosed) : y.loClosed;
+        const hiClosed = hi === x.hi ? (hi === y.hi ? x.hiClosed && y.hiClosed : x.hiClosed) : y.hiClosed;
+        const result = { lo, hi, loClosed, hiClosed };
+        return validInterval(result) ? result : null;
+      }
+
+      function unionIntervals(list) {
+        const sorted = list.filter(Boolean).slice().sort((x, y) => x.lo - y.lo);
+        const output = [];
+        for (const interval of sorted) {
+          const last = output[output.length - 1];
+          const overlap = last && (interval.lo < last.hi || (interval.lo === last.hi && (last.hiClosed || interval.loClosed)));
+          if (!overlap) {
+            output.push({ ...interval });
+          } else if (interval.hi > last.hi || (interval.hi === last.hi && interval.hiClosed)) {
+            last.hi = interval.hi;
+            last.hiClosed = interval.hiClosed;
+          }
+        }
+        return output;
+      }
+
+      function differenceInterval(x, y) {
+        const cut = intersectIntervals(x, y);
+        if (!cut) return [{ ...x }];
+        const parts = [];
+        const leftValid = x.lo < cut.lo || (x.lo === cut.lo && x.loClosed && !cut.loClosed);
+        if (leftValid) {
+          parts.push({ lo: x.lo, hi: cut.lo, loClosed: x.loClosed, hiClosed: !cut.loClosed });
+        }
+        const rightValid = cut.hi < x.hi || (x.hi === cut.hi && x.hiClosed && !cut.hiClosed);
+        if (rightValid) {
+          parts.push({ lo: cut.hi, hi: x.hi, loClosed: !cut.hiClosed, hiClosed: x.hiClosed });
+        }
+        return parts;
+      }
+
+      function formatIntervals(intervals) {
+        if (!intervals.length) return "∅";
+        return intervals.map((interval) => {
+          const left = interval.loClosed ? "[" : "(";
+          const right = interval.hiClosed ? "]" : ")";
+          return `${left}${fmt(interval.lo, 1)}, ${fmt(interval.hi, 1)}${right}`;
+        }).join(" ∪ ");
+      }
+
+      function svgLine(x1, y1, x2, y2, stroke, width = 1.5, dash = "") {
+        return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${width}" ${dash ? `stroke-dasharray="${dash}"` : ""}/>`;
+      }
+
+      function drawIntervalTrack(svg, interval, y, xMap, color, label) {
+        const baseline = svgLine(78, y, 790, y, css("--color-border-strong"), 1.5);
+        const intervalMarkup = interval ? `
+          <line x1="${xMap(interval.lo)}" y1="${y}" x2="${xMap(interval.hi)}" y2="${y}" stroke="${color}" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="${xMap(interval.lo)}" cy="${y}" r="7" fill="${interval.loClosed ? color : css("--color-surface")}" stroke="${color}" stroke-width="2"/>
+          <circle cx="${xMap(interval.hi)}" cy="${y}" r="7" fill="${interval.hiClosed ? color : css("--color-surface")}" stroke="${color}" stroke-width="2"/>
+        ` : "";
+        return `${baseline}<text x="18" y="${y + 5}" fill="${css("--color-text-soft")}" font-size="14" font-weight="700">${label}</text>${intervalMarkup}`;
+      }
+
+      function drawIntervalLab() {
+        const preset = intervalPresets[Number($("#interval-preset").value)];
+        const opButton = $(".segment[data-op][aria-pressed='true']");
+        const op = opButton ? opButton.dataset.op : "union";
+        let result;
+        let opLabel;
+        if (op === "intersection") {
+          const hit = intersectIntervals(preset.a, preset.b);
+          result = hit ? [hit] : [];
+          opLabel = "A ∩ B";
+        } else if (op === "difference") {
+          result = unionIntervals(differenceInterval(preset.a, preset.b));
+          opLabel = "A ∖ B";
+        } else {
+          result = unionIntervals([preset.a, preset.b]);
+          opLabel = "A ∪ B";
+        }
+        const all = [preset.a, preset.b, ...result];
+        const min = Math.min(...all.map((interval) => interval.lo)) - 0.7;
+        const max = Math.max(...all.map((interval) => interval.hi)) + 0.7;
+        const xMap = (value) => 78 + ((value - min) / (max - min)) * 690;
+        const axisTicks = [];
+        for (let tick = Math.ceil(min); tick <= Math.floor(max); tick += 1) {
+          const x = xMap(tick);
+          axisTicks.push(svgLine(x, 34, x, 184, css("--color-border"), 1));
+          axisTicks.push(`<text x="${x}" y="204" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="12">${fmt(tick, 0)}</text>`);
+        }
+        const resultTrack = result.length > 1
+          ? result.map((interval, index) => drawIntervalTrack($("#interval-svg"), interval, 148, xMap, css("--color-primary"), index === 0 ? "结果" : "")).join("")
+          : drawIntervalTrack($("#interval-svg"), result[0], 148, xMap, css("--color-primary"), "结果");
+        $("#interval-svg").innerHTML = `
+          <title id="interval-svg-title">集合 A 与 B 的${opLabel}数轴图</title>
+          <desc>上下两条分别表示 A 和 B，下方粗线表示运算结果。</desc>
+          ${axisTicks.join("")}
+          ${drawIntervalTrack($("#interval-svg"), preset.a, 72, xMap, css("--color-info"), "A")}
+          ${drawIntervalTrack($("#interval-svg"), preset.b, 110, xMap, css("--color-warning"), "B")}
+          ${resultTrack}
+        `;
+        const resultText = formatIntervals(result);
+        $("#set-a-label").textContent = formatIntervals([preset.a]);
+        $("#set-b-label").textContent = formatIntervals([preset.b]);
+        $("#set-result-label").textContent = `${opLabel} = ${resultText}`;
+        $("#interval-status").textContent = result.length
+          ? `${opLabel} 得到的点同时显示在第三行。${op === "difference" ? "差集只从 A 中删除 B 的点。" : "注意结果端点是否仍然被包含。"}`
+          : "结果是空集：两个集合没有共同点，或差集删掉了全部元素。";
+      }
+
+      function drawBoundsLab() {
+        const low = $("#include-low").checked;
+        const high = $("#include-high").checked;
+        const min = low ? "0" : "不存在";
+        const max = high ? "1" : "不存在";
+        const interval = { lo: 0, hi: 1, loClosed: low, hiClosed: high };
+        const xMap = (value) => 110 + value * 600;
+        $("#bounds-svg").innerHTML = `
+          <title id="bounds-svg-title">区间 0 到 1 与端点归属</title>
+          ${svgLine(80, 78, 740, 78, css("--color-border-strong"), 1.5)}
+          <line x1="${xMap(0)}" y1="78" x2="${xMap(1)}" y2="78" stroke="${css("--color-primary")}" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="${xMap(0)}" cy="78" r="8" fill="${low ? css("--color-primary") : css("--color-surface")}" stroke="${css("--color-primary")}" stroke-width="2"/>
+          <circle cx="${xMap(1)}" cy="78" r="8" fill="${high ? css("--color-primary") : css("--color-surface")}" stroke="${css("--color-primary")}" stroke-width="2"/>
+          <text x="${xMap(0)}" y="112" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="13">0</text>
+          <text x="${xMap(1)}" y="112" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="13">1</text>
+          <text x="80" y="35" fill="${css("--color-text-soft")}" font-size="14" font-weight="700">${formatIntervals([interval])}</text>
+          <text x="80" y="135" fill="${css("--color-text-muted")}" font-size="12">${
+            low && high ? "闭区间：两个端点都属于集合。" :
+            low ? "左闭右开：最小值存在，最大值不存在。" :
+            high ? "左开右闭：最大值存在，最小值不存在。" :
+            "开区间：两端都不属于集合，最大值和最小值都不存在。"
+          }</text>
+        `;
+        $("#bounds-result").textContent = `${max} / ${min}`;
+      }
+
+      function drawDistanceLab() {
+        const center = Number($("#distance-center").value);
+        const radius = Number($("#distance-radius").value);
+        const low = center - radius;
+        const high = center + radius;
+        $("#distance-center-value").textContent = fmt(center, 1);
+        $("#distance-radius-value").textContent = fmt(radius, 1);
+        const xMap = (value) => 55 + ((value + 4.5) / 9) * 710;
+        $("#distance-svg").innerHTML = `
+          <title id="distance-svg-title">绝对值不等式对应的区间</title>
+          ${svgLine(40, 65, 780, 65, css("--color-border-strong"), 1.5)}
+          <line x1="${xMap(low)}" y1="65" x2="${xMap(high)}" y2="65" stroke="${css("--color-primary")}" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="${xMap(center)}" cy="65" r="5" fill="${css("--color-text")}"/>
+          <text x="${xMap(center)}" y="37" text-anchor="middle" fill="${css("--color-text")}" font-size="13" font-weight="700">a = ${fmt(center, 1)}</text>
+          <text x="${xMap(low)}" y="105" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="12">${fmt(low, 1)}</text>
+          <text x="${xMap(high)}" y="105" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="12">${fmt(high, 1)}</text>
+        `;
+        $("#distance-status").textContent = `|x − ${fmt(center, 1)}| < ${fmt(radius, 1)} ⇔ x ∈ (${fmt(low, 1)}, ${fmt(high, 1)})。这正是到 ${fmt(center, 1)} 的距离小于 ${fmt(radius, 1)} 的全部点。`;
+      }
+
+      $("#interval-preset").addEventListener("change", drawIntervalLab);
+      $("#include-low").addEventListener("change", drawBoundsLab);
+      $("#include-high").addEventListener("change", drawBoundsLab);
+      $("#distance-center").addEventListener("input", drawDistanceLab);
+      $("#distance-radius").addEventListener("input", drawDistanceLab);
+
+      function drawMapping() {
+        const domain = $("#function-domain").value;
+        const codomain = $("#function-codomain").value;
+        const inputs = domain === "nonnegative" ? [0, 1, 2] : [-2, -1, 0, 1, 2];
+        const outputs = [...new Set(inputs.map((value) => value * value))].sort((a, b) => a - b);
+        const codomainValues = codomain === "nonnegative" ? outputs : [-1, ...outputs];
+        const svg = $("#mapping-svg");
+        const inputY = (index) => 66 + index * (205 / Math.max(inputs.length - 1, 1));
+        const outputY = (index) => 54 + index * (220 / Math.max(codomainValues.length - 1, 1));
+        const outputIndex = new Map(codomainValues.map((value, index) => [value, index]));
+        const lines = inputs.map((input, index) => {
+          const y1 = inputY(index);
+          const y2 = outputY(outputIndex.get(input * input));
+          return `<line x1="168" y1="${y1}" x2="470" y2="${y2}" stroke="${css("--color-primary-border")}" stroke-width="2"/>`;
+        }).join("");
+        const inputDots = inputs.map((value, index) =>
+          `<circle cx="150" cy="${inputY(index)}" r="8" fill="${css("--color-primary")}"/><text x="130" y="${inputY(index) + 5}" text-anchor="end" fill="${css("--color-text-soft")}" font-size="13">${fmt(value, 0)}</text>`
+        ).join("");
+        const outputDots = codomainValues.map((value, index) =>
+          `<circle cx="488" cy="${outputY(index)}" r="8" fill="${value >= 0 ? css("--color-primary") : css("--color-surface")}" stroke="${css("--color-primary")}" stroke-width="2"/><text x="510" y="${outputY(index) + 5}" fill="${css("--color-text-soft")}" font-size="13">${fmt(value, 0)}</text>`
+        ).join("");
+        const injective = domain === "nonnegative";
+        const surjective = codomain === "nonnegative";
+        const bijective = injective && surjective;
+        svg.innerHTML = `
+          <title id="mapping-title">x 平方函数的输入输出映射</title>
+          <desc>左侧为定义域中抽取的输入，右侧为陪域中的输出。连线表示对应关系。</desc>
+          <text x="26" y="26" fill="${css("--color-text-soft")}" font-size="13" font-weight="700">输入 · 定义域</text>
+          <text x="488" y="26" fill="${css("--color-text-soft")}" font-size="13" font-weight="700">输出 · 陪域</text>
+          <text x="290" y="310" text-anchor="middle" fill="${css("--color-text-muted")}" font-size="12">f(x) = x²</text>
+          ${lines}${inputDots}${outputDots}
+        `;
+        $("#injective-state").textContent = injective ? "是" : "否";
+        $("#surjective-state").textContent = surjective ? "是" : "否";
+        $("#bijective-state").textContent = bijective ? "是" : "否";
+        $("#image-state").textContent = "[0, ∞)";
+        const parts = [];
+        if (!injective) parts.push("1 与 −1 都送到 1，所以不单射");
+        if (!surjective) parts.push("负实数没有原像，所以不满射");
+        if (!parts.length) parts.push("每个输出恰好来自一个非负输入，打满陪域，所以是双射");
+        $("#function-status").textContent = parts.join("；") + "。";
+      }
+
+      $("#function-domain").addEventListener("change", drawMapping);
+      $("#function-codomain").addEventListener("change", drawMapping);
+
+      function prepareCanvas(canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.max(rect.width, 320);
+        const height = Math.max(rect.height, 240);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx, width, height };
+      }
+
+      function drawAxes(ctx, box, xTicks, yTicks) {
+        ctx.save();
+        ctx.strokeStyle = css("--color-border");
+        ctx.lineWidth = 1;
+        xTicks.forEach((tick) => {
+          const x = box.x(tick.value);
+          ctx.beginPath();
+          ctx.moveTo(x, box.top);
+          ctx.lineTo(x, box.bottom);
+          ctx.stroke();
+          ctx.fillStyle = css("--color-text-muted");
+          ctx.font = '12px "Noto Sans SC", "Microsoft YaHei UI", sans-serif';
+          ctx.textAlign = "center";
+          ctx.fillText(tick.label, x, box.bottom + 22);
+        });
+        yTicks.forEach((tick) => {
+          const y = box.y(tick.value);
+          ctx.beginPath();
+          ctx.moveTo(box.left, y);
+          ctx.lineTo(box.right, y);
+          ctx.stroke();
+          ctx.fillStyle = css("--color-text-muted");
+          ctx.font = '12px "Noto Sans SC", "Microsoft YaHei UI", sans-serif';
+          ctx.textAlign = "right";
+          ctx.fillText(tick.label, box.left - 10, y + 4);
+        });
+        ctx.restore();
+      }
+
+      function makeBox(width, height, xMin, xMax, yMin, yMax) {
+        const left = 54;
+        const right = width - 18;
+        const top = 22;
+        const bottom = height - 42;
+        return {
+          left, right, top, bottom,
+          x: (value) => left + ((value - xMin) / (xMax - xMin)) * (right - left),
+          y: (value) => bottom - ((value - yMin) / (yMax - yMin)) * (bottom - top)
+        };
+      }
+
+      const sequenceConfigs = {
+        reciprocal: {
+          fn: (n) => 1 / n,
+          L: 0,
+          yMin: -0.08,
+          yMax: 1.12,
+          label: "1/n → 0",
+          minN: (epsilon) => Math.floor(1 / epsilon) + 1
+        },
+        shifted: {
+          fn: (n) => 2 + 1 / n,
+          L: 2,
+          yMin: 1.35,
+          yMax: 2.65,
+          label: "2 + 1/n → 2",
+          minN: (epsilon) => Math.floor(1 / epsilon) + 1
+        },
+        alternating: {
+          fn: (n) => n % 2 === 0 ? 1 : -1,
+          L: null,
+          yMin: -1.35,
+          yMax: 1.35,
+          label: "(−1)ⁿ 发散",
+          minN: () => null
+        },
+        cos: {
+          fn: (n) => Math.cos(n) / (n * n),
+          L: 0,
+          yMin: -0.25,
+          yMax: 1.12,
+          label: "cos n / n² → 0",
+          minN: (epsilon) => Math.floor(1 / Math.sqrt(epsilon)) + 1
+        }
+      };
+
+      function renderSequence() {
+        const key = $("#sequence-select").value;
+        const config = sequenceConfigs[key];
+        const epsilon = Number($("#epsilon-seq").value);
+        const N = Number($("#threshold-n").value);
+        const minN = config.minN(epsilon);
+        $("#epsilon-seq-value").textContent = fmt(epsilon, 2);
+        $("#threshold-n-value").textContent = String(N);
+        $("#sequence-limit").textContent = config.L === null ? "不存在" : fmt(config.L, 0);
+        $("#min-n").textContent = minN === null ? "不存在" : String(minN);
+        $("#n-status").textContent = minN === null ? "无有限极限" : N >= minN ? "足够" : "不够";
+        const status = $("#sequence-status");
+        status.parentElement.className = "status-line " + (minN === null ? "danger" : N >= minN ? "success" : "warning");
+        status.textContent = minN === null
+          ? `${config.label}：数列在 1 与 −1 之间振荡，不存在一个有限 L 能装下整条尾部。`
+          : N >= minN
+            ? `当前 N = ${N} ≥ ${minN}。从第 ${N} 项以后，所有点都在 L ± ε 内。`
+            : `当前 N = ${N} < ${minN}。尾部还有点落在容差带外，继续增大 N。`;
+
+        const canvas = $("#sequence-canvas");
+        canvas.setAttribute("aria-label", `${config.label} 的图像，ε 等于 ${fmt(epsilon, 2)}，N 等于 ${N}`);
+        const { ctx, width, height } = prepareCanvas(canvas);
+        ctx.clearRect(0, 0, width, height);
+        const xMin = 0;
+        const xMax = 80;
+        const box = makeBox(width, height, xMin, xMax, config.yMin, config.yMax);
+        const xTicks = [1, 20, 40, 60, 80].map((value) => ({ value, label: String(value) }));
+        const yTicks = Array.from({ length: 5 }, (_, index) => {
+          const value = config.yMin + (config.yMax - config.yMin) * index / 4;
+          return { value, label: fmt(value, 1) };
+        });
+        drawAxes(ctx, box, xTicks, yTicks);
+
+        ctx.fillStyle = css("--color-primary-soft");
+        ctx.fillRect(box.x(N), box.top, box.right - box.x(N), box.bottom - box.top);
+        if (config.L !== null) {
+          const yTop = box.y(config.L + epsilon);
+          const yBottom = box.y(config.L - epsilon);
+          ctx.fillStyle = colorWithAlpha(css("--color-primary"), 0.12);
+          ctx.fillRect(box.left, yTop, box.right - box.left, yBottom - yTop);
+          ctx.strokeStyle = css("--color-primary");
+          ctx.setLineDash([5, 5]);
+          ctx.beginPath();
+          ctx.moveTo(box.left, box.y(config.L));
+          ctx.lineTo(box.right, box.y(config.L));
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        ctx.strokeStyle = css("--color-text-muted");
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(box.x(N), box.top);
+        ctx.lineTo(box.x(N), box.bottom);
+        ctx.stroke();
+        for (let n = 1; n <= xMax; n += 1) {
+          const value = config.fn(n);
+          const x = box.x(n);
+          const y = box.y(value);
+          const inside = config.L !== null && Math.abs(value - config.L) < epsilon;
+          ctx.beginPath();
+          ctx.arc(x, y, n >= N ? 3.4 : 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = n >= N ? (inside ? css("--color-success") : css("--color-warning")) : css("--color-text-muted");
+          ctx.fill();
+        }
+      }
+
+      function colorWithAlpha(color, alpha) {
+        const probe = document.createElement("canvas").getContext("2d");
+        probe.fillStyle = color;
+        const normalized = probe.fillStyle;
+        if (normalized.startsWith("#")) {
+          const hex = normalized.slice(1);
+          const full = hex.length === 3 ? hex.split("").map((char) => char + char).join("") : hex;
+          const r = parseInt(full.slice(0, 2), 16);
+          const g = parseInt(full.slice(2, 4), 16);
+          const b = parseInt(full.slice(4, 6), 16);
+          return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        return color;
+      }
+
+      $("#sequence-select").addEventListener("change", renderSequence);
+      $("#epsilon-seq").addEventListener("input", renderSequence);
+      $("#threshold-n").addEventListener("input", renderSequence);
+      $("#auto-n").addEventListener("click", () => {
+        const config = sequenceConfigs[$("#sequence-select").value];
+        const minN = config.minN(Number($("#epsilon-seq").value));
+        if (minN !== null) {
+          $("#threshold-n").value = String(clamp(minN, 1, Number($("#threshold-n").max)));
+        }
+        renderSequence();
+      });
+
+      const limitConfigs = {
+        linear: {
+          f: (x) => 3 * x + 1,
+          a: 2,
+          L: 7,
+          maxError: (delta) => 3 * delta,
+          recipe: "证明提示：|f(x) − 7| = 3|x − 2|，所以取 δ ≤ ε/3。",
+          rule: "在线性函数中，输出误差恰好等于 3|x − a|。"
+        },
+        quadratic: {
+          f: (x) => x * x,
+          a: 2,
+          L: 4,
+          maxError: (delta) => delta * (4 + delta),
+          recipe: "证明提示：先限制 |x − 2| < 1，得到 |x + 2| < 5；取 δ = min{1, ε/5}。",
+          rule: "在 x = 2 附近，|x² − 4| = |x − 2||x + 2|；第二个因子必须先被限制。"
+        },
+        removable: {
+          f: (x) => x === 1 ? NaN : (x * x - 1) / (x - 1),
+          a: 1,
+          L: 2,
+          maxError: (delta) => delta,
+          recipe: "证明提示：在 x ≠ 1 时，(x² − 1)/(x − 1) = x + 1，所以取 δ = ε。",
+          rule: "约分后 f(x) = x + 1，但 x = 1 仍被去心条件排除。"
+        },
+        jump: {
+          f: (x) => x < 0 ? 0 : 1,
+          a: 0,
+          L: null,
+          maxError: () => Infinity,
+          recipe: "这个函数左极限为 0、右极限为 1；双侧极限不存在，因此没有可选的 L。",
+          rule: "左右两侧输出相差 1，任何 ε < 1 都无法同时覆盖两侧。"
+        }
+      };
+
+      function renderFunctionLimit() {
+        const key = $("#limit-function").value;
+        const config = limitConfigs[key];
+        const epsilon = Number($("#epsilon-limit").value);
+        const delta = Number($("#delta-limit").value);
+        const maxError = config.maxError(delta);
+        const works = config.L !== null && maxError <= epsilon + 1e-9;
+        $("#epsilon-limit-value").textContent = fmt(epsilon, 1);
+        $("#delta-limit-value").textContent = fmt(delta, 2);
+        $("#limit-L").textContent = config.L === null ? "不存在" : fmt(config.L, 0);
+        $("#limit-error").textContent = config.L === null ? "—" : fmt(maxError, 3);
+        $("#delta-status").textContent = config.L === null ? "无极限" : works ? "足够" : "不够";
+        $("#delta-recipe").textContent = config.recipe;
+        const status = $("#limit-status");
+        status.parentElement.className = "status-line " + (config.L === null ? "danger" : works ? "success" : "warning");
+        status.textContent = config.L === null
+          ? "左极限为 0，右极限为 1；两者不一致，所以双侧极限不存在。"
+          : works
+            ? `对于所有 0 < |x − ${fmt(config.a, 0)}| < ${fmt(delta, 2)} 的定义域点，输出误差都小于 ε = ${fmt(epsilon, 1)}。`
+            : `当前 δ = ${fmt(delta, 2)} 太大：最大误差 ${fmt(maxError, 3)} 还没有小于 ε = ${fmt(epsilon, 1)}。`;
+
+        const canvas = $("#limit-canvas");
+        canvas.setAttribute("aria-label", `函数极限实验：${key}，epsilon 等于 ${fmt(epsilon, 1)}，delta 等于 ${fmt(delta, 2)}`);
+        const { ctx, width, height } = prepareCanvas(canvas);
+        ctx.clearRect(0, 0, width, height);
+        const xMin = config.a - 2.5;
+        const xMax = config.a + 2.5;
+        const sampleValues = [];
+        for (let i = 0; i <= 240; i += 1) {
+          const x = xMin + (xMax - xMin) * i / 240;
+          const y = config.f(x);
+          if (Number.isFinite(y)) sampleValues.push(y);
+        }
+        if (config.L !== null) sampleValues.push(config.L + epsilon, config.L - epsilon);
+        let yMin = Math.min(...sampleValues) - 0.8;
+        let yMax = Math.max(...sampleValues) + 0.8;
+        if (config.L === null) {
+          yMin = -0.3;
+          yMax = 1.3;
+        }
+        const box = makeBox(width, height, xMin, xMax, yMin, yMax);
+        drawAxes(ctx, box,
+          Array.from({ length: 6 }, (_, index) => {
+            const value = xMin + (xMax - xMin) * index / 5;
+            return { value, label: fmt(value, 1) };
+          }),
+          Array.from({ length: 5 }, (_, index) => {
+            const value = yMin + (yMax - yMin) * index / 4;
+            return { value, label: fmt(value, 1) };
+          })
+        );
+        if (config.L !== null) {
+          ctx.fillStyle = colorWithAlpha(css("--color-primary"), 0.12);
+          ctx.fillRect(box.left, box.y(config.L + epsilon), box.right - box.left, box.y(config.L - epsilon) - box.y(config.L + epsilon));
+        }
+        ctx.fillStyle = colorWithAlpha(css("--color-warning"), 0.12);
+        ctx.fillRect(box.x(config.a - delta), box.top, box.x(config.a + delta) - box.x(config.a - delta), box.bottom - box.top);
+
+        ctx.strokeStyle = css("--color-primary");
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        let drawing = false;
+        let previousY = null;
+        for (let i = 0; i <= 500; i += 1) {
+          const x = xMin + (xMax - xMin) * i / 500;
+          const y = config.f(x);
+          if (!Number.isFinite(y)) {
+            drawing = false;
+            continue;
+          }
+          const px = box.x(x);
+          const py = box.y(clamp(y, yMin - 1, yMax + 1));
+          if (!drawing || (previousY !== null && Math.abs(y - previousY) > (yMax - yMin) * 0.2)) {
+            ctx.moveTo(px, py);
+            drawing = true;
+          } else {
+            ctx.lineTo(px, py);
+          }
+          previousY = y;
+        }
+        ctx.stroke();
+
+        for (let i = 0; i <= 18; i += 1) {
+          const x = config.a - delta + (2 * delta) * i / 18;
+          if (Math.abs(x - config.a) < 0.000001) continue;
+          const y = config.f(x);
+          if (!Number.isFinite(y)) continue;
+          ctx.beginPath();
+          ctx.arc(box.x(x), box.y(clamp(y, yMin - 1, yMax + 1)), 2.8, 0, Math.PI * 2);
+          ctx.fillStyle = config.L !== null && Math.abs(y - config.L) < epsilon ? css("--color-success") : css("--color-danger");
+          ctx.fill();
+        }
+
+        if (config.L !== null) {
+          ctx.beginPath();
+          ctx.arc(box.x(config.a), box.y(config.L), 5, 0, Math.PI * 2);
+          ctx.fillStyle = css("--color-surface");
+          ctx.fill();
+          ctx.strokeStyle = css("--color-text");
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      }
+
+      $("#limit-function").addEventListener("change", renderFunctionLimit);
+      $("#epsilon-limit").addEventListener("input", renderFunctionLimit);
+      $("#delta-limit").addEventListener("input", renderFunctionLimit);
+
+      const continuityConfigs = {
+        removable: {
+          a: 1,
+          limit: 2,
+          left: 2,
+          right: 2,
+          f: (x) => x === 1 ? NaN : x + 1,
+          pointLabel: "极限 2",
+          message: "可去间断：附近沿 x + 1 靠近 2。"
+        },
+        jump: {
+          a: 0,
+          limit: null,
+          left: 0,
+          right: 1,
+          f: (x) => x < 0 ? 0 : 1,
+          pointLabel: "左 0 / 右 1",
+          message: "跳跃函数：左右极限不一致，改一个点值不能修复。"
+        },
+        poly: {
+          a: 1,
+          limit: 2,
+          left: 2,
+          right: 2,
+          f: (x) => x * x + 1,
+          pointLabel: "f(1) = 2",
+          message: "多项式在其自然定义域上连续。"
+        }
+      };
+
+      function renderContinuity() {
+        const key = $("#continuity-function").value;
+        const config = continuityConfigs[key];
+        const slider = $("#point-value");
+        const c = key === "poly" ? 2 : Number(slider.value);
+        state.pointValue = c;
+        saveState();
+        slider.disabled = key === "poly";
+        slider.value = String(c);
+        $("#point-value-value").textContent = fmt(c, 1);
+        const continuous = config.limit !== null && Math.abs(config.limit - c) < 1e-9;
+        $("#defined-check").textContent = "是";
+        $("#continuity-limit").textContent = config.limit === null ? "不存在" : fmt(config.limit, 0);
+        $("#continuous-check").textContent = continuous ? "是" : "否";
+        const status = $("#continuity-status");
+        status.parentElement.className = "status-line " + (continuous ? "success" : "danger");
+        status.textContent = config.limit === null
+          ? `左极限 ${config.left}，右极限 ${config.right}，所以双侧极限不存在。无论 c = ${fmt(c, 1)} 怎么改，都不连续。`
+          : continuous
+            ? `极限 = ${fmt(config.limit, 0)}，f(${fmt(config.a, 0)}) = ${fmt(c, 1)}，三项条件全部满足。`
+            : `极限 = ${fmt(config.limit, 0)}，但 f(${fmt(config.a, 0)}) = ${fmt(c, 1)}；极限与点值不相等。`;
+
+        const canvas = $("#continuity-canvas");
+        canvas.setAttribute("aria-label", `连续性实验：${key}，a 点函数值 ${fmt(c, 1)}，当前${continuous ? "连续" : "不连续"}`);
+        const { ctx, width, height } = prepareCanvas(canvas);
+        ctx.clearRect(0, 0, width, height);
+        const xMin = config.a - 2.5;
+        const xMax = config.a + 2.5;
+        const sampleValues = [];
+        for (let i = 0; i <= 240; i += 1) {
+          const x = xMin + (xMax - xMin) * i / 240;
+          const y = config.f(x);
+          if (Number.isFinite(y)) sampleValues.push(y);
+        }
+        sampleValues.push(c);
+        if (config.limit !== null) sampleValues.push(config.limit);
+        const yMin = Math.min(...sampleValues) - 1;
+        const yMax = Math.max(...sampleValues) + 1;
+        const box = makeBox(width, height, xMin, xMax, yMin, yMax);
+        drawAxes(ctx, box,
+          Array.from({ length: 6 }, (_, index) => {
+            const value = xMin + (xMax - xMin) * index / 5;
+            return { value, label: fmt(value, 1) };
+          }),
+          Array.from({ length: 5 }, (_, index) => {
+            const value = yMin + (yMax - yMin) * index / 4;
+            return { value, label: fmt(value, 1) };
+          })
+        );
+        ctx.strokeStyle = css("--color-primary");
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        let drawing = false;
+        let previousY = null;
+        for (let i = 0; i <= 500; i += 1) {
+          const x = xMin + (xMax - xMin) * i / 500;
+          const y = config.f(x);
+          if (!Number.isFinite(y)) {
+            drawing = false;
+            continue;
+          }
+          const px = box.x(x);
+          const py = box.y(y);
+          if (!drawing || (previousY !== null && Math.abs(y - previousY) > (yMax - yMin) * 0.2)) {
+            ctx.moveTo(px, py);
+            drawing = true;
+          } else {
+            ctx.lineTo(px, py);
+          }
+          previousY = y;
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(box.x(config.a), box.y(c), 6, 0, Math.PI * 2);
+        ctx.fillStyle = continuous ? css("--color-success") : css("--color-danger");
+        ctx.fill();
+        ctx.strokeStyle = css("--color-surface");
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = css("--color-text-muted");
+        ctx.font = '12px "Noto Sans SC", "Microsoft YaHei UI", sans-serif';
+        ctx.textAlign = "left";
+        ctx.fillText(`f(${fmt(config.a, 0)}) = ${fmt(c, 1)}`, box.x(config.a) + 10, box.y(c) - 10);
+      }
+
+      $$("[data-sequence-probe]").forEach((button) => {
+        button.addEventListener("click", () => {
+          $$("[data-sequence-probe]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          const key = $("#continuity-function").value;
+          const config = continuityConfigs[key];
+          const c = key === "poly" ? 2 : Number($("#point-value").value);
+          const mode = button.dataset.sequenceProbe;
+          const ns = [1, 2, 3, 4, 5];
+          const outputs = ns.map((n) => {
+            const offset = mode === "left" ? -1 / n : mode === "alternating" ? (n % 2 === 0 ? 1 / n : -1 / n) : 1 / n;
+            return config.f(config.a + offset);
+          });
+          const values = outputs.map((value) => fmt(value, 3)).join("，");
+          const target = fmt(key === "jump" ? c : config.limit, 3);
+          $("#probe-output").textContent = `所选序列前 5 个输出：${values}。目标 f(a) = ${target}。${
+            key === "jump" ? "交替序列的输出在 0 和 1 之间不趋于同一个值。" : "这些输出都趋近同一个双侧极限。"
+          }`;
+        });
+      });
+
+      $("#continuity-function").addEventListener("change", renderContinuity);
+      $("#point-value").addEventListener("input", renderContinuity);
+
+      $$(".module-check").forEach((check) => {
+        const id = check.dataset.check;
+        const button = $(`[data-check-submit="${id}"]`, check);
+        const feedback = $(".check-feedback", check);
+        button.addEventListener("click", () => {
+          const selected = $(`input[name="check-${id}"]:checked`, check);
+          if (!selected) {
+            feedback.className = "check-feedback danger";
+            feedback.textContent = "先选择一个答案。";
+            return;
+          }
+          const correct = selected.value === button.dataset.answer;
+          feedback.className = "check-feedback " + (correct ? "success" : "danger");
+          feedback.textContent = correct ? "正确。可以继续下一节。" : "再想一步：回到本节的实验或定义。";
+        });
+      });
+
+      const lessonSource = [
+        {
+          id: "set-operations",
+          station: "real-line",
+          number: "01",
+          titleZh: "集合运算与包含关系",
+          titleEn: "Sets, membership and set operations",
+          source: "Definition 1.1, 1.2, 1.5; Proposition 1.4 · Lecture Notes p.3–4",
+          english: "For sets A and B, A ⊆ B means every element of A is also an element of B. The union contains elements in A or B; the intersection contains elements in both; A ∖ B contains elements in A that are not in B.",
+          enSummary: "Membership compares an object with a set. Subset compares two sets. Set equality is proved by showing both inclusions.",
+          zh: [
+            "集合就是“把一些对象放在一起”。x ∈ A 表示 x 是这个集合的成员；A ⊆ B 表示 A 的每一个成员也都在 B 中。前者比较元素与集合，后者比较两个集合。",
+            "两个集合相等，不要求写法相同，只要求成员完全相同。因此证明 A = B 最稳的路线是：先任取 x ∈ A 推出 x ∈ B，再任取 x ∈ B 推出 x ∈ A。"
+          ],
+          steps: [
+            "并集 A ∪ B：x 属于 A 或属于 B，至少满足一个即可。",
+            "交集 A ∩ B：x 必须同时属于 A 和 B。",
+            "差集 A ∖ B：从 A 中删掉所有同时属于 B 的元素。",
+            "De Morgan 律：补集把并变成交、把交变成并，同时把每个集合都取补。"
+          ],
+          example: "取 A = {1, 2, 3}，B = {2, 4}。则 A ∪ B = {1, 2, 3, 4}，A ∩ B = {2}，A ∖ B = {1, 3}。",
+          pitfall: "1 ∈ {1, 2} 描述元素；{1} ⊆ {1, 2} 描述集合。不要看到“1”就省略外层花括号后混用两种符号。",
+          check: "如果要证明 A = B，为什么只证明 A ⊆ B 不够？",
+          answer: "那只能说明 A 的元素都在 B 中，仍可能漏掉 B 中不属于 A 的元素；还需要反向包含 B ⊆ A。"
+        },
+        {
+          id: "number-intervals",
+          station: "real-line",
+          number: "02",
+          titleZh: "数系与区间",
+          titleEn: "Number systems and intervals",
+          source: "Section 1.2; Examples 1.7–1.8 · Lecture Notes p.4–5",
+          english: "The number systems satisfy Z+ ⊊ N ⊊ Z ⊊ Q ⊊ R. An interval is specified by its endpoints and by whether each endpoint is included.",
+          enSummary: "Square brackets include an endpoint; round brackets exclude it. Infinity is a direction, never a real endpoint.",
+          zh: [
+            "Z+ 是正整数，N 加入 0，Z 再加入负整数，Q 加入所有分数，R 再加入无理数。这个从上到下的包含链说明每一层都在扩大。",
+            "区间就是实数线上的一段。看到 a < x ≤ b，就把左端点 a 用圆括号排除，把右端点 b 用方括号包含，所以写成 (a, b]。"
+          ],
+          steps: [
+            "先把每个不等式翻译成“是否包含端点”。",
+            "严格不等号 < 或 > 用圆括号，非严格不等号 ≤ 或 ≥ 用方括号。",
+            "∞ 与 −∞ 永远配圆括号，因为它们不是能取到的实数。",
+            "求并集时取“至少在一个区间中”的点，求交集时取“同时在所有区间中”的点。"
+          ],
+          example: "(1, 4] ∩ [3, 6) = [3, 4]，因为同时满足 1 < x ≤ 4 与 3 ≤ x < 6 的部分正是 3 ≤ x ≤ 4。",
+          pitfall: "−2 < x ≤ 3 不能写成 (−2, 3)，右边的 3 被包含，必须写成 (−2, 3]。",
+          check: "为什么 [a, ∞] 是错误的写法？",
+          answer: "∞ 不是实数，也不是实际取到的端点，所以只能是 [a, ∞)。"
+        },
+        {
+          id: "bounds-supremum",
+          station: "real-line",
+          number: "03",
+          titleZh: "上界、最大值与上确界",
+          titleEn: "Bounds, maxima and suprema",
+          source: "Definitions 1.9–1.11; Examples 1.12–1.14 · Lecture Notes p.6–7",
+          english: "An upper bound M satisfies x ≤ M for every x ∈ A. The supremum is the least upper bound. A maximum is an upper bound that belongs to A.",
+          enSummary: "A bound may sit outside the set. A maximum must be an element of the set and be at least as large as every other element.",
+          zh: [
+            "上界是一个“上限值”。只要集合 A 中每个数都不超过 M，M 就是上界。M 本身不一定要在 A 中。",
+            "在所有上界里，最小的那个叫上确界 sup A。它回答“最好的上界在哪里”。最大值还多问一步：这个最好的值本身是否属于 A？"
+          ],
+          steps: [
+            "证明 M 是上界：任取 x ∈ A，证明 x ≤ M。",
+            "证明 M 是最小上界：再证明任何 u < M 都不是上界，也就是能找到某个 x ∈ A 使 x > u。",
+            "判断最大值：先判断 M ∈ A。若 M ∉ A，即使 sup A = M，也不能称最大值。",
+            "实数的最小上界性质保证：非空且有上界的集合一定有上确界；讲义没有证明这一性质。"
+          ],
+          example: "A = (0, 1) 的 sup A = 1，但 1 ∉ A。并且任取 x ∈ (0, 1)，(x + 1)/2 仍在 A 中且更大，所以 A 没有最大值。",
+          pitfall: "“上界”与“上确界”是两类对象：上界可以有很多个；上确界是所有上界中最小的那一个。",
+          check: "A = [0, 1) 的 sup A 与 max A 分别是什么？",
+          answer: "sup A = 1；max A 不存在，因为 1 不属于 A。"
+        },
+        {
+          id: "absolute-triangle",
+          station: "real-line",
+          number: "04",
+          titleZh: "绝对值、距离与三角不等式",
+          titleEn: "Absolute value, distance and the triangle inequality",
+          source: "Section 1.5; Proposition 1.17; Corollaries 1.18–1.19 · Lecture Notes p.8–9",
+          english: "For real x, |x| is the distance from x to 0. The triangle inequality states |x + y| ≤ |x| + |y| for all real x and y.",
+          enSummary: "Absolute value turns closeness into distance. The triangle inequality lets us control a sum by controlling each term separately.",
+          zh: [
+            "|x − a| 不只是一个含两根竖线的表达式，它表示 x 与 a 在实数线上的距离。因此 |x − a| < r 表示 x 位于以 a 为中心、半径为 r 的开区间内。",
+            "做极限证明时，经常要把一个总误差拆成几块。三角不等式正是允许这种拆分的工具：直接把误差相加，不会比先绕一段路更短。"
+          ],
+          steps: [
+            "解 |x − a| < r：展开成 a − r < x < a + r。",
+            "拆分误差：|(x − L) + (L − M)| ≤ |x − L| + |L − M|。",
+            "控制分母：反向三角不等式给出 |x − y| ≥ ||x| − |y||。",
+            "遇到等号先检查是否符合特殊方向关系；一般只能写 ≤。"
+          ],
+          example: "|x − 2| < 3 ⇔ −3 < x − 2 < 3 ⇔ −1 < x < 5，所以解集是 (−1, 5)。",
+          pitfall: "|1 + (−1)| = 0，而 |1| + |−1| = 2。三角不等式通常是严格小于，不能随手写成等号。",
+          check: "为什么 |x − z| ≤ |x − y| + |y − z|？",
+          answer: "把 x − z 写成 (x − y) + (y − z)，再用三角不等式；几何上就是绕路不比直达更短。"
+        },
+        {
+          id: "functions-images",
+          station: "functions",
+          number: "05",
+          titleZh: "函数、像与原像",
+          titleEn: "Functions, images and preimages",
+          source: "Definitions 1.22–1.23; Example 1.24 · Lecture Notes p.10",
+          english: "A function f : A → B assigns exactly one value f(x) ∈ B to every x ∈ A. The preimage f⁻¹(F) is the set of all inputs that land in F.",
+          enSummary: "A function needs a domain, a codomain and a rule. An image asks where inputs go; a preimage asks which inputs arrive.",
+          zh: [
+            "公式只是函数的一部分。要完整确定函数，还必须知道允许输入哪些数（定义域 A），输出放在哪个集合里（陪域 B），以及每个输入对应哪个输出。",
+            "f(E) 把所有 E 中的输入送出去，收集实际输出；f⁻¹(F) 反过来问：哪些输入的输出落进了 F。原像不要求函数有逆函数。"
+          ],
+          steps: [
+            "确定函数时同时写出定义域、陪域和规则。",
+            "求像 f(E)：枚举或推导 E 中每个输入对应的输出。",
+            "求原像 f⁻¹(F)：解条件 f(x) ∈ F，再与定义域取交集。",
+            "像 f(A) 是陪域的子集，但不一定等于整个陪域。"
+          ],
+          example: "对 f : R → R，f(x) = x²，E = [−2, 1] 的像是 [0, 4]；F = [0, 4] 的原像是 [−2, 2]。",
+          pitfall: "f⁻¹([0, 4]) 的原像写法与逆函数 f⁻¹(y) 共用符号，但前者即使 f 不是单射也仍然有定义。",
+          check: "为什么 f(1) = f(−1) 不妨碍 f⁻¹({1}) 存在？",
+          answer: "原像只是一个集合 {x : f(x) ∈ {1}}，允许有多个输入；逆函数则要求每个输出只有唯一输入。"
+        },
+        {
+          id: "composition-domain",
+          station: "functions",
+          number: "06",
+          titleZh: "复合函数与自然定义域",
+          titleEn: "Composition and natural domains",
+          source: "Definition 1.26; Examples 1.27 and 1.34 · Lecture Notes p.11, 13",
+          english: "For f : A → B and g : B → C, the composition is (g ∘ f)(x) = g(f(x)). Every restriction on an inner or outer expression must hold simultaneously.",
+          enSummary: "Composition reads from the inside out. The domain is the intersection of all conditions required by the expression.",
+          zh: [
+            "复合函数像一条流水线：x 先进入 f，得到的 f(x) 再进入 g。写 (g ∘ f)(x) 时，靠近 x 的 f 先工作。",
+            "自然定义域不是约分后的“好看公式”的定义域，而是原表达式真正有意义的输入集合。根号、对数和分母的限制不能互相抵消。"
+          ],
+          steps: [
+            "从最内层函数开始确定它能接受哪些输入。",
+            "检查内层输出是否落在外层函数的定义域中。",
+            "把所有限制写成不等式，再取交集。",
+            "约分只在被挖掉的点以外成立，不能自动补回缺失点。"
+          ],
+          example: "h(x) = √(x − 1)/(x − 2)：根号要求 x ≥ 1，分母要求 x ≠ 2，所以定义域是 [1, ∞) ∖ {2}。",
+          pitfall: "把 (x² − 1)/(x − 1) 约成 x + 1 后，不能因此声称原函数在 x = 1 有定义。",
+          check: "若 f(u) = √u，g(x) = x − 1，f ∘ g 的自然定义域是什么？",
+          answer: "需要 x − 1 ≥ 0，所以是 [1, ∞)。"
+        },
+        {
+          id: "function-properties",
+          station: "functions",
+          number: "07",
+          titleZh: "单射、满射、双射与逆函数",
+          titleEn: "Injective, surjective, bijective and inverse functions",
+          source: "Definitions 1.29–1.33; Proposition 1.32 · Lecture Notes p.11–13",
+          english: "A function f : A → B is injective when different inputs have different outputs, surjective when f(A) = B, and bijective when both properties hold. An inverse exists exactly when f is bijective.",
+          enSummary: "Injectivity controls collisions on the input side. Surjectivity controls coverage of the codomain. Bijectivity makes a unique reverse assignment possible.",
+          zh: [
+            "单射问“有没有两个不同输入撞到同一个输出”；满射问“陪域中的每个元素是否都被取到”。它们检查的是不同方向的问题，不能互相替代。",
+            "逆函数要把每个输出唯一送回到原输入，所以既不能有输出缺失，也不能有一个输出对应多个输入。这正是双射的两个条件。"
+          ],
+          steps: [
+            "证明单射：假设 f(x₁) = f(x₂)，推出 x₁ = x₂。",
+            "证明满射：任取 y ∈ B，构造一个 x ∈ A 使 f(x) = y。",
+            "证明双射：同时完成上面两步。",
+            "严格单调函数在相应区间上一定单射；但不一定满射到任意指定的陪域。"
+          ],
+          example: "x² 从 R 到 R 既不单射也不满射；限制成 [0, ∞) → [0, ∞) 后是双射，逆函数是 √y。",
+          pitfall: "“同一个规则”不代表“同一个函数”。改变定义域或陪域，单射、满射和双射状态都可能改变。",
+          check: "为什么 f : R → [0, ∞)，f(x) = x² 有满射但不是单射？",
+          answer: "每个非负 y 都等于 (√y)²，但 f(1) = f(−1)，所以不单射。"
+        },
+        {
+          id: "elementary-functions",
+          station: "functions",
+          number: "08",
+          titleZh: "初等函数与自然定义域速查",
+          titleEn: "Elementary functions and natural domains",
+          source: "Section 1.8; Example 1.34 · Lecture Notes p.13",
+          english: "Polynomials have domain R. A rational function is defined where its denominator is non-zero. Roots, powers, logarithms and trigonometric quotients require their natural restrictions.",
+          enSummary: "Before using any formula, identify every operation that can fail: division by zero, even roots of negatives, logarithms of non-positive numbers and undefined trigonometric quotients.",
+          zh: [
+            "判断自然定义域时，把公式看成一连串操作。每个操作都有一张“允许输入表”：分母不能为零，偶次根号内部不能为负，对数真数必须为正。",
+            "多项式和 sin、cos 没有额外限制；有理式、tan、sec 要排除分母为零；√x 与 log x 的起点不同，前者允许 0，后者不允许 0。"
+          ],
+          steps: [
+            "先找分母，记下分母不为零的条件。",
+            "再找根号与对数，写出内部表达式的不等式。",
+            "把所有条件取交集，而不是只看约分后的公式。",
+            "题目涉及复合函数时，再做外层函数的定义域检查。"
+          ],
+          example: "√x 的定义域是 [0, ∞)，log x 的定义域是 (0, ∞)，x⁻¹ 的定义域是 R ∖ {0}。",
+          pitfall: "√x 在 x = 0 有定义；log x 在 x = 0 没有定义。两者虽然都要求非负趋势，但端点不同。",
+          check: "√(x + 2)/(x − 1) 的自然定义域是什么？",
+          answer: "根号要求 x ≥ −2，分母要求 x ≠ 1，所以是 [−2, ∞) ∖ {1}。"
+        },
+        {
+          id: "countability",
+          station: "functions",
+          number: "09",
+          titleZh: "可数与不可数",
+          titleEn: "Countable and uncountable sets",
+          source: "Definition 1.35; Proposition 1.36; Theorem 1.38 · Lecture Notes p.14–15",
+          english: "A set is countably infinite if there is a bijection from N to the set. A set is countable if it is finite or countably infinite. The set R is uncountable.",
+          enSummary: "Countably infinite means the set can be listed by natural-number indices without omissions or repetitions. Infinite sets are not all the same size.",
+          zh: [
+            "“可数”在这里不是“数得完”的日常意思，而是“能按自然数编号”。有限集当然可数；无限集如果能和 N 建立双射，也叫做可数无限。",
+            "整数可以向正负两边无限延伸，却仍能排成 0, 1, −1, 2, −2, ...。有理数也能通过网格对角线枚举。实数则不能这样列完。"
+          ],
+          steps: [
+            "证明可数无限：构造从 N 到目标集合的双射。",
+            "证明两个集合同基数：优先构造显式双射。",
+            "处理重复表示：例如 1/2 = 2/4，在枚举有理数时要跳过重复。",
+            "证明不可数通常使用反证：假设能列完，再构造一个不在列表中的对象。"
+          ],
+          example: "φ(0) = 0，φ(1) = 1，φ(2) = −1，φ(3) = 2，φ(4) = −2，这个交替规则能覆盖所有整数且不重复。",
+          pitfall: "Z 是无限的，但 Z 可数无限。无限与不可数是两个不同概念。",
+          check: "有限集在本课程中算不算可数？",
+          answer: "算。定义明确规定有限集或可数无限集都可称为可数集。"
+        },
+        {
+          id: "sequence-epsilon-n",
+          station: "sequences",
+          number: "10",
+          titleZh: "数列与 epsilon-N 定义",
+          titleEn: "Sequences and the epsilon-N definition",
+          source: "Definitions 2.1–2.2; Examples 2.3–2.5 · Lecture Notes p.16–18",
+          english: "A real sequence is a function a : N → R. It converges to L if for every ε > 0 there exists N such that every n ≥ N satisfies |aₙ − L| < ε.",
+          enSummary: "Tolerance comes first, threshold comes second. N may depend on ε, but once N is chosen it must work for all later indices.",
+          zh: [
+            "数列不是普通集合，因为顺序和重复都重要。a₁, a₂, a₃ 的尾部是否靠近 L，取决于下标越来越大之后的行为。",
+            "epsilon 是我们要求的输出误差。收到 epsilon 后，我们允许挑一个起点 N；只要所有 n ≥ N 的项都进入 L 的 epsilon 容差带，就说明尾部整体收敛。"
+          ],
+          steps: [
+            "设 ε > 0，先不要急着写 N。",
+            "化简 |aₙ − L|，反推出 n 必须大于什么。",
+            "把得到的条件写成 N 关于 ε 的显式表达式。",
+            "任取 n ≥ N，正向验算并得到误差 < ε。"
+          ],
+          example: "证明 1/n → 0。给 ε > 0，取 N > 1/ε；当 n ≥ N 时，|1/n| ≤ 1/N < ε。",
+          pitfall: "“有无限多项在容差带内”远远不够。定义要求从某个 N 起，所有后来的项都在容差带内。",
+          check: "epsilon-N 定义中的 N 可以先于 epsilon 固定吗？",
+          answer: "不可以。定义顺序是先给任意 ε，再存在依赖 ε 的 N；同一个 N 不必对所有 ε 都有效。"
+        },
+        {
+          id: "sequence-laws",
+          station: "sequences",
+          number: "11",
+          titleZh: "极限唯一性、有界性与运算法则",
+          titleEn: "Uniqueness, boundedness and algebra of limits",
+          source: "Theorems 2.9–2.18; Examples 2.13–2.19 · Lecture Notes p.20–24",
+          english: "A convergent sequence has exactly one limit and is bounded. Sums, scalar multiples, products and valid quotients inherit limits. Order is preserved non-strictly, and the Squeeze Theorem controls a sequence between two matching limits.",
+          enSummary: "Convergence implies boundedness, not the other way around. Limit laws turn a complicated expression into smaller known limits when their hypotheses hold.",
+          zh: [
+            "极限唯一性让我们可以正式说“这个数列的极限”。收敛必有界，但有界不保证收敛；(−1)ⁿ 就是有界振荡的反例。",
+            "四则运算法则像拆积木：先把复杂表达式拆成已知数列。除法额外要求分母的极限不是零，并且在足够大的下标之后分母确实非零。"
+          ],
+          steps: [
+            "加减乘除前，先确认相关数列都收敛到有限值。",
+            "除法前检查极限分母 B ≠ 0。",
+            "保序只推出非严格的 ≤；逐项严格小于可能在极限处变成相等。",
+            "夹逼时，先建立一个共同尾部，让三条不等式同时成立，再比较两个外层的共同极限。"
+          ],
+          example: "(3n + 1)/n = 3 + 1/n → 3 + 0 = 3。对于 (−1)ⁿ/n，因为 −1/n ≤ (−1)ⁿ/n ≤ 1/n，夹逼得极限为 0。",
+          pitfall: "不能用“最高次系数比”替代理由。它只是结果的外观；真正保证结论的是同除最高次幂并应用极限法则。",
+          check: "有界数列一定收敛吗？",
+          answer: "不一定。收敛一定有界，但反方向不成立。"
+        },
+        {
+          id: "divergence-infinity",
+          station: "sequences",
+          number: "12",
+          titleZh: "发散到正无穷与负无穷",
+          titleEn: "Divergence to positive or negative infinity",
+          source: "Definition 2.22; Propositions 2.24; Example 2.25 · Lecture Notes p.25–26",
+          english: "A sequence diverges to +∞ if for every real M there exists N such that every n ≥ N satisfies aₙ > M.",
+          enSummary: "Diverging to +∞ describes a direction of failure to converge. It does not mean that +∞ is a real limit.",
+          zh: [
+            "趋于 +∞ 不是“最后等于一个非常大的数”，而是“无论你把水平线 M 抬多高，数列最终都会一直高过它”。",
+            "无界并不等于趋于 +∞。(−1)ⁿn 没有上界，但奇数项跑到负方向，偶数项跑到正方向，所以它不趋于 +∞，也不趋于 −∞。"
+          ],
+          steps: [
+            "先设任意水平 M。",
+            "解出 aₙ > M 大约要求 n 多大，并选 N。",
+            "验证所有 n ≥ N 都满足 aₙ > M。",
+            "趋于 −∞ 时把目标改成 aₙ < M。"
+          ],
+          example: "n → +∞：任给 M，取 N > M，则 n ≥ N 时 n > M。若 aₙ → +∞，则 1/aₙ → 0。",
+          pitfall: "∞ 与 −∞ 不是实数，所以“趋于无穷”仍然属于发散；不能把 +∞ 当作普通极限值套用有限极限法则。",
+          check: "为什么 ((−1)ⁿn) 无界，却不发散到 +∞？",
+          answer: "奇数项趋向 −∞，不会最终一直超过任意正水平，所以不满足趋于 +∞ 的定义。"
+        },
+        {
+          id: "function-limit",
+          station: "function-limits",
+          number: "13",
+          titleZh: "聚点与 epsilon-delta 函数极限",
+          titleEn: "Accumulation points and epsilon-delta limits",
+          source: "Definitions 3.1–3.2; Examples 3.3–3.4; Theorem 3.5 · Lecture Notes p.27–29",
+          english: "Let a be an accumulation point of D. The statement lim x→a f(x) = L means that for every ε > 0 there exists δ > 0 such that every x ∈ D with 0 < |x − a| < δ satisfies |f(x) − L| < ε.",
+          enSummary: "Epsilon controls output error and delta controls input distance. The condition 0 < |x − a| deliberately ignores the actual value at x = a.",
+          zh: [
+            "函数极限研究的是 x 靠近 a 时 f(x) 的行为，不是 x 恰好等于 a 时的行为。因此定义使用去心条件：x ≠ a 且与 a 的距离小于 delta。",
+            "聚点保证 a 附近真的还有定义域中的点可检验。假如定义域只在孤立点上有值，就谈不上从附近趋近。"
+          ],
+          steps: [
+            "先化简输出误差 |f(x) − L|。",
+            "找出它与 |x − a| 的关系。",
+            "如果出现随 x 变化的第二因子，先用一个固定邻域把它界住。",
+            "取足够小的 δ，再从 0 < |x − a| < δ 正向推出误差 < ε。"
+          ],
+          example: "证明 lim x→2 (3x + 1) = 7：误差为 3|x − 2|，取 δ = ε/3。",
+          pitfall: "f(a) 的值不影响去心极限。即使函数在 a 没有定义，只要附近行为稳定，极限仍可能存在。",
+          check: "为什么函数极限定义要排除 x = a？",
+          answer: "因为研究的是附近趋势，而不是点值；这样即使 a 处没有定义或点值异常，极限也能描述周围行为。"
+        },
+        {
+          id: "one-sided-laws",
+          station: "function-limits",
+          number: "14",
+          titleZh: "单侧极限、函数极限法则与代入",
+          titleEn: "One-sided limits, limit laws and substitution",
+          source: "Definitions 3.6; Theorems 3.7, 3.11; Proposition 3.12; Example 3.14 · Lecture Notes p.30–34",
+          english: "A two-sided limit exists and equals L exactly when both one-sided limits exist and equal L. Finite function limits obey the usual algebraic laws, and rational expressions may be evaluated by substitution when the limiting denominator is non-zero.",
+          enSummary: "Check each side before declaring a two-sided limit. Algebraic simplification is legal on the punctured domain used by a limit.",
+          zh: [
+            "从左侧趋近和从右侧趋近是两个不同的过程。若两侧给出不同输出，双侧极限就不存在；只改 a 点的一个函数值也无法修复。",
+            "0/0 只是提醒“直接代入不合法”，并不自动说明极限不存在。常常可以约去公共因式，得到一个在去心邻域中相等的表达式。"
+          ],
+          steps: [
+            "先分别计算左极限和右极限。",
+            "两侧相等时，双侧极限才等于这个共同值。",
+            "多项式可直接代入；有理式先检查分母极限是否非零。",
+            "若出现 0/0，尝试因式分解并约分，但保留原定义域缺口的认识。"
+          ],
+          example: "|x|/x 在 0 的左侧恒为 −1，右侧恒为 1，所以双侧极限不存在。lim x→1 (x² − 1)/(x − 1) = lim x→1 (x + 1) = 2。",
+          pitfall: "约分后 x + 1 在 x = 1 有值，不代表原分式在 x = 1 有定义；极限与连续性必须分开判断。",
+          check: "若左右极限分别为 0 和 1，能不能通过改变 f(0) 让双侧极限存在？",
+          answer: "不能。f(0) 不参与去心极限，左右极限仍不一致。"
+        },
+        {
+          id: "continuity",
+          station: "continuity",
+          number: "15",
+          titleZh: "连续性的三种理解",
+          titleEn: "Three views of continuity",
+          source: "Definition 3.17; Proposition 3.18; Theorem 3.21 · Lecture Notes p.34–37",
+          english: "A function f is continuous at a if for every ε > 0 there exists δ > 0 such that every x ∈ D with |x − a| < δ satisfies |f(x) − f(a)| < ε.",
+          enSummary: "Continuity means the function is defined at a, its punctured limit exists, and that limit equals f(a). The sequential form may prove continuity and one bad sequence may disprove it.",
+          zh: [
+            "连续性把“附近的极限”和“真实的点值”接起来。它比极限多要求一件事：候选极限必须正好是 f(a)。",
+            "epsilon-delta 是主定义；命题 3.18 说明在聚点处连续等价于 lim f(x) = f(a)；定理 3.21 则把连续性翻译成所有趋近序列都被保持。"
+          ],
+          steps: [
+            "检查函数在 a 是否有定义。",
+            "计算双侧极限是否存在。",
+            "检查双侧极限是否等于函数值 f(a)。",
+            "用序列证明连续必须验证所有序列；用序列反驳连续只需构造一个坏序列。"
+          ],
+          example: "可去间断中极限是 2 而 f(1) = 0，所以不连续；把 f(1) 改成 2 后连续。跳跃函数左右极限不同，改点值也无法连续。",
+          pitfall: "“图像看起来连着”不是证明。必须回到点值、极限和它们的相等关系。",
+          check: "函数在 a 有定义、极限存在，是否一定连续？",
+          answer: "不一定，还必须要求极限等于 f(a)。"
+        },
+        {
+          id: "continuous-properties",
+          station: "continuity",
+          number: "16",
+          titleZh: "连续函数的性质、间断与无穷极限",
+          titleEn: "Properties of continuous functions, discontinuities and limits at infinity",
+          source: "Theorems 3.25–3.27; Examples 3.30–3.31; Definitions 3.35–3.36; Proposition 3.39 · Lecture Notes p.38–43",
+          english: "Elementary functions are continuous on their natural domains. A continuous function on a closed bounded interval attains its extrema. Limits may pass through a continuous outer function, provided the inner limit lands in the outer domain.",
+          enSummary: "Continuity is preserved by algebraic operations and composition. Infinite limits describe unbounded behavior and are not finite limits.",
+          zh: [
+            "连续函数可以做加减乘除和复合，只要运算前提成立。闭区间上的连续函数不仅被界住，而且真的取到最大值和最小值；区间闭、函数连续两个条件都不可少。",
+            "当内层 u(x) 趋于 L，而外层 g 在 L 连续时，可以把极限搬进外层：g(u(x)) → g(L)。∞ 只能描述输入或输出无限增长的方向，不能当成普通实数参与运算。"
+          ],
+          steps: [
+            "先确认各组成部分在对应点连续，再使用和、积、商或复合法则。",
+            "使用“极限穿过连续外层”时，同时检查内层极限与外层连续性。",
+            "处理 ∞/∞、∞ − ∞ 时先做代数变形，绝不把 ∞ 当作数相减或相除。",
+            "判断间断时区分可去间断、跳变间断和定义域边界上的相对连续性。"
+          ],
+          example: "lim x→2 log(1 + x²) = log(1 + 4) = log 5；因为 u(x) = 1 + x² → 5，且 log 在 5 处连续。",
+          pitfall: "连续函数的结论依赖定义域。闭区间、开区间和有限区间上的结论不能随意互换；无穷极限也不满足普通有限极限的全部运算规则。",
+          check: "为什么 1/x 在 (0, 1] 上连续，却不能使用“闭区间连续函数取得最大值”的结论？",
+          answer: "(0, 1] 不是闭区间；而且 1/x 在 0 附近无上界，也没有最大值。"
+        }
+      ];
+
+      const lessonLabs = {
+        "set-operations": ["lab-intervals", "区间集合实验"],
+        "number-intervals": ["lab-intervals", "区间集合实验"],
+        "bounds-supremum": ["lab-bounds", "上下确界实验"],
+        "absolute-triangle": ["lab-distance", "距离区间实验"],
+        "functions-images": ["lab-mapping", "函数映射实验"],
+        "composition-domain": ["lab-mapping", "函数映射实验"],
+        "function-properties": ["lab-mapping", "函数映射实验"],
+        "elementary-functions": ["lab-mapping", "函数映射实验"],
+        "sequence-epsilon-n": ["lab-sequence", "epsilon-N 实验"],
+        "sequence-laws": ["lab-sequence", "epsilon-N 实验"],
+        "divergence-infinity": ["lab-sequence", "epsilon-N 实验"],
+        "function-limit": ["lab-limit", "epsilon-delta 实验"],
+        "one-sided-laws": ["lab-limit", "epsilon-delta 实验"],
+        continuity: ["lab-continuity", "连续性实验"],
+        "continuous-properties": ["lab-continuity", "连续性实验"]
+      };
+
+      const guides = Object.fromEntries(
+        Object.entries(window.MFC_WEEK1_GUIDES || {}).map(([id, guide]) => [
+          id,
+          { ...guide, hookZh: guide.hookZh || guide.qaSteps[0].answerZh }
+        ])
+      );
+      const content = MFC_LESSON_KIT.buildWeekContent("week1", lessonSource, guides, window.MFC_ENGLISH_PACKS?.week1 || {});
+      const lessons = content.lessons;
+      if (!state.lessonProgress || typeof state.lessonProgress !== "object") {
+        state.lessonProgress = {};
+      }
+
+      const stationMeta = {
+        "real-line": {
+          index: "01",
+          question: "怎样把集合和不等式放到同一条数轴上，并说清“界限”与“距离”？",
+          incoming: "课程起点：从集合记号进入实数线",
+          outgoing: "函数：把点的位置变成输入与输出",
+          hub: "绝对值和距离是后面所有极限的公共语言"
+        },
+        functions: {
+          index: "02",
+          question: "同一个规则在什么情况下能反向读出唯一答案？",
+          incoming: "来自实数线：先知道输入集合与输出集合",
+          outgoing: "数列：把输入限制成自然数下标",
+          hub: "双射连接“唯一反推”和“可数编号”"
+        },
+        sequences: {
+          index: "03",
+          question: "怎样精确表达“越来越靠近”，而不是只觉得看起来像？",
+          incoming: "来自函数与双射：先理解集合和下标",
+          outgoing: "函数极限：把离散下标换成连续变量",
+          hub: "epsilon-N 是所有极限证明的模板"
+        },
+        "function-limits": {
+          index: "04",
+          question: "输入连续靠近一个点时，怎样保证输出不会随便乱跑？",
+          incoming: "来自数列：容差、阈值和尾部已经建立",
+          outgoing: "连续性：把极限与真实点值接起来",
+          hub: "epsilon-delta 是“局部控制”的核心"
+        },
+        continuity: {
+          index: "05",
+          question: "什么时候函数在一点附近与点值本身完全对得上？",
+          incoming: "来自函数极限：去心邻域已经可以控制",
+          outgoing: "下一章：连续函数用于定义导数",
+          hub: "连续性把极限从“附近”落实到真实点值"
+        }
+      };
+      content.stations = Object.entries(stationMeta).map(([id, meta]) => ({ id, ...meta }));
+
+      function lessonStepsDone(id) {
+        const record = state.lessonProgress && state.lessonProgress[id];
+        return record && Array.isArray(record.revealed) ? record.revealed.length : 0;
+      }
+
+      function updateNetworkNode(id) {
+        const node = document.querySelector(`[data-network-lesson="${id}"]`);
+        if (!node) return;
+        const count = lessonStepsDone(id);
+        node.dataset.status = count >= 5 ? "done" : count > 0 ? "active" : "pending";
+        const status = node.querySelector(".network-status");
+        if (status) status.textContent = count >= 5 ? "Read ✓ · 已读懂" : count > 0 ? `Learning ${count}/5 · 学习中` : "Not started · 尚未开始";
+      }
+
+      function updateAllNetworkNodes() {
+        lessons.forEach((lesson) => updateNetworkNode(lesson.id));
+      }
+
+      function recordLessonStep(lessonId, stepIndex) {
+        if (!state.lessonProgress[lessonId]) state.lessonProgress[lessonId] = { revealed: [] };
+        const record = state.lessonProgress[lessonId];
+        if (!record.revealed.includes(stepIndex)) record.revealed.push(stepIndex);
+        record.revealed.sort((a, b) => a - b);
+        saveState();
+        updateNetworkNode(lessonId);
+      }
+
+      function renderKnowledgeNetworks() {
+        Object.entries(stationMeta).forEach(([station, meta]) => {
+          const mount = document.querySelector(`[data-knowledge-network="${station}"]`);
+          if (!mount) return;
+          const stationLessons = lessons.filter((lesson) => lesson.station === station);
+          mount.innerHTML = `
+            <div class="network-heading">
+              <div>
+                <span class="section-number">STATION ${meta.index} · KNOWLEDGE NETWORK</span>
+                <h3>这一站到底在解决什么？</h3>
+                <p>${meta.question}</p>
+              </div>
+              <span class="badge">${stationLessons.length} 个知识节点</span>
+            </div>
+            <div class="network-route" aria-label="站内知识网络">
+              <span class="network-edge">${meta.incoming}</span>
+              <ol class="network-list">
+                ${stationLessons.map((lesson, index) => {
+                  const guide = guides[lesson.id] || {};
+                  return `
+                    <li class="network-item">
+                      <a class="network-node" href="#concept-${lesson.id}" data-network-lesson="${lesson.id}" data-status="pending">
+                        <span class="network-node-top"><span>${lesson.number}</span><span class="network-status">尚未开始</span></span>
+                        <strong><span class="source-en" lang="en">${lesson.titleEn}</span><span class="language-zh">${lesson.titleZh}</span></strong>
+                        <small><span class="source-en" lang="en">${lesson.networkGoalEn}</span><span class="language-zh">${lesson.networkGoal || "打开知识卡建立直觉"}</span></small>
+                        <em><span class="source-en" lang="en">Watch: ${lesson.networkRiskEn}</span><span class="language-zh">易卡：${lesson.networkRisk || "先读定义再做题"}</span></em>
+                      </a>
+                      ${index < stationLessons.length - 1 ? '<span class="network-arrow" aria-hidden="true">→</span>' : ""}
+                    </li>
+                  `;
+                }).join("")}
+              </ol>
+              <div class="network-footer">
+                <p><strong>本站枢纽：</strong>${meta.hub}</p>
+                <p><strong>去向：</strong>${meta.outgoing}</p>
+              </div>
+            </div>
+          `;
+        });
+        updateAllNetworkNodes();
+      }
+
+      function renderLessons() {
+        lessons.forEach((lesson) => {
+          const mount = $(`[data-lesson-mount="${lesson.station}"]`);
+          if (!mount) return;
+          if (!mount.dataset.initialized) {
+            mount.innerHTML = `
+              <div class="lessons-heading">
+                <div>
+                  <h3>Guided lecture · 五问精讲</h3>
+                  <p>Read the English explanation first. Expand Chinese support only when needed.</p>
+                </div>
+                <button class="button ghost small" type="button" data-expand-station="${lesson.station}">Expand all · 全部展开</button>
+              </div>
+            `;
+            mount.dataset.initialized = "true";
+          }
+          const lab = lessonLabs[lesson.id];
+          mount.insertAdjacentHTML("beforeend", MFC_LESSON_KIT.renderLessonCard(lesson, { lab }));
+        });
+
+        $$(".deep-lessons").forEach((mount) => {
+          const firstLesson = $(".lesson", mount);
+          if (firstLesson) firstLesson.open = true;
+        });
+        MFC_LESSON_KIT.mountAll(document);
+        $$(".lesson").forEach((details) => {
+          MFC_LESSON_KIT.bindLesson(details);
+          details.addEventListener("toggle", () => {
+            if (details.open) recordLessonStep(details.id.replace("concept-", ""), 0);
+          });
+          $$(".qa-step", details).forEach((step, index) => {
+            step.addEventListener("toggle", () => {
+              if (step.open && details.open) recordLessonStep(details.id.replace("concept-", ""), index);
+            });
+          });
+        });
+
+        $$("[data-expand-station]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const mount = $(`[data-lesson-mount="${button.dataset.expandStation}"]`);
+            const details = $$(".lesson", mount);
+            const shouldOpen = details.some((detail) => !detail.open);
+            details.forEach((detail) => {
+              detail.open = shouldOpen;
+            });
+            button.textContent = shouldOpen ? "Collapse all · 全部收起" : "Expand all · 全部展开";
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest('a[href^="#concept-"]');
+          if (!link) return;
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target instanceof HTMLDetailsElement) target.open = true;
+        });
+        if (location.hash.startsWith("#concept-")) {
+          const target = document.querySelector(location.hash);
+          if (target instanceof HTMLDetailsElement) target.open = true;
+        }
+      }
+
+      const questions = [
+        {
+          id: "q1",
+          title: "1. 区间、界与距离",
+          source: "官方练习 1.21 · 讲义 p.9",
+          prompt: "设 A = [−1, 3)，B = (1, 5]。求 A ∩ B、A ∪ B、A ∖ B；写出 inf A、sup A，判断最大值和最小值；把 |x − 1| ≤ 2 改写成区间并解释几何意义。",
+          answer: "<p><strong>集合：</strong>A ∩ B = (1, 3)，A ∪ B = [−1, 5]，A ∖ B = [−1, 1]。</p><p><strong>界：</strong>inf A = −1，sup A = 3。A 包含 −1，所以最小值是 −1；A 不包含 3，而且任意 x &lt; 3 都能再找到更大的点，所以没有最大值。</p><p><strong>距离：</strong>|x − 1| ≤ 2 ⇔ −1 ≤ x ≤ 3，即 [−1, 3]，表示到 1 的距离不超过 2。</p><p><strong>筛掉：</strong>把开闭端点混用，或把上确界误当最大值。</p>"
+        },
+        {
+          id: "q2",
+          title: "2. 像、原像与双射",
+          source: "官方练习 1.39 · 讲义 p.15",
+          prompt: "设 f : R → R，f(x) = 2x − 3。求 f([0, 2]) 与 f⁻¹([1, 5])；判断单射、满射、双射；求逆函数；解释 n ↦ 2n 为什么是 N 到非负偶数集的双射。",
+          answer: "<p>f([0, 2]) = [−3, 1]；1 ≤ 2x − 3 ≤ 5 给出 2 ≤ x ≤ 4，所以 f⁻¹([1, 5]) = [2, 4]。</p><p>若 2x₁ − 3 = 2x₂ − 3，则 x₁ = x₂，所以单射；任取 y，取 x = (y + 3)/2 即得 f(x) = y，所以满射，因此是双射。逆函数 f⁻¹(y) = (y + 3)/2。</p><p>n ↦ 2n 给每个自然数唯一非负偶数；每个非负偶数 2m 也唯一来自 m，所以双向一一对应。</p>"
+        },
+        {
+          id: "q3",
+          title: "3. 直接 epsilon-N 证明",
+          source: "官方练习 2.8 第 1 问 · 讲义 p.19",
+          prompt: "只用 epsilon-N 定义证明 4/(n + 2) → 0。",
+          answer: "<p>任给 ε &gt; 0，取 N = ⌈4/ε⌉。若 n ≥ N，则 n + 2 &gt; 4/ε，所以</p><p><strong>|4/(n + 2) − 0| = 4/(n + 2) &lt; ε。</strong></p><p>因此按定义 4/(n + 2) → 0。</p><p><strong>筛掉：</strong>只说分母变大，却没有把 N 显式写成 ε 的函数。</p>"
+        },
+        {
+          id: "q4",
+          title: "4. 极限法则与夹逼",
+          source: "官方练习 2.21 · 讲义 p.24",
+          prompt: "求 lim n→∞ (2n² − 3n + 4)/(5n² + n)，并用夹逼证明 (cos n)/n² → 0。",
+          answer: "<p>分子分母同除以 n²，得到 (2 − 3/n + 4/n²)/(5 + 1/n) → 2/5。</p><p>因为 −1 ≤ cos n ≤ 1，所以 −1/n² ≤ cos n/n² ≤ 1/n²。两侧都趋于 0，由夹逼定理，中间项也趋于 0。</p>"
+        },
+        {
+          id: "q5",
+          title: "5. 函数极限与单侧极限",
+          source: "官方练习 3.16 第 1–3 问 · 讲义 p.34",
+          prompt: "证明 lim x→−1 (2x − 5) = −7；求 lim x→3 (x² − 9)/(x − 3)；设 h(x) = 0（x < 2），h(x) = 1（x > 2），判断点 2 处的极限。",
+          answer: "<p>|(2x − 5) − (−7)| = 2|x + 1|；任给 ε，取 δ = ε/2 即可。</p><p>(x² − 9)/(x − 3) = x + 3（x ≠ 3），所以极限为 6。</p><p>h 的左极限是 0，右极限是 1；两者不同，所以双侧极限不存在。</p>"
+        },
+        {
+          id: "q6",
+          title: "6. 找错：无限多好项",
+          source: "自造，不是官方题",
+          prompt: "错解：“对每个 ε > 0，都有无限多个 n 使 |aₙ| < ε，所以 aₙ → 0。”",
+          answer: "<p>取偶数项为 0、奇数项为 1。对 ε ≤ 1/2，所有偶数项都进入容差带，确实有无限多个好项；但奇数项始终为 1，整条尾部永远不能进入容差带，所以不收敛。</p><p><strong>筛掉：</strong>把“无限多个好项”误读为“最终所有项都好”。</p>"
+        },
+        {
+          id: "q7",
+          title: "7. 找错：有界就收敛",
+          source: "自造，不是官方题",
+          prompt: "错解：“(−1)ⁿ 被限制在 [−1, 1] 内，所以收敛。”",
+          answer: "<p>有界不推出收敛。若 (−1)ⁿ → L，取 ε = 1/2，足够大的偶数项与奇数项分别靠近 1 与 −1。三角不等式会推出 2 &lt; 1，矛盾。</p><p><strong>筛掉：</strong>把“收敛 ⇒ 有界”写成“有界 ⇔ 收敛”。</p>"
+        },
+        {
+          id: "q8",
+          title: "8. 找错：极限存在就连续",
+          source: "自造，不是官方题",
+          prompt: "错解：“f(x) = (x² − 1)/(x − 1)（x ≠ 1），f(1) = 0；极限为 2，所以 f 在 1 连续。”",
+          answer: "<p>连续性还要求极限等于函数值，但 2 ≠ f(1)。所以 f 不连续；若把 f(1) 改为 2，才连续。</p><p><strong>筛掉：</strong>把极限存在当作连续性的全部条件。</p>"
+        },
+        {
+          id: "q9",
+          title: "9. 找错：上确界就是最大值",
+          source: "自造，不是官方题",
+          prompt: "错解：“因为 sup (0, 1) = 1，所以 (0, 1) 的最大值是 1。”",
+          answer: "<p>1 不属于 (0, 1)，不能成为最大值。任取 x ∈ (0, 1)，(x + 1)/2 仍属于 (0, 1) 且更大，所以没有最大元素。1 只是最小上界。</p><p><strong>筛掉：</strong>混淆上确界的“界”和最大值的“属于集合”。</p>"
+        },
+        {
+          id: "q10",
+          title: "10. 原像不是逆函数",
+          source: "自造，不是官方题",
+          prompt: "对 f : R → R，f(x) = x²，解释 f⁻¹([0, 4]) 与“逆函数 f⁻¹(2)”为什么不是同一回事。",
+          answer: "<p>f⁻¹([0, 4]) 是所有满足 f(x) ∈ [0, 4] 的输入，等于 [−2, 2]。原像不需要 f 是双射。</p><p>因为 f(1) = f(−1)，f 在 R 上不单射，所以没有全局逆函数，不能唯一反推 f⁻¹(2)。</p>"
+        },
+        {
+          id: "q11",
+          title: "11. 严格不等式的极限",
+          source: "自造，不是官方题",
+          prompt: "若 aₙ &lt; bₙ 对每个 n 成立且两者都收敛，是否必有 lim aₙ &lt; lim bₙ？",
+          answer: "<p>不一定。取 aₙ = 1/(n + 1)，bₙ = 1/n，则每项严格小于，但两个极限都为 0。</p><p>保序定理只保证极限满足 lim aₙ ≤ lim bₙ，严格关系可能在取极限时变成等号。</p>"
+        },
+        {
+          id: "q12",
+          title: "12. 一个序列不能证明连续",
+          source: "自造，不是官方题",
+          prompt: "j(x) = 0（x &lt; 0），j(x) = 1（x ≥ 0）。只用 xₙ = 1/n 得到 j(xₙ) → 1 = j(0)，为什么不能证明 j 在 0 连续？",
+          answer: "<p>连续性要求每一个 xₙ → 0 都使 j(xₙ) → j(0)。取 yₙ = −1/n，则 yₙ → 0，但 j(yₙ) = 0 → 0，而 j(0) = 1。</p><p>一个坏序列就足以反驳连续性。</p>"
+        },
+        {
+          id: "q13",
+          title: "13. 可调点值的连续性",
+          source: "官方练习 3.34 · 讲义 p.40",
+          prompt: "设 f(x) = x + 1（x &lt; 1），f(1) = c，f(x) = 3 − x（x &gt; 1）。求左右极限；求使 f 在 1 连续的唯一 c；若 c 取其他值，构造失败序列。",
+          answer: "<p>左极限为 2，右极限为 2，所以双侧极限为 2；唯一能令 f 连续的 c 是 2。</p><p>若 c ≠ 2，取 xₙ = 1 + 1/n。则 f(xₙ) = 3 − (1 + 1/n) → 2，而 f(1) = c ≠ 2，所以 f(xₙ) 不趋于 f(1)。</p>"
+        },
+        {
+          id: "q14",
+          title: "14. 定义域与连续性综合",
+          source: "自造，不是官方题",
+          prompt: "h(x) = √(x − 1)/(x − 2)。求自然定义域；说明 h 在其自然定义域上连续；解释为什么不能在 x = 2 自动补点使它连续。",
+          answer: "<p>根号要求 x ≥ 1，分母要求 x ≠ 2，所以定义域为 [1, ∞) ∖ {2}。</p><p>在定义域内，根式与分母都连续且分母非零，由商法则 h 连续；在端点 1 处按相对定义域只看右侧。</p><p>x → 2 时分子趋于 1，分母从右、左分别趋于 0⁺、0⁻，h 分别趋于 +∞、−∞，不存在有限双侧极限，不能通过补一个点值修复。</p>"
+        }
+      ];
+
+      const questionSkillsEn = {
+        q1: "Set operations, bounds and distance",
+        q2: "Images, preimages and bijections",
+        q3: "Direct epsilon-N proof",
+        q4: "Limit laws and the Squeeze Theorem",
+        q5: "Function limits and one-sided limits",
+        q6: "Quantifier order in convergence",
+        q7: "Boundedness versus convergence",
+        q8: "Continuity and point values",
+        q9: "Supremum versus maximum",
+        q10: "Preimages versus inverse functions",
+        q11: "Strict inequalities and limits",
+        q12: "Sequential characterisation of continuity",
+        q13: "Repairing continuity at a point",
+        q14: "Natural domains and continuity"
+      };
+
+      const questionConcepts = {
+        q1: "set-operations",
+        q2: "functions-images",
+        q3: "sequence-epsilon-n",
+        q4: "sequence-laws",
+        q5: "function-limit",
+        q6: "sequence-epsilon-n",
+        q7: "sequence-laws",
+        q8: "continuity",
+        q9: "bounds-supremum",
+        q10: "functions-images",
+        q11: "sequence-laws",
+        q12: "continuity",
+        q13: "continuity",
+        q14: "composition-domain"
+      };
+
+      function updateAnswerCount() {
+        const count = questions.filter((question) => (state.answers[question.id] || "").trim()).length;
+        $("#answer-count").textContent = `已作答 ${count} / ${questions.length}`;
+        if (count === questions.length) markComplete("practice");
+      }
+
+      function renderQuestions() {
+        const list = $("#question-list");
+        const bilingualQuestions = questions.map((question) => ({
+          ...question,
+          concept: questionConcepts[question.id],
+          skill: questionSkillsEn[question.id]
+        }));
+        list.innerHTML = MFC_LESSON_KIT.renderQuestions(bilingualQuestions, window.MFC_ENGLISH_PACKS?.week1Questions || {});
+        $$("textarea[data-answer]").forEach((textarea) => {
+          textarea.value = state.answers[textarea.dataset.answer] || "";
+          textarea.addEventListener("input", () => {
+            state.answers[textarea.dataset.answer] = textarea.value;
+            saveState();
+            updateAnswerCount();
+          });
+        });
+        $$("[data-reveal]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const solution = $(`#solution-${button.dataset.reveal}`);
+            const open = solution.hidden;
+            solution.hidden = !open;
+            button.setAttribute("aria-expanded", String(open));
+            button.textContent = open ? "Hide solution · 收起解答" : "Show solution · 查看解答";
+          });
+        });
+        updateAnswerCount();
+      }
+
+      const terms = [
+        ["set", "集合", "集合无序、无重复。"],
+        ["element", "元素", "用 ∈ 连接元素与集合。"],
+        ["subset", "子集", "用 ⊆ 连接两个集合。"],
+        ["proper subset", "真子集", "子集且不相等。"],
+        ["union", "并集", "至少属于一个集合。"],
+        ["intersection", "交集", "同时属于两个集合。"],
+        ["set difference", "集合差", "从左边删除右边的元素。"],
+        ["complement", "补集", "必须相对于一个全集 X。"],
+        ["Cartesian product", "笛卡尔积", "元素是有序对。"],
+        ["interval", "区间", "检查端点开闭。"],
+        ["upper bound", "上界", "不要求属于集合。"],
+        ["supremum", "上确界", "最小上界。"],
+        ["maximum", "最大值", "属于集合的最大元素。"],
+        ["absolute value", "绝对值", "表示到零的距离。"],
+        ["triangle inequality", "三角不等式", "通常是不等号，不是等式。"],
+        ["domain", "定义域", "所有允许输入。"],
+        ["codomain", "陪域", "输出所在的大集合，不要求被跑满。"],
+        ["image", "像", "实际输出集合。"],
+        ["preimage", "原像", "哪些输入落到指定输出集合。"],
+        ["composition", "复合", "先内层，后外层。"],
+        ["injective", "单射", "不同输入不能给相同输出。"],
+        ["surjective", "满射", "像等于陪域。"],
+        ["bijective", "双射", "单射且满射。"],
+        ["inverse function", "逆函数", "存在当且仅当原函数是双射。"],
+        ["monotone", "单调", "不增或不减；可分严格与非严格。"],
+        ["countable", "可数", "有限或与 N 双射。"],
+        ["uncountable", "不可数", "不能与 N 双射。"],
+        ["sequence", "数列", "从 N 出发的函数。"],
+        ["converge", "收敛", "整条尾部进入任意 ε 带。"],
+        ["diverge", "发散", "不收敛到有限实数。"],
+        ["bounded", "有界", "上下都有界，或被某个 M 的绝对值控制。"],
+        ["eventually", "最终", "从某个下标以后始终成立。"],
+        ["squeeze theorem", "夹逼定理", "中间项被同极限的上下界夹住。"],
+        ["accumulation point", "聚点", "任意小邻域内都有别的定义域点。"],
+        ["finite limit", "有限极限", "极限值是实数。"],
+        ["one-sided limit", "单侧极限", "只从左侧或右侧趋近。"],
+        ["continuous", "连续", "极限值等于真实函数值。"],
+        ["discontinuity", "间断点", "点值、极限或等式至少缺一个。"],
+        ["sequential characterisation", "序列刻画", "连续当且仅当所有趋近序列的输出都趋近对应点值。"],
+        ["limit at infinity", "无穷处极限", "输入无限变大或变小。"],
+        ["infinite limit", "无穷极限", "输出超过任意水平或低于任意水平。"],
+        ["indeterminate", "不定式", "例如 ∞ − ∞ 与 ∞/∞ 不能直接赋一个值。"]
+      ];
+
+      function renderGlossary(query = "") {
+        const needle = query.trim().toLowerCase();
+        const filtered = terms.filter(([english, chinese, note]) =>
+          `${english} ${chinese} ${note}`.toLowerCase().includes(needle)
+        );
+        $("#glossary-count").textContent = `${filtered.length} 个术语`;
+        $("#glossary-list").innerHTML = filtered.length
+          ? filtered.map(([english, chinese, note]) => `
+              <div class="term">
+                <strong>${english}</strong>
+                <span>${chinese}</span>
+                <span class="term-note">${note}</span>
+              </div>
+            `).join("")
+          : '<div class="empty-state">没有匹配的术语，换一个关键词试试。</div>';
+      }
+
+      $("#glossary-search").addEventListener("input", (event) => renderGlossary(event.target.value));
+
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          renderSequence();
+          renderFunctionLimit();
+          renderContinuity();
+        }, 120);
+      });
+
+      drawIntervalLab();
+      drawBoundsLab();
+      drawDistanceLab();
+      drawMapping();
+      renderSequence();
+      renderFunctionLimit();
+      $("#point-value").value = String(clamp(Number(state.pointValue) || 0, 0, 3));
+      renderContinuity();
+      renderKnowledgeNetworks();
+      renderLessons();
+      renderQuestions();
+      renderGlossary();
+      updateProgress();
+      MFC_LESSON_KIT.applyLanguageMode(store.getLanguageMode());
+
+      document.addEventListener("mfc:themechange", () => {
+        requestAnimationFrame(() => {
+          drawIntervalLab();
+          drawBoundsLab();
+          drawDistanceLab();
+          drawMapping();
+          renderSequence();
+          renderFunctionLimit();
+          renderContinuity();
+        });
+      });
+
+      function runSelfTest() {
+        const preset = intervalPresets[0];
+        const checks = [
+          ["intersection", formatIntervals([intersectIntervals(preset.a, preset.b)]) === "(1, 3)"],
+          ["difference", formatIntervals(unionIntervals(differenceInterval(preset.a, preset.b))) === "[−1, 1]"],
+          ["union", formatIntervals(unionIntervals([preset.a, preset.b])) === "[−1, 5]"],
+          ["epsilon-N", sequenceConfigs.reciprocal.minN(0.1) === 11],
+          ["alternating has no threshold", sequenceConfigs.alternating.minN(0.1) === null],
+          ["quadratic error", Math.abs(limitConfigs.quadratic.maxError(0.1) - 0.41) < 1e-12],
+          ["question count", questions.length === 14],
+          ["term count", terms.length === 42],
+          ["knowledge network count", document.querySelectorAll(".station-network").length === 5],
+          ["network node count", document.querySelectorAll(".network-node").length === 16],
+          ["lesson count", document.querySelectorAll(".lesson").length === 16],
+          ["question-answer step count", document.querySelectorAll(".qa-step").length === 80],
+          ["micro animation count", document.querySelectorAll(".micro-animation").length === 16],
+          ["content interface", Boolean(window.MFC_WEEK_CONTENT && window.MFC_WEEK_CONTENT.weekId === "week1" && window.MFC_WEEK_CONTENT.lessons.length === 16 && window.MFC_WEEK_CONTENT.stations.length === 5)],
+          ["english answer coverage", document.querySelectorAll(".answer-primary").length === 80],
+          ["bilingual captions", document.querySelectorAll("[data-caption-en]").length === 16],
+          ["language mode", ["english", "bilingual", "chinese"].includes(store.getLanguageMode())],
+          ["serif headings", getComputedStyle(document.querySelector("h1")).fontFamily.includes("Noto Serif SC")],
+          ["sans body", getComputedStyle(document.body).fontFamily.includes("Noto Sans SC")]
+        ];
+        const failed = checks.filter(([, ok]) => !ok);
+        failed.forEach(([name]) => console.assert(false, `Week 1 self-test failed: ${name}`));
+        return { passed: checks.length - failed.length, failed: failed.map(([name]) => name) };
+      }
+      window.runWeek1SelfTest = runSelfTest;
+      if (location.hash === "#self-test") runSelfTest();
+    })();
+  </script>
+</body>
+</html>
